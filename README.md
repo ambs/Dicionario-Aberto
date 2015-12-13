@@ -8,6 +8,7 @@ Para montar um sistema de teste:
 
   1. Criar uma base de dados mysql, usando a estrutura
      disponível em [SQL/structure.sql](SQL/structure.sql)
+     numa base de dados de nome `dicionario-aberto`.
   2. Importar os dados, usando o ficheiro disponível em
      [SQL/data-20151213.sql.xz](SQL/data-20151213.sql.xz)
   3. Criar utilizador ``dicionarioaberto`` com permissões
