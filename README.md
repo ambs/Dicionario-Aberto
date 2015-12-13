@@ -17,6 +17,7 @@ Para montar um sistema de teste:
      instruções para o uso do ``App::p5stack``.
   4. ``cpanm -S App::p5stack``
   4. ``p5stack setup``
+  4. Iniciar o serviço localmente: ``p5stack bin plackup bin/app.psgi``
 
 ## O que contribuir
 
