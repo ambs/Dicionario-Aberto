@@ -1,15 +1,23 @@
 
 .brand-logo img { height: 60px;}
 
-.nav-wrapper a:hover { background-color: #0d47a1; color: #ffffff;}
+.nav-wrapper ul a:hover { background-color: #0d47a1; color: #ffffff;}
 
-.nav-wrapper a { color: #0d47a1;}
+.nav-wrapper ul a { color: #0d47a1;}
+
+.nav-wrapper form .input-field > label > i { color: #bbdefb; }
+
+.nav-wrapper form .input-field > label.active > i { color: #0d47a1; }
+.nav-wrapper form > .input-field > label.active + i.active { color: #0d47a1; }
+
+.nav-wrapper .input-field input:focus { background-color: inherit; }
+
 
 /* --- */
 
-@import url(mainmenu.css);
+/* @import url(mainmenu.css);
 @import url(entries.css);
-@import url(diff.css);
+@import url(diff.css); */
 
 label.error {
   margin-left: 6px;
