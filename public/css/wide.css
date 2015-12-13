@@ -1,0 +1,34 @@
+body { 
+  font: 13px/1.5 Georgia, Times, "Times New Roman", serif;
+  background: white url(../images/A.png) no-repeat bottom center fixed;
+}
+
+.contents { 
+  width: 58.46em;
+}
+
+#home { 
+  width: 48.46em;
+  margin: 25px auto 25px;
+  background: url("../images/separator.png") repeat-y 47% 50%;
+}
+
+#home_left {
+  float: left;
+  width: 45%;
+}
+
+#home_right {
+  float: right;
+  width: 50%;
+}
+
+#search {
+  width: 580px;
+  margin: 0 auto;
+}
+
+#main {
+  width: 46.46em;
+  margin: 20px auto 50px;
+}
