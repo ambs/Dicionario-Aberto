@@ -1,7 +1,9 @@
 
 .brand-logo img { height: 60px;}
 
+.nav-wrapper a:hover { background-color: #0d47a1; color: #ffffff;}
 
+.nav-wrapper a { color: #0d47a1;}
 
 /* --- */
 

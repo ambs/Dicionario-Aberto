@@ -25,9 +25,9 @@
 
         <ul class="left hide-on-med-and-down">
         <li>
-        <li><a href="#" class="blue-text text-darken-4">Dicionário</a></li>
-        <li><a href="#" class="blue-text text-darken-4">Diccionário</a></li>        
-        <li><a href="#" class="blue-text text-darken-4">Recursos</a></li>                
+        <li><a href="#">Dicionário</a></li>
+        <li><a href="#">Diccionário</a></li>        
+        <li><a href="#">Recursos</a></li>                
       </ul>
 
       <ul class="side-nav" id="mobile-menu">
