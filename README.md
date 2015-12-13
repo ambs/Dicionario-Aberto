@@ -27,6 +27,6 @@ tendo como base MVC, colocando o código Perl a funcionar como
 API JSON, e o site baseado em AngularJS ou similar. Também se
 pretende fazer uma alteração drástica ao design.
 
-Sugere-se que se consulte a [lista de probemas](https://github.com/ambs/Dicionario-Aberto/issues) para se dedicar às tarefas mais relevantes em primeiro lugar.
+Sugere-se que se consulte a [lista de problemas](https://github.com/ambs/Dicionario-Aberto/issues) para se dedicar às tarefas mais relevantes em primeiro lugar.
 
 

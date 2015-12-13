@@ -1,9 +1,11 @@
 requires "Dancer2" => "0.159003";
 
-recommends "YAML"             => "0";
-recommends "URL::Encode::XS"  => "0";
-recommends "CGI::Deurl::XS"   => "0";
-recommends "HTTP::Parser::XS" => "0";
+requires "YAML"             => "0";
+requires "URL::Encode::XS"  => "0";
+requires "CGI::Deurl::XS"   => "0";
+requires "HTTP::Parser::XS" => "0";
+
+requires "DateTime::Format::MySQL" => "0";
 
 on "test" => sub {
     requires "Test::More"            => "0";
