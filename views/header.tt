@@ -2,6 +2,28 @@
   $( document ).ready(function(){ $(".button-collapse").sideNav(); });
 </script>
 
+<!-- Menus -->
+<ul id="dropdown1" class="dropdown-content">
+  <li><a href="#!">Entrar/Registar</a></li>
+  <li><a href="#!">Estatísticas</a></li>
+  <li><a href="#!">Novidades</a></li>  
+  <li><a href="#!">Informação Legal</a></li>    
+</ul>
+<ul id="dropdown2" class="dropdown-content">
+  <li><a href="#!">Sobre</a></li>
+  <li><a href="#!">Instrodução</a></li>
+  <li><a href="#!">Abreviaturas</a></li>  
+  <li><a href="#!">Apenso Geográfico</a></li>    
+</ul>
+<ul id="dropdown3" class="dropdown-content">
+  <li><a href="#!">API REST</a></li>
+  <li><a href="#!">Formatos Textuais</a></li>
+  <li><a href="#!">Dicionário em PDF</a></li>  
+  <li><a href="#!">Dicionário em ePub</a></li>    
+  <li><a href="#!">Dicionário em StarDict</a></li>      
+  <li><a href="#!">Dicionário em MySQL</a></li>        
+</ul>
+
 <div class="navbar-fixed">
   <nav class="blue lighten-5">
     <div class="nav-wrapper">
@@ -24,9 +46,9 @@
 
         <ul class="left hide-on-med-and-down">
         <li>
-        <li><a href="#">Dicionário</a></li>
-        <li><a href="#">Diccionário</a></li>        
-        <li><a href="#">Recursos</a></li>                
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dicionário<i class="material-icons right">arrow_drop_down</i></a></li>
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Diccionário<i class="material-icons right">arrow_drop_down</i></a></li>        
+        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Recursos<i class="material-icons right">arrow_drop_down</i></a></li>                
       </ul>
 
       <ul class="side-nav" id="mobile-menu">
