@@ -18,6 +18,7 @@ Para montar um sistema de teste:
   4. ``cpanm -S App::p5stack``
   4. ``p5stack setup``
   4. Iniciar o serviço localmente: ``p5stack bin plackup bin/app.psgi``
+  5. Abrir o browser em ``http://localhost:5000``
 
 ## O que contribuir
 
