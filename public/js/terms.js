@@ -5,7 +5,7 @@ $(document).ready(
         
         $(".term h3").click(function() { $(this).next('.def').toggle(400); });
         
-        $("#accordion").accordion({ header: 'div.header', autoHeight: false });
+/*        $("#accordion").accordion({ header: 'div.header', autoHeight: false }); */
     });
 
 

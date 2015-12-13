@@ -1,6 +1,50 @@
+<script type="text/javascript">
+  $( document ).ready(function(){ $(".button-collapse").sideNav(); });
+</script>
 
-<div id="head_home">
-    <div class="contents" id="header">
+<div class="navbar-fixed">
+  <nav class="blue lighten-5">
+    <div class="nav-wrapper">
+
+      <!-- centered logo -->
+
+      <a href="#!" class="brand-logo center">
+        <img src="/images/logo.png"
+             alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
+
+      <a href="#" data-activates="mobile-menu"
+             class="button-collapse left"><i class="material-icons black-text">menu</i></a>
+
+      <form class="brand-logo right">
+        <div class="input-field">
+          <input id="search" type="search" required name="word"
+                 placeholder="Palavra">
+          <label for="search"><i class="material-icons blue-text text-darken-1">search</i></label>
+          <i class="material-icons">close</i>
+        </div></form>
+
+        <ul class="left hide-on-med-and-down">
+        <li>
+        <li><a href="#" class="blue-text text-darken-4">Dicionário</a></li>
+        <li><a href="#" class="blue-text text-darken-4">Diccionário</a></li>        
+        <li><a href="#" class="blue-text text-darken-4">Recursos</a></li>                
+      </ul>
+
+      <ul class="side-nav" id="mobile-menu">
+        <!-- li><form>
+        <div class="input-field">
+          <input id="search" type="search" required name="word">
+          <label for="search"><i class="material-icons">search</i></label>
+          <i class="material-icons">close</i>
+        </div></form></li -->
+
+        <li><a href="#">Recursos</a></li>
+      </ul>
+
+    </div>
+  </nav>
+</div>
+
 
   <% IF deferred.error %>
     <div id="flash" class="flash_error">
@@ -14,7 +58,3 @@
 
   <% INCLUDE user_header.tt %>
 
-  <% PROCESS headers/expanded.tt %>
-
-</div>
-<hr/>
