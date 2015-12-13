@@ -1,3 +1,10 @@
+
+.brand-logo img { height: 60px;}
+
+
+
+/* --- */
+
 @import url(mainmenu.css);
 @import url(entries.css);
 @import url(diff.css);
@@ -45,27 +52,8 @@ label.error {
   font-weight: bold;
   background-color: #BBCCEE; }
 
-body {
-  color: #444;
-  margin: 0;
-  padding-bottom: 50px;
-  text-align: center; }
-
 #setaimg {
   cursor: pointer; }
-
-a:link {
-  color: #496582;
-  text-decoration: underline; }
-
-a:visited {
-  color: #547caa;
-  text-decoration: underline; }
-
-a:hover {
-  background: #496582;
-  text-decoration: none;
-  color: #fff; }
 
 .img img {
   border: none; }
@@ -83,91 +71,10 @@ hr {
 .hide {
   display: none; }
 
-.contents {
-  margin: 0 auto;
-  text-align: left; }
-
-#head_home {
-  background: #ebf3fb url("../images/teaser.gif") repeat-x bottom;
-  text-align: center;
-  padding-bottom: 10px; }
-
-#logo {
-  margin: 0 auto;
-  text-align: center;
-  width: 315px; }
-
-#logoimg {
-  height: 89px; }
-
-#logo h1,
-#logo h1 a,
-#logo h1 img {
-  width: 315px;
-  height: 89px;
-  margin: 0;
-  padding: 0; }
-
-#logo h1 {
-  background: url("../images/logo.png") no-repeat left bottom; }
-
-#logo h1 a {
-  display: block;
-  text-indent: -9999px;
-  text-decoration: none;
-  border: 0;
-  background: none; }
-
 #head_home p {
   margin: 0;
   padding: 0;
   text-align: center; }
-
-#search p {
-  margin: 0;
-  padding: 0;
-  text-align: left; }
-
-#search label {
-  display: none; }
-
-#search form {
-  margin: 0;
-  padding: 0; }
-
-#word {
-  border: 2px solid #dfdfdf;
-  font-size: 1.5em;
-  padding: 3px;
-  margin-top: 5px;
-  width: 450px;
-  background: #fff;
-  color: #a2a2a2;
-  font-family: Arial, Helvetica, sans-serif; }
-
-#word:focus {
-  border-color: #acc9e5;
-  background: #fafefe;
-  color: #496582; }
-
-#submit {
-  border: 1px solid #77a4d3;
-  border-right: 1px solid #3b5269;
-  border-bottom: 1px solid #3b5269;
-  font-size: 1.3em;
-  width: 6.5em;
-  padding: 3px 4px;
-  color: #fff;
-  background: #496582;
-  font-family: Arial, Helvetica, sans-serif; }
-
-#submit:hover,
-#submit:focus {
-  cursor: pointer;
-  background: #547caa;
-  border: 1px solid #3b5269;
-  border-right: 1px solid #6e97cc;
-  border-bottom: 1px solid #6e97cc; }
 
 .random {
   font-size: 0.9em;

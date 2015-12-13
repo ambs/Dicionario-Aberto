@@ -3,6 +3,3 @@
       <p id="range" style="text-align: center">de <strong><% first_word %></strong> a <strong><% last_word %></strong> (<% count %> entradas)</p>
       <% PROCESS headers/hmenu.tt %>
     </div>
-  </div>
-</div>
-<hr/>
