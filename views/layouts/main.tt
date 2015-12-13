@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+  <head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="shortcut icon" href="<% request.uri_base %>/images/favicon.gif"/>
+    <title>Dicionário Aberto</title>
+
+    <script type="text/javascript" src="<% request.uri_base %>/js/jquery.js"></script>
+    <script type="text/javascript" src="<% request.uri_base %>/js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="<% request.uri_base %>/js/jquery-ui.js"></script>
+    <script type="text/javascript" src="<% request.uri_base %>/js/highcharts.js"></script>
+    <!--[if IE]>
+        <script type="text/javascript"
+                src="<% request.uri_base %>/js/excanvas.compiled.js"></script>
+    <![endif]-->
+
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+    <script type="text/javascript" src="<% request.uri_base %>/js/collapse.js"></script>
+    <script type="text/javascript" src="<% request.uri_base %>/js/terms.js"></script>
+    <script type="text/javascript" src="<% request.uri_base %>/js/favourites.js"></script>
+
+    <% IF jsprofile %>
+      <script type="text/javascript" src="<% request.uri_base %>/js/profile.js"></script>
+    <% END %>
+
+    <script type="text/javascript">
+      $( function() {
+        var timeout = setTimeout( "$('#flash').toggle(300);", 5000);
+      });
+    </script>
+
+    <!-- <link rel="alternate" type="application/atom+xml" title="Atom" -->
+    <!--       href="<% request.uri_base %>/atom.xml" title="Duas palavras por dia"/> -->
+    <link rel="alternate" type="application/atom+xml" title="Atom"
+          href="<% request.uri_base %>/news.xml" title="Novidades"/>
+    <meta name="description" content="Novo Diccion&aacute;rio da L&iacute;ngua Portuguesa &mdash; Candido de Figueiredo (1913) - Redigido em harmonia com os modernos princ&iacute;pios da sci&ecirc;ncia da linguagem, e em que se cont&eacute;m qu&aacute;si o d&ocirc;bro dos voc&aacute;bulos at&eacute; agora registados em todos os diccion&aacute;rios portugueses, al&eacute;m de satisfazer a todas as graphias leg&iacute;timas, especialmente a que tem sido mais usual e aquella que foi prescrita officialmente em 1911."/>
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/css/bootstrap.min.css"/>
+
+    <link rel="stylesheet" href="<% request.uri_base %>/css/styles.css" type="text/css" media="screen"/>
+    <link rel="stylesheet" href="<% request.uri_base %>/css/wide.css" type="text/css" media="screen"/>
+    <link rel="search" type="application/opensearchdescription+xml" title="Dicionário aberto"
+          href="<% request.uri_base %>/search.xml"/>
+  </head>
+  <body>
+
+    <% PROCESS header.tt %>
+
+    <% content %>
+
+    <hr/>
+    <div id="footer">
+      <div>
+        <a href="http://mysql.com/"><img src="<% request.uri_base %>/images/mysql-powered.png" alt="MySQL"/></a>
+        &nbsp;
+        <a href="http://perl.org/"><img src="<% request.uri_base %>/images/perl-powered.png" alt="Perl Powered"/></a>
+        &nbsp;
+        <a href="http://perldancer.org/"><img src="<% request.uri_base %>/images/dancer-powered.png" alt="Dancer Powered"/></a>
+        &nbsp;
+        <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/pt/">
+          <img alt="Creative Commons License" style="border-width:0"
+               src="http://i.creativecommons.org/l/by-sa/2.5/pt/80x15.png" /></a>
+        <p>This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/pt/">Creative Commons Attribution-Share Alike 2.5 Portugal License</a>
+        <p>Com o apoio de <a href="http://www.bn.pt/">Biblioteca Nacional de Portugal</a>, 
+          <a href="http://www.pgdp.net/">Distributed Proofreaders</a>,
+          <a href="http://pagina-a-pagina.blogspot.com/">P&aacute;gina-a-P&aacute;gina</a>,
+          <a href="http://natura.di.uminho.pt/">Projecto Natura</a>.</p>
+        <p>Contacto: ambs <em>no</em> di.uminho.pt &mdash; webdesign:
+          <a href="http://www.ivogomes.com">ivogomes</a></p>
+        </div>
+      </div>
+
+      <!-- Google Analytics -->
+      <script type="text/javascript">
+        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+      </script>
+      <script type="text/javascript">
+        var pageTracker = _gat._getTracker("UA-5532074-1");
+        pageTracker._trackPageview();
+      </script>
+      <!-- Google Analytics -->
+
+    </div>
+  </body>
+</html>
+

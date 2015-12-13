@@ -1,0 +1,10 @@
+
+TODO
+
+0) flash... 
+http://search.cpan.org/~deluxaran/Dancer2-Plugin-Deferred-0.007015/lib/Dancer2/Plugin/Deferred.pm
+
+1) o envio de emails tem de ser testado.
+
+2) o search-json e o search-xml parece que devolvem encoding errado.
+
