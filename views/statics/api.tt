@@ -1,0 +1,182 @@
+
+<div id="main">
+  <div class="text">
+
+    <h1>API RESTful</h1>
+
+    <p>Agradecemos que, se estiver a usar a API do Dicionário Aberto,
+    nos envie um e-mail a comunicar, com uma breve descrição do
+    projecto e um endereço, para que possámos compilar uma página de
+    projectos associados.</p>
+
+
+    <h2>JSON</h2>
+
+    <p><span style="color: #990000; font-weight: bold">A API
+    JSON/JSONP está estável e não deverá mudar. No entanto, é provável
+    que a marcação referente às entradas do dicionário passem a
+    incluir mais informação.  No entanto, a estrutura já existentes
+    não sofrerá qualquer alteração.</span></p>
+
+    <p>Qualquer um dos métodos descritos abaixo suporta a
+    possibilidade de passar no parâmetro <tt>jsonp</tt>
+    ou <tt>callback</tt> um nome de função, para que o resultado seja
+    uma invocação a uma função JavaScript. Para mais detalhes consulte
+    documentação sobre <tt>JSON with padding</tt>.</p>
+
+    <p>Para aceder a uma entrada do dicionário a partir da respectiva
+    palavra, usar o endereço</p>
+
+    <pre>http://dicionario-aberto.net/search-json/<b>palavra</b></pre>
+
+    <p>A resposta é uma estrutura JSON. Note que, enquanto que a
+    estrutura geral deste fragmento não se vá alterar ao longo do
+    tempo, é provável que nova marcação venham a surgir para anotar
+    zonas que neste momento estão identificadas com notação
+    Wiki-eira.</p>
+
+    <p>Neste momento as pesquisas disponíveis são:</p>
+
+    <ul>
+      <li><b>Pesquisa por prefixo</b>:
+        <pre>http://dicionario-aberto.net/search-json?<b>prefix=in</b></pre>
+
+        <p>irá receber uma lista de 10 palavras que iniciam pelos
+          caracteres indicados, com o seguinte formato:</p>
+
+        <pre>
+          { "list" : [
+                  "in",
+                  "in...",
+                  "in-fólio",
+                  "in-quarto",
+                  "inabalável",
+                  "inabalavelmente",
+                  "inabdicável",
+                  "inábil",
+                  "inabilidade",
+                  "inabilitação" ] }
+        </pre>
+      </li>
+      <li><b>Pesquisa por sufixo</b>:
+        <pre>http://dicionario-aberto.net/search-json?<b>suffix=er</b></pre>
+
+        <p>irá receber uma lista de 10 palavras que terminam pelos
+          caracteres indicados, com o seguinte formato:</p>
+
+        <pre>
+          { "list" : [
+                  "abastecer",
+                  "abater",
+                  "abceder",
+                  "abdelcáder",
+                  "ablaquecer",
+                  "abolorecer",
+                  "aborrecer",
+                  "abrandecer",
+                  "abranger",
+                  "abrutecer" ] }
+        </pre>
+      </li>
+      <li><b>Pesquisa combinada</b> por sufixo e prefixo, usando ambos os
+      atributos definidos acima:
+        <pre>http://dicionario-aberto.net/search-json?<b>prefix=c&amp;suffix=er</b></pre>
+      </li>
+      <li><b>Pesquisa aproximada</b>:
+        <pre>http://dicionario-aberto.net/search-json?<b>like=palavra</b></pre>
+        <p>irá retornar uma lista de palavras existentes no
+        dicionário, que diferem da palavra indicada com uma distância
+        de edição (Levenshtein Distance) de 1. Note que se a palavra
+        indicada existir no dicionário ela <b>também</b> será
+        listada.</p>
+
+        <pre>
+          { "list" : [
+                  "palabra",
+                  "palava",
+                  "palavra"]}
+        </pre>
+    </ul>
+    
+
+    <h2>XML</h2>
+
+    <p><span style="color: #990000; font-weight:
+    bold">A API XML está estável e não deverá mudar. No entanto, é provável que o XML
+    referente às entradas do dicionário passem a incluir mais informação (e mais etiquetas). 
+    No entanto, as já existentes não sofrerão qualquer alteração.</span></p>
+
+    <p>Para aceder a uma entrada do dicionário a partir da respectiva
+    palavra, usar o endereço</p>
+
+    <pre>http://dicionario-aberto.net/search-xml/<b>palavra</b></pre>
+
+    <p>A resposta é um fragmento de XML bem formado, correspondente a
+    um subconjunto da norma TEI (Text Encoding Initiative). Note que,
+    enquanto que a estrutura geral deste fragmento não se vá alterar
+    ao longo do tempo, é provável que novas etiquetas venham a surgir
+    para anotar zonas que neste momento estão identificadas com
+    notação Wiki-eira.</p>
+
+    <p>Neste momento as pesquisas disponíveis são:</p>
+
+    <ul>
+      <li><b>Pesquisa por prefixo</b>:
+        <pre>http://dicionario-aberto.net/search-xml?<b>prefix=in</b></pre>
+
+        <p>irá receber uma lista de 10 palavras que iniciam pelos
+          caracteres indicados, com o seguinte formato:</p>
+
+        <pre>
+          &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+          &lt;list&gt;
+          &lt;entry&gt;in&lt;/entry&gt;
+          &lt;entry&gt;in...&lt;/entry&gt;
+          &lt;entry&gt;inabalável&lt;/entry&gt;
+          &lt;entry&gt;inabalavelmente&lt;/entry&gt;
+          &lt;entry&gt;inabdicável&lt;/entry&gt;
+          &lt;/list&gt;
+        </pre>
+      </li>
+      <li><b>Pesquisa por sufixo</b>:
+        <pre>http://dicionario-aberto.net/search-xml?<b>suffix=er</b></pre>
+
+        <p>irá receber uma lista de 10 palavras que terminam pelos
+          caracteres indicados, com o seguinte formato:</p>
+
+        <pre>
+          &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+          &lt;list&gt;
+          &lt;entry&gt;abastecer&lt;/entry&gt;
+          &lt;entry&gt;abater&lt;/entry&gt;
+          &lt;entry&gt;abceder&lt;/entry&gt;
+          &lt;entry&gt;abdelcáder&lt;/entry&gt;
+          &lt;entry&gt;ablaquecer&lt;/entry&gt;
+          &lt;/list&gt;
+        </pre>
+      </li>
+      <li><b>Pesquisa combinada</b> por sufixo e prefixo, usando ambos os
+      atributos definidos acima:
+        <pre>http://dicionario-aberto.net/search-xml?<b>prefix=c&amp;suffix=er</b></pre>
+      </li>
+      <li><b>Pesquisa aproximada</b>:
+        <pre>http://dicionario-aberto.net/search-xml?<b>like=palavra</b></pre>
+        <p>irá retornar uma lista de palavras existentes no
+        dicionário, que diferem da palavra indicada com uma distância
+        de edição (Levenshtein Distance) de 1. Note que se a palavra
+        indicada existir no dicionário ela <b>também</b> será
+        listada.</p>
+
+        <pre>
+          &lt;?xml version="1.0" encoding="UTF-8"?&gt;
+          &lt;list&gt;
+          &lt;entry&gt;palabra&lt;/entry&gt;
+          &lt;entry&gt;palava&lt;/entry&gt;
+          &lt;entry&gt;palavra&lt;/entry&gt;
+          &lt;/list&gt;
+        </pre>
+    </ul>
+
+
+  </div>
+</div>
