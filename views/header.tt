@@ -17,9 +17,8 @@
 
       <form class="brand-logo right">
         <div class="input-field">
-          <input id="search" type="search" required name="word"
-                 placeholder="Palavra">
-          <label for="search"><i class="material-icons blue-text text-darken-1">search</i></label>
+          <input id="search" type="search" required name="word">
+          <label for="search"><i class="material-icons">search</i></label>
           <i class="material-icons">close</i>
         </div></form>
 
