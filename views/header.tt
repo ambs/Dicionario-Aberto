@@ -1,11 +1,6 @@
 
 <div id="head_home">
-  <% IF collapsed %>
-    <div class="contents" id="header" style="width: 900px; height: 90px; position: relative;">
-  <% ELSE %>
     <div class="contents" id="header">
-  <% END %>
-
 
   <% IF deferred.error %>
     <div id="flash" class="flash_error">
@@ -19,11 +14,7 @@
 
   <% INCLUDE user_header.tt %>
 
-  <% IF collapsed %>
-     <% PROCESS headers/collapsed.tt %>
-  <% ELSE %>
-     <% PROCESS headers/expanded.tt %>
-  <% END %>
+  <% PROCESS headers/expanded.tt %>
 
 </div>
 <hr/>

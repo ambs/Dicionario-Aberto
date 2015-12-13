@@ -4,6 +4,5 @@
       <% PROCESS headers/hmenu.tt %>
     </div>
   </div>
-  <div id="seta" style="float: right; "><img onclick="collapse()" id="setaimg" style="vertical-align: top" src="<% request.uri_base %>/images/up.png" alt="Encolher"/>&nbsp;</div>
 </div>
 <hr/>

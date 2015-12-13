@@ -18,8 +18,6 @@
                 src="<% request.uri_base %>/js/excanvas.compiled.js"></script>
     <![endif]-->
 
-
-    <script type="text/javascript" src="<% request.uri_base %>/js/collapse.js"></script>
     <script type="text/javascript" src="<% request.uri_base %>/js/terms.js"></script>
     <script type="text/javascript" src="<% request.uri_base %>/js/favourites.js"></script>
 

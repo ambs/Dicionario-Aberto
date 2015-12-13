@@ -6,10 +6,7 @@
 </div>
 <% END %>
 
-  <% IF collapsed %>
-    <div id="logo" style="float: left">
-  <% ELSE %>
-    <div id="logo">
-  <% END %>
+  <div id="logo">
+
   <h1 id="logoimg"><a href="/">Dicionário Aberto</a></h1>
 </div>

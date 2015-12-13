@@ -29,7 +29,6 @@ hook 'before_template' => sub {
     $tokens->{first_word} = database->quick_select( metadata => { key => "first_word" } )->{value};
     $tokens->{last_word}  = database->quick_select( metadata => { key => "last_word"  } )->{value};
 
-    $tokens->{collapsed}  = ((cookie('collapsed') || 'no') eq 'yes');
     $tokens->{query}      = (request->{path} ne "/browse") ? '/search' : '/browse';
 };
 
