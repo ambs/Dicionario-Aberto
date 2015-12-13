@@ -1,0 +1,94 @@
+
+<script type="text/javascript" src="<% request.uri_base %>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<% request.uri_base %>/js/login.js"></script>
+
+
+<div id="main">
+
+  <div id="accordion">
+
+    <!-- LOGIN -->
+    <div class="header" style="text-align: left;">
+      <img style="padding-left: 20px; padding-right: 40px;"
+           src="<% request.uri_base %>/images/login.png" alt="Icon">
+      <b style="display: inline-block; padding-top: 10px;">Entrar</b>
+    </div>
+    <div>
+      <form method="POST">
+        <input type="hidden" name="action" value="login"/>
+        <table class="form" style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td><label for="username">Utilizador </label></td>
+            <td><input type="text" name="username" id="username" class="" size="15" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td><label for="password">Senha </label></td>
+            <td><input type="password" name="password" id="password" size="15" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td style="text-align: center" colspan="3">
+              <input class="blue left right" type="submit" value="Entrar"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+    <!-- REGISTER -->
+    <div class="header" style="text-align: left">
+      <img style="padding-left: 20px; padding-right: 40px;"
+           src="<% request.uri_base %>/images/register.png" alt="Icon">
+      <b style="display: inline-block; padding-top: 10px;">Registar</b>
+    </div>
+    <div>
+      <form method="POST" style="padding-left: 20px; padding-right: 20px;" id="registerForm">
+        <input type="hidden" name="action" value="register"/>
+        <table class="form" style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td><label for="username" class="required">Utilizador </label></td>
+            <td><input type="text" name="username" id="username" size="15" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td><label for="email" class="required">Endereço de e-mail </label></td>
+            <td><input name="email" id="email" type="text" size="30" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td><label for="nome">Nome </label></td>
+            <td><input type="text" name="nome" id="nome" size="40" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td style="text-align: center" colspan="3">
+              <input class="blue left right submit" type="submit" value="Registar"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+    <!-- LOST PASSWORD -->
+    <div class="header" style="text-align: left">
+      <img style="padding-left: 20px; padding-right: 40px;"
+           src="<% request.uri_base %>/images/restorepass.png" alt="Icon">
+      <b style="display: inline-block; padding-top: 10px;">Recuperar senha</b>
+    </div>
+    <div>
+      <form method="POST" style="padding-left: 20px; padding-right: 20px;" id='recoverForm'>
+        <input type="hidden" name="action" value="recover"/>
+        <table class="form" style="margin-left: auto; margin-right: auto;">
+          <tr>
+            <td>Introduza o seu nome de utilizador ou endereço de e-mail</td>
+          </tr>
+          <tr>
+            <td><input type="text" name="recover" id="recover" size="30" style="border: 2px solid #dfdfdf; padding: 2px; font-size: 1.1em;"/></td>
+          </tr>
+          <tr>
+            <td style="text-align: center">
+              <input class="blue left right" type="submit" value="Recuperar senha"/>
+            </td>
+          </tr>
+        </table>
+      </form>
+    </div>
+
+  </div>
+</div>

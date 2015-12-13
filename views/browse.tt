@@ -1,0 +1,86 @@
+<div id="block">
+
+  <div id="letras">
+    <% FOREACH letter IN letters %>
+       <% class = (letter == cletter) ? "selected" : "noselected" %>
+       <div class="<% class %>" style="text-align: center; padding: 1px;"><a href="<% request.path %>?letter=<% letter %>"><% letter %></a></div>
+    <% END %>
+  </div>
+
+  <% SSTEP = 28 %>
+  <% DSTEP = SSTEP * 2 %>
+  <div id="palavras">
+    <div class='controls'>
+      <% c1 = position - SSTEP %>
+      <% c2 = position - DSTEP %>
+      <% IF c1 > 0 %>
+        <a href="<% request.path %>?count=<% c1 %>">
+          <img class='seta' title="recuar <% SSTEP %>" src="<% request.uri_base %>/images/cima.png"
+               alt="-<% c1 %>"/></a>
+      <% END %>
+      &nbsp;
+      <% IF c2 > 0 %>
+        <a href="<% request.path %>?count=<% c2 %>">
+          <img class='seta' title="recuar <% DSTEP %>" src="<% request.uri_base %>/images/cima2.png"
+               alt="-<% c2 %>"/></a>
+      <% END %>     
+    </div>
+
+    <!-- LIST OF WORDS -->
+    <% i = 0 %>
+    <% FOREACH w IN words %>
+       <% i = i + 1 %>
+       <% IF w.size %>
+         <% class = (i == margin) ? "selected" : "noselected" %>
+         <% IF i == margin - 1 %><% previous  = w %><% END %>
+         <% IF i == margin + 1 %><% following = w %><% END %>
+         <div class="<% class %>">
+           <a href="<% request.path %>?count=<% w.0 %>"><% w.1 %></a>
+         </div>
+       <% END %>
+    <% END %>
+
+    <div class='controls'>
+      <% c3 = position + SSTEP %>
+      <% c4 = position + DSTEP %>
+      <% IF c3 <= total %>
+        <a href="<% request.path %>?count=<% c3 %>">
+          <img class='seta' title="avançar <% SSTEP %>"
+               src="<% request.uri_base %>/images/baixo.png"
+               alt="+<% c3 %>"/></a>
+      <% END %>
+      &nbsp;
+      <% IF c4 <= total %>
+        <a href="<% request.path %>?count=<% c4 %>">
+          <img class='seta' title="avançar <% DSTEP %>"
+               src="<% request.uri_base %>/images/baixo2.png"
+               alt="+<% c4 %>"/></a>
+      <% END %>     
+    </div>
+  </div>
+
+  <div id="thedef">
+
+    <div class='nextprev'>
+      <% IF previous.size %>
+           <div style="float: left; width: 45%">
+             <a href="<% request.path %>?count=<% previous.0 %>">
+               <img class="seta" src="<% request.uri_base %>/images/esquerda.png" alt="<"/>
+               <% previous.1 %></a></div>
+      <% END %>
+      <% IF following.size %>
+            <div style="float: right; width: 45%; text-align: right">
+             <a href="<% request.path %>?count=<% following.0 %>">
+               <% following.1 %>
+               <img class="seta" src="<% request.uri_base %>/images/direita.png" alt=">"/>
+            </a></div>
+      <% END %>
+      <div class="clear"></div>
+    </div> <!-- nextprev -->
+       <% FOREACH entry IN entries %>
+         <% PROCESS entry.tt item = entry %>
+       <% END %>
+  </div> <!-- the def -->
+</div> <!-- block -->
+
+<div class="clear"></div><br/><br/>

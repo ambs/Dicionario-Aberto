@@ -1,0 +1,46 @@
+
+
+<script type="text/javascript" src="<% request.uri_base %>/js/jquery.validate.js"></script>
+<script type="text/javascript" src="<% request.uri_base %>/js/news.js"></script>
+
+<div id="main">
+  <div class="text">
+
+    <h2>Gestão de Novidades</h2>
+    <br/>
+
+    <form method="post" id="addNew" action="/gerir_novidades">
+      <input type="hidden" name="id" value="<% new.idnew || 0%>"/>
+      <table class="form" style="margin-left: auto; margin-right: auto;">
+        <tr>
+          <td>Data: </td>
+          <td><input type="text" name="data" size="18"
+                     value="<% new.date || today %>"/></td>
+          <td>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+          <td style="text-align: right">Utilizador: 
+            <input type="text" name="user" size="15" readonly="1"
+                   value="<% session.username %>"/></td>
+        </tr>
+        <tr><td>Título: </td><td colspan="3">
+            <input style="width: 100%" value="<% new.title %>" type="text" name="titulo"/></td></tr>
+        <tr><td>Texto:</td><td colspan="3">
+            <textarea style="width: 100%" name="texto" rows="5"><% new.text %></textarea></td></tr>
+        <tr><td colspan="4" style="text-align: center">
+            <input class="green left right" type="submit" name="submit" value="Gravar"/></td>
+      </table>
+    </form>
+    <br/>
+    <ul>
+    <% FOREACH n IN news %>
+    <li><b><% n.date  %> - <% n.title %></b> (<% n.user %>) 
+      <div style="float: right">
+        » <a href="/gerir_novidades/editar/<% n.idnew %>">editar</a> 
+        » <a onclick="return confirm('Deseja realmente apagar essa notícia?');"
+             href="/gerir_novidades/apagar/<% n.idnew %>">apagar</a></div><br/>
+      <div style="font-size: x-small"><% n.text %></div>
+    </li>
+    <% END %>
+    </ul>
+  </div>
+</div>
+<hr style="clear: both"/>

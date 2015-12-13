@@ -1,0 +1,31 @@
+
+<script type="text/javascript" src="<% request.uri_base %>/js/entries.js"></script>
+
+<div id="main">
+  <div class="text">
+
+    <h2>Gestão/Moderação de Revisão</h2>
+    <br/>
+
+    <% diff %>
+
+    <br/>
+    <form class='form'
+          method="post" action="<% request.uri_base %>/moderar_revisao/<% word %>:<% sense %>">
+      <input type="hidden" id="rev" name="rev" value="<% revision %>"/>
+      <input type="hidden" id="w"   name="w"   value="<% word %>"/>
+      <input type="hidden" id="s"   name="s"   value="<% sense %>"/>
+      <textarea name="xml" id='xml'
+                style="display: block; margin-left: auto; margin-right: auto; width: 90%"
+                rows="10"><% xml | html %></textarea>
+      <div style="text-align: center">
+        <input onclick="return confirm('Deseja realmente apagar esta revisão?');" class="red left"
+               type="submit" name="delete" accesskey="d" value=" Apagar Revisão "/>
+        <input onclick="return check_entry();" class="green right"
+               type="submit" name="approve" accesskey="o" value=" Aprovar Revisão "/>
+      </div>
+    </form>
+
+  </div>
+</div>
+<hr style="clear: both"/>

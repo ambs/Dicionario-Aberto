@@ -1,0 +1,37 @@
+<div id="main">
+  <div class="text">
+     <h2 class="hide">Resultados</h2>
+
+     <hr/>
+     <% IF entries.size %>
+       <% FOREACH entry IN entries %>
+         <% PROCESS entry.tt item = entry %>
+       <% END %>
+     <% ELSE %>
+       <div class='clear'></div>
+       <div class='notfound'>
+         <strong>[<% word %>] Nenhuma palavra encontrada!</strong>
+       </div>
+     <% END %>
+
+     <% IF nearmisses.size %>
+     <hr/>
+     <div class="nearmisses"><strong>Será que queria dizer: </strong>
+       <% FOREACH nm IN nearmisses %>
+          &nbsp;<strong>&raquo; </strong>
+          <a href="<% request.uri_base %>/search/<% nm %>"><% nm %></a>
+       <% END %>
+     </div>
+     <% END %>
+
+     <% IF sameprefixes.size %>
+     <hr/>
+     <div id='same_prefix'><h2>Palavras com o mesmo prefixo</h2>
+       <% FOREACH entry IN sameprefixes %>
+         <% PROCESS entry.tt item = entry %>
+       <% END %>
+     </div>
+     <% END %>
+
+  </div>
+</div>

@@ -1,0 +1,25 @@
+
+<div id="main">
+  <div class="text">
+
+    <h2>Gestão/Moderação de Revisões</h2>
+    <br/>
+
+    <br/>
+    <table class="realtable">
+      <tr>
+        <th>palavra</th><th>revisão</th><th>data</th><th>utilizador</th><th></th>
+      </tr>
+      <% FOREACH w IN words %>
+        <tr>
+        <td><a href="<% request.uri_base %>/search/<% w.word %>:<% w.sense %>"><% w.word %></a></td>
+        <td>revisão <% w.revision_id %></td>
+        <td><% w.timestamp %></td>
+        <td style="text-align: center"><% w.creator %></td>
+        <td><a href="<% request.uri_base %>/moderar_revisao/<% w.word %>:<% w.sense %>?rev=<% w.revision_id %>">moderar</a></td>
+        </tr>
+      <% END %>
+    </table>
+  </div>
+</div>
+<hr style="clear: both"/>
