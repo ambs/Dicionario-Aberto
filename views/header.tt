@@ -2,27 +2,6 @@
   $( document ).ready(function(){ $(".button-collapse").sideNav(); });
 </script>
 
-<!-- Menus -->
-<ul id="dropdown1" class="dropdown-content">
-  <li><a href="#!">Entrar/Registar</a></li>
-  <li><a href="#!">Estatísticas</a></li>
-  <li><a href="#!">Novidades</a></li>  
-  <li><a href="#!">Informação Legal</a></li>    
-</ul>
-<ul id="dropdown2" class="dropdown-content">
-  <li><a href="#!">Sobre</a></li>
-  <li><a href="#!">Instrodução</a></li>
-  <li><a href="#!">Abreviaturas</a></li>  
-  <li><a href="#!">Apenso Geográfico</a></li>    
-</ul>
-<ul id="dropdown3" class="dropdown-content">
-  <li><a href="#!">API REST</a></li>
-  <li><a href="#!">Formatos Textuais</a></li>
-  <li><a href="#!">Dicionário em PDF</a></li>  
-  <li><a href="#!">Dicionário em ePub</a></li>    
-  <li><a href="#!">Dicionário em StarDict</a></li>      
-  <li><a href="#!">Dicionário em MySQL</a></li>        
-</ul>
 
 <div class="navbar-fixed">
   <nav class="blue lighten-5">
@@ -30,36 +9,25 @@
 
       <!-- centered logo -->
 
-      <a href="#!" class="brand-logo center">
+      <a href="/" class="brand-logo center">
         <img src="/images/logo.png"
              alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
 
-      <a href="#" data-activates="mobile-menu"
-             class="button-collapse left"><i class="material-icons black-text">menu</i></a>
-
-      <form class="brand-logo right">
+      <form class="right">
         <div class="input-field">
           <input id="search" type="search" required name="word">
           <label for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div></form>
+          <i onclick="$('#search').val('').focusout();" class="material-icons">close</i>
+        </div>
+      </form>
 
-        <ul class="left hide-on-med-and-down">
-        <li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown1">Dicionário<i class="material-icons right">arrow_drop_down</i></a></li>
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown2">Diccionário<i class="material-icons right">arrow_drop_down</i></a></li>        
-        <li><a class="dropdown-button" href="#!" data-activates="dropdown3">Recursos<i class="material-icons right">arrow_drop_down</i></a></li>                
+      <ul class="left">
+        <li><a href="#"><i class="material-icons">perm_identity</i></a></li>        
       </ul>
 
-      <ul class="side-nav" id="mobile-menu">
-        <!-- li><form>
-        <div class="input-field">
-          <input id="search" type="search" required name="word">
-          <label for="search"><i class="material-icons">search</i></label>
-          <i class="material-icons">close</i>
-        </div></form></li -->
-
-        <li><a href="#">Recursos</a></li>
+      <ul class="right">      
+        <li><a href="#"><i class="material-icons">loop</i></a></li>        
+        <li><a href="#"><i class="material-icons">sort_by_alpha</i></a></li>
       </ul>
 
     </div>

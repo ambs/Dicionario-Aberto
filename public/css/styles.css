@@ -5,12 +5,22 @@
 
 .nav-wrapper ul a { color: #0d47a1;}
 
-.nav-wrapper form .input-field > label > i { color: #bbdefb; }
+.nav-wrapper form { height: 64px;}
 
-.nav-wrapper form .input-field > label.active > i { color: #0d47a1; }
+.nav-wrapper form .input-field > label        > i { color: #0d47a1; }
+.nav-wrapper form .input-field > label.active > i { color: #0d47a1; } 
+.nav-wrapper form:hover .input-field > label        > i { color: #FFF; }
+.nav-wrapper form:hover .input-field > label.active > i { color: #FFF; } 
+
 .nav-wrapper form > .input-field > label.active + i.active { color: #0d47a1; }
+.nav-wrapper form:hover > .input-field > label.active + i.active { color: #FFF; }
 
-.nav-wrapper .input-field input:focus { background-color: inherit; }
+
+.nav-wrapper .input-field input { color: #0d47a1;}
+.nav-wrapper .input-field input:focus { background-color: inherit; color: #0d47a1;}
+
+.nav-wrapper form:hover { background-color: #0d47a1;}
+.nav-wrapper form:hover .input-field input[type="search"]{ color: #FFF;}
 
 
 /* --- */
