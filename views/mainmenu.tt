@@ -1,16 +1,29 @@
 <!-- -*- html -*- -->
 
-<div id="home">
+<div id="news" class="col s6">
+  <h4 style="color: #0d47a1; font-weight: 200; text-align: center">novidades</h4>
+    <% FOREACH new IN news %>
+      <div class="card">
+        <div class="card-content">
+          <h5 class="grey-text text-darken-4"
+              style="font-weight: 300; text-transform: lowercase; border-bottom: solid 1px #0d47a1;">
+          <% new.title %>
+          </h5>
+          <span style="font-size: x-small; grey-text text-lighten-3"><% new.date %></span>
+          <p><% new.text %></p>
+        </div>
+      </div>    
+    <% END %>
 
-  <hr/>
-  <div id="home_right">
+    <div class="more">
+      <strong>&raquo; </strong><a href="<% request.uri_base %>/news">histórico</a>
+    </div>
+</div>
 
-    <div id="accordion">
+<!-- TO FIX BELOW --> 
 
-      <div class="header">
-        <img src="<% request.uri_base %>/images/menu_da.png" alt="Icon"><b>Dicionário<br/> Aberto</b>
-      </div>
-      <div>
+<div id="menu" class="col s6">
+    <!--   <div>
         <ul>
           <li style='list-style-image: url(<% request.uri_base %>/images/key.png)'>
             <% IF session.username %>
@@ -74,19 +87,7 @@
                title="Ficheiro MySQL">Ficheiro MySQL</a></li>
         </ul>
       </div>
-    </div>
+    </div> -->
   </div>
 
-  <div id="home_left">
-    <h2>Novidades</h2>
-    <dl>
-      <% FOREACH new IN news %>
-      <dt><% new.date %> - <% new.title %></dt><dd><% new.text %></dd>
-      <% END %>
-    </dl>
-    <div class="more">
-      <strong>&raquo; </strong><a href="<% request.uri_base %>/news">histórico</a>
-    </div>
-  </div>
-  <div class="clear"></div>
-</div>
+ 

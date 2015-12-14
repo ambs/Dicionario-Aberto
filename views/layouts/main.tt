@@ -50,7 +50,9 @@
 
     <% PROCESS header.tt %>
 
-    <% content %>
+    <div class="container row">
+      <% content %>
+    </div>
 
     <hr/>
     <div id="footer">
@@ -69,8 +71,7 @@
           <a href="http://www.pgdp.net/">Distributed Proofreaders</a>,
           <a href="http://pagina-a-pagina.blogspot.com/">P&aacute;gina-a-P&aacute;gina</a>,
           <a href="http://natura.di.uminho.pt/">Projecto Natura</a>.</p>
-        <p>Contacto: ambs <em>no</em> di.uminho.pt &mdash; webdesign:
-          <a href="http://www.ivogomes.com">ivogomes</a></p>
+        <p>Contacto: ambs <em>no</em> di.uminho.pt </p>
         </div>
       </div>
 

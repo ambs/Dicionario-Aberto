@@ -35,6 +35,9 @@
 </div>
 
 
+<!-- BELLOW, TO BE FIXED -->
+
+
   <% IF deferred.error %>
     <div id="flash" class="flash_error">
       <img src="<% request.uri_base %>/images/exclamation.png" alt="!!"/>&nbsp;&nbsp;<% deferred.error %>
