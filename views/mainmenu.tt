@@ -2,42 +2,66 @@
 
 <div id="news" class="col s6">
   <h4 class="title">novidades</h4>
-    <% FOREACH new IN news %>
-      <div class="card">
-        <div class="card-content">
-          <h5 class="grey-text text-darken-4 title">
-          <% new.title %>
-          </h5>
-          <span style="font-size: x-small; grey-text text-lighten-3"><% new.date %></span>
-          <p><% new.text %></p>
-        </div>
-      </div>    
-    <% END %>
 
-    <div class="more">
+  <ul class="collapsible" data-collapsible="accordion">
+    <% FOREACH new IN news %>
+    <li>
+      <div class="collapsible-header"><% new.date %> - <% new.title %></div>
+      <div class="collapsible-body"><p><% new.text %></p></div>
+    </li> 
+    <% END %>
+   </ul>
+
+   <div class="more">
       <strong>&raquo; </strong><a href="<% request.uri_base %>/news">histórico</a>
     </div>
+
+  <h4 class="title">Outros</h4>
+
+ <div class="card">
+  <div class="card-content">
+ 
+  <a href="<% request.uri_base %>/stats">Estatísticas</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/legal.html">Informação Legal</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/about.html">Sobre o Novo Diccionário</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/intro.html">Introduç&atilde;o do Novo Diccionário</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/abrev.html">Abreviaturas</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/geo.html">Apenso Geográfico</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/api.html" title="API RESTful">API RESTful</a>
+
+</div></div>
+
 </div>
 
-<!-- TO FIX BELOW --> 
 
 <div id="menu" class="col s6">
 
   <h4 class="title">palavra do dia</h4>
 
-  <h5 class="title">Palavra</h5>
-  <p>
-  <i>f.</i><br/>
-  Som articulado, que tem um sentido ou significação.<br/>
-  Vocábulo; termo.<br/>
-  Dicção ou frase.<br/>
-  Afirmação.<br/>
-  Fala, faculdade de exprimir as ideias por meio da voz.<br/>
-  O discorrer.</p>
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Palavra</span>
+      <p>
+      <i>f.</i><br/>
+      Som articulado, que tem um sentido ou significação.<br/>
+      Vocábulo; termo.<br/>
+      Dicção ou frase.<br/>
+      Afirmação.<br/>
+      Fala, faculdade de exprimir as ideias por meio da voz.<br/>
+      O discorrer.</p>
+    </div>
+  </div>
 
   <h4 class="title">recursos</h4>  
 
-  <div class="row">
+  <div class="card">
+  <div class="row card-content">
     <div class="col s1">&nbsp;</div>
     <div class="col s2" style="text-align: center;">
       <a href="<% request.uri_base %>/dict.pdf"><img src="<% request.uri_base %>/images/pdf.png" 
@@ -66,23 +90,9 @@
     </div>
     <div class="col s1">&nbsp;</div>    
   </div>
+  </div>
 
 
-  <h4 class="title">Outros</h4>
-
-  <a href="<% request.uri_base %>/stats">Estatísticas</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/legal.html">Informação Legal</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/about.html">Sobre o Novo Diccionário</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/intro.html">Introduç&atilde;o do Novo Diccionário</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/abrev.html">Abreviaturas</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/geo.html">Apenso Geográfico</a>
-  <br/>
-  <a href="<% request.uri_base %>/estaticos/api.html" title="API RESTful">API RESTful</a>
 
 
 </div>
