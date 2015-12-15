@@ -1,12 +1,11 @@
 <!-- -*- html -*- -->
 
 <div id="news" class="col s6">
-  <h4 style="color: #0d47a1; font-weight: 200; text-align: center">novidades</h4>
+  <h4 class="title">novidades</h4>
     <% FOREACH new IN news %>
       <div class="card">
         <div class="card-content">
-          <h5 class="grey-text text-darken-4"
-              style="font-weight: 300; text-transform: lowercase; border-bottom: solid 1px #0d47a1;">
+          <h5 class="grey-text text-darken-4 title">
           <% new.title %>
           </h5>
           <span style="font-size: x-small; grey-text text-lighten-3"><% new.date %></span>
@@ -23,71 +22,67 @@
 <!-- TO FIX BELOW --> 
 
 <div id="menu" class="col s6">
-    <!--   <div>
-        <ul>
-          <li style='list-style-image: url(<% request.uri_base %>/images/key.png)'>
-            <% IF session.username %>
-            <a href="<% request.uri_base %>/logout">Sair</a>&nbsp;&nbsp;&nbsp;[<a href="<% request.uri_base %>/profile"><% session.username %></a>]
-            <% ELSE %>
-            <a href="<% request.uri_base %>/login">Entrar / Registar</a>
-            <% END %>
-          </li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/bars.png)'>
-            <a href="<% request.uri_base %>/stats">Estatísticas</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/firefox.png)'>
-            <a title="Instalar Pesquisa no Firefox"
-               href="javascript:window.external.AddSearchProvider('http://dicionario-aberto.net/search.xml');">Instalar Pesquisa no Firefox</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/rss16x16.png)'>
-            <a href="<% request.uri_base %>/news.xml"
-               title="Novidades do Dicionário Aberto">Novidades do Dicionário Aberto</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/twitter.png)'>
-            <a href="http://www.twitter.com/abertonario">Siga-nos no Twitter</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/creative_commons.png)'>
-            <a href="<% request.uri_base %>/estaticos/legal.html">Informação Legal</a></li>
-        </ul>
-      </div>
 
-      <div class="header">
-        <img src="<% request.uri_base %>/images/book.png" alt="Icon"><b>Novo Diccionário da Língua Portuguesa</b>
-      </div>
+  <h4 class="title">palavra do dia</h4>
 
-      <div>
-        <ul>
-          <li style='list-style-image: url(<% request.uri_base %>/images/info.png)'>
-            <a href="<% request.uri_base %>/estaticos/about.html">Sobre o Dicionário</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/intro.png)'>
-            <a href="<% request.uri_base %>/estaticos/intro.html">Introduç&atilde;o</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/abrev.png)'>
-            <a href="<% request.uri_base %>/estaticos/abrev.html">Abreviaturas</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/globe.png)'>
-            <a href="<% request.uri_base %>/estaticos/geo.html">Apenso Geográfico</a></li>
-        </ul>
-      </div>
+  <h5 class="title">Palavra</h5>
+  <p>
+  <i>f.</i><br/>
+  Som articulado, que tem um sentido ou significação.<br/>
+  Vocábulo; termo.<br/>
+  Dicção ou frase.<br/>
+  Afirmação.<br/>
+  Fala, faculdade de exprimir as ideias por meio da voz.<br/>
+  O discorrer.</p>
 
-      <div class="header">
-        <img src="<% request.uri_base %>/images/download.png" alt="Icon"><b>Recursos</b>
-      </div>
+  <h4 class="title">recursos</h4>  
 
-      <div>
-        <ul>
-          <li style='list-style-image: url(<% request.uri_base %>/images/chaveporcas.png)'>
-            <a href="<% request.uri_base %>/estaticos/api.html" title="API RESTful">API RESTful</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/xml-small.png)'>
-            <a href="<% request.uri_base %>/estaticos/sources.html" title="Formatos Textuais">Formatos Textuais</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/ico_pdf.gif)'>
-            <a href="<% request.uri_base %>/dict.pdf" title="Download Versão em PDF">Versão PDF</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/epub.png)'>
-            <a href="<% request.uri_base %>/dicaberto.epub"
-               title="Download Versão e-Pub">Versão e-Pub</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/sdict.png)'>
-            <a href="<% request.uri_base %>/stardict-DicAberto.tar.bz2"
-               title="Versão para StarDict">Dicionário para StarDict</a></li>
-          <li style='list-style-image: url(<% request.uri_base %>/images/sql.png)'>
-            <a href="<% request.uri_base %>/dump.sql.gz"
-               title="Ficheiro MySQL">Ficheiro MySQL</a></li>
-        </ul>
-      </div>
-    </div> -->
+  <div class="row">
+    <div class="col s1">&nbsp;</div>
+    <div class="col s2" style="text-align: center;">
+      <a href="<% request.uri_base %>/dict.pdf"><img src="<% request.uri_base %>/images/pdf.png" 
+          style="width: 100%;"
+          alt="PDF"/><br/>PDF</a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a href="<% request.uri_base %>/dicaberto.epub"><img src="<% request.uri_base %>/images/epub.png" 
+          style="width: 100%;"
+          alt="ePub"/><br/>ePub</a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a href="<% request.uri_base %>/stardict-DicAberto.tar.bz2"><img src="<% request.uri_base %>/images/sdict.png" 
+          style="width: 100%;"
+          alt="StarDict"/><br/>StarDict</a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a href="<% request.uri_base %>/dump.sql.gz"><img src="<% request.uri_base %>/images/sql.png" 
+          style="width: 100%;"
+          alt="SQL"/><br/>SQL</a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a href="<% request.uri_base %>/estaticos/sources.html"><img src="<% request.uri_base %>/images/xml-small.png" 
+          style="width: 100%;"
+          alt="XML/TXT"/><br/>XML/TXT</a>
+    </div>
+    <div class="col s1">&nbsp;</div>    
   </div>
 
- 
+
+  <h4 class="title">Outros</h4>
+
+  <a href="<% request.uri_base %>/stats">Estatísticas</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/legal.html">Informação Legal</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/about.html">Sobre o Novo Diccionário</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/intro.html">Introduç&atilde;o do Novo Diccionário</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/abrev.html">Abreviaturas</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/geo.html">Apenso Geográfico</a>
+  <br/>
+  <a href="<% request.uri_base %>/estaticos/api.html" title="API RESTful">API RESTful</a>
+
+
+</div>
