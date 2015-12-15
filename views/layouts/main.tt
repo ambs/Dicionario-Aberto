@@ -12,81 +12,39 @@
       <!--Let browser know website is optimized for mobile-->
       <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-  
-
       <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-      <!--    <script type="text/javascript" src="<% request.uri_base %>/js/jquery.cookie.js"></script> -->
-<!--    <script type="text/javascript" src="<% request.uri_base %>/js/jquery-ui.js"></script>
-    <script type="text/javascript" src="<% request.uri_base %>/js/highcharts.js"></script> -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
-     <!-- // -->
-
-    <script type="text/javascript" src="<% request.uri_base %>/js/terms.js"></script>
-    <script type="text/javascript" src="<% request.uri_base %>/js/favourites.js"></script>
+      <script type="text/javascript" src="<% request.uri_base %>/js/jquery.cookie.js"></script> 
+      <script type="text/javascript" src="<% request.uri_base %>/js/jquery-ui.js"></script>
+      <script type="text/javascript" src="<% request.uri_base %>/js/highcharts.js"></script> 
+      <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+      <script type="text/javascript" src="<% request.uri_base %>/js/terms.js"></script>
+      <script type="text/javascript" src="<% request.uri_base %>/js/favourites.js"></script>
 
     <% IF jsprofile %>
       <script type="text/javascript" src="<% request.uri_base %>/js/profile.js"></script>
     <% END %>
 
-    <script type="text/javascript">
-      $( function() {
-        var timeout = setTimeout( "$('#flash').toggle(300);", 5000);
-      });
-    </script>
+      <link rel="alternate" type="application/atom+xml" title="Atom" href="<% request.uri_base %>/news.xml" title="Novidades"/>
 
-    <!-- <link rel="alternate" type="application/atom+xml" title="Atom" -->
-    <!--       href="<% request.uri_base %>/atom.xml" title="Duas palavras por dia"/> -->
-    <link rel="alternate" type="application/atom+xml" title="Atom"
-          href="<% request.uri_base %>/news.xml" title="Novidades"/>
-    <meta name="description" content="Novo Diccion&aacute;rio da L&iacute;ngua Portuguesa &mdash; Candido de Figueiredo (1913) - Redigido em harmonia com os modernos princ&iacute;pios da sci&ecirc;ncia da linguagem, e em que se cont&eacute;m qu&aacute;si o d&ocirc;bro dos voc&aacute;bulos at&eacute; agora registados em todos os diccion&aacute;rios portugueses, al&eacute;m de satisfazer a todas as graphias leg&iacute;timas, especialmente a que tem sido mais usual e aquella que foi prescrita officialmente em 1911."/>
-
-
-    <link rel="stylesheet" href="<% request.uri_base %>/css/styles.css" type="text/css" media="screen"/>
-
-    <link rel="search" type="application/opensearchdescription+xml" title="Dicionário aberto"
+      <link rel="search" type="application/opensearchdescription+xml" title="Dicionário aberto"
           href="<% request.uri_base %>/search.xml"/>
+
+      <link rel="stylesheet" href="<% request.uri_base %>/css/styles.css" type="text/css" media="screen"/>
   </head>
   <body>
 
+  <header>
     <% PROCESS header.tt %>
+  </header>
 
+  <main>
     <div class="container row">
       <% content %>
     </div>
+  </main> 
 
-    <hr/>
-    <div id="footer">
-      <div>
-        <a href="http://mysql.com/"><img src="<% request.uri_base %>/images/mysql-powered.png" alt="MySQL"/></a>
-        &nbsp;
-        <a href="http://perl.org/"><img src="<% request.uri_base %>/images/perl-powered.png" alt="Perl Powered"/></a>
-        &nbsp;
-        <a href="http://perldancer.org/"><img src="<% request.uri_base %>/images/dancer-powered.png" alt="Dancer Powered"/></a>
-        &nbsp;
-        <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/pt/">
-          <img alt="Creative Commons License" style="border-width:0"
-               src="http://i.creativecommons.org/l/by-sa/2.5/pt/80x15.png" /></a>
-        <p>This <span xmlns:dc="http://purl.org/dc/elements/1.1/" href="http://purl.org/dc/dcmitype/Text" rel="dc:type">work</span> is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/2.5/pt/">Creative Commons Attribution-Share Alike 2.5 Portugal License</a>
-        <p>Com o apoio de <a href="http://www.bn.pt/">Biblioteca Nacional de Portugal</a>, 
-          <a href="http://www.pgdp.net/">Distributed Proofreaders</a>,
-          <a href="http://pagina-a-pagina.blogspot.com/">P&aacute;gina-a-P&aacute;gina</a>,
-          <a href="http://natura.di.uminho.pt/">Projecto Natura</a>.</p>
-        <p>Contacto: ambs <em>no</em> di.uminho.pt </p>
-        </div>
-      </div>
+  <% PROCESS footer.tt %>
 
-      <!-- Google Analytics -->
-      <script type="text/javascript">
-        var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
-        document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
-      </script>
-      <script type="text/javascript">
-        var pageTracker = _gat._getTracker("UA-5532074-1");
-        pageTracker._trackPageview();
-      </script>
-      <!-- Google Analytics -->
-
-    </div>
   </body>
 </html>
 
