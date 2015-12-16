@@ -15,7 +15,10 @@ h5.title {font-weight: 300; text-transform: lowercase; border-bottom: solid 1px 
 
 h4.title { color: #0d47a1; font-weight: 200; text-align: center; }
 
-.brand-logo img { height: 60px;}
+.brand-logo img {
+  height: 50px;
+  margin: 5px;
+}
 
 .nav-wrapper ul a:hover { background-color: #0d47a1; color: #ffffff;}
 
