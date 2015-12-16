@@ -7,28 +7,27 @@
   <nav class="blue lighten-5">
     <div class="nav-wrapper">
 
-      <!-- centered logo -->
-
-      <a href="/" class="brand-logo center">
-        <img src="/images/logo.png"
-             alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
-
-      <form class="right">
+    <div class="left">
+	 <ul>
+        <li><a href="#"><i class="material-icons">perm_identity</i></a></li>   
+		<li><a href="<% request.uri_base %>/random"><i class="material-icons">loop</i></a></li>        
+        <li><a href="<% request.uri_base %>/browse"><i class="material-icons">sort_by_alpha</i></a></li>             
+      	<li>
+      	<form method="post" action="/search" id="pesquisa" enctype="multipart/form-data">
         <div class="input-field">
           <input id="search" type="search" required name="word">
           <label for="search"><i class="material-icons">search</i></label>
           <i onclick="$('#search').val('').focusout();" class="material-icons">close</i>
         </div>
-      </form>
+        </form>
+        </li>
+        </ul>
+	  </div>
 
-      <ul class="left">
-        <li><a href="#"><i class="material-icons">perm_identity</i></a></li>        
-      </ul>
 
-      <ul class="right">      
-        <li><a href="#"><i class="material-icons">loop</i></a></li>        
-        <li><a href="#"><i class="material-icons">sort_by_alpha</i></a></li>
-      </ul>
+      <a href="/" class="brand-logo right">
+        <img src="/images/logo.png"
+             alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
 
     </div>
   </nav>

@@ -21,6 +21,7 @@ h4.title { color: #0d47a1; font-weight: 200; text-align: center; }
 
 .nav-wrapper ul a { color: #0d47a1;}
 
+.nav-wrapper li {height: 64px;}
 .nav-wrapper form { height: 64px;}
 
 .nav-wrapper form .input-field > label        > i { color: #0d47a1; }
