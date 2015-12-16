@@ -64,29 +64,49 @@
   <div class="row card-content">
     <div class="col s1">&nbsp;</div>
     <div class="col s2" style="text-align: center;">
-      <a href="<% request.uri_base %>/dict.pdf"><img src="<% request.uri_base %>/images/pdf.png" 
-          style="width: 100%;"
-          alt="PDF"/><br/>PDF</a>
+      <a class="tooltipped"
+      data-position="bottom"
+      data-delay="50"
+      data-tooltip="PDF"
+      href="<% request.uri_base %>/dict.pdf"><img src="<% request.uri_base %>/images/pdf.png" 
+          style="width: 90%"
+          alt="PDF"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
-      <a href="<% request.uri_base %>/dicaberto.epub"><img src="<% request.uri_base %>/images/epub.png" 
-          style="width: 100%;"
-          alt="ePub"/><br/>ePub</a>
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="ePub"
+        href="<% request.uri_base %>/dicaberto.epub"><img src="<% request.uri_base %>/images/epub.png" 
+          style="width: 90%"
+          alt="ePub"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
-      <a href="<% request.uri_base %>/stardict-DicAberto.tar.bz2"><img src="<% request.uri_base %>/images/sdict.png" 
-          style="width: 100%;"
-          alt="StarDict"/><br/>StarDict</a>
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="StarDict"
+        href="<% request.uri_base %>/stardict-DicAberto.tar.bz2"><img src="<% request.uri_base %>/images/sdict.png" 
+          style="width: 90%"
+          alt="StarDict"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
-      <a href="<% request.uri_base %>/dump.sql.gz"><img src="<% request.uri_base %>/images/sql.png" 
-          style="width: 100%;"
-          alt="SQL"/><br/>SQL</a>
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="SQL"
+        href="<% request.uri_base %>/dump.sql.gz"><img src="<% request.uri_base %>/images/sql.png" 
+          style="width: 90%"
+          alt="SQL"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
-      <a href="<% request.uri_base %>/estaticos/sources.html"><img src="<% request.uri_base %>/images/xml-small.png" 
-          style="width: 100%;"
-          alt="XML/TXT"/><br/>XML/TXT</a>
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="XML/TXT"
+        href="<% request.uri_base %>/estaticos/sources.html"><img src="<% request.uri_base %>/images/xml-small.png" 
+          style="width: 90%"
+          alt="XML/TXT"/></a>
     </div>
     <div class="col s1">&nbsp;</div>    
   </div>
