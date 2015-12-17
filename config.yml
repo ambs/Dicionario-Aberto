@@ -22,7 +22,7 @@ engines:
   template:
     template_toolkit:
       extension: 'tt'
-      PLUGIN_BASE: 'DA::Template::Plugin'
+      INCLUDE_PATH: 'views/'
       start_tag: '<%'
       end_tag:   '%>'
   session:
