@@ -1,15 +1,16 @@
 <!-- -*- html -*- -->
 
-<div id="news" class="col s6">
+<div id="news" class="col s6" ng-controller="NewsController">
   <h4 class="title">novidades</h4>
 
-  <ul class="collapsible" data-collapsible="accordion">
-    <% FOREACH new IN news %>
-    <li>
-      <div class="collapsible-header"><% new.date %> - <% new.title %></div>
-      <div class="collapsible-body"><p><% new.text %></p></div>
+  <ul class="collapsible" data-collapsible="accordion">    
+    <!-- FIXME: probably we can make the controller use an
+         extra parameter so the query to the dtabase can do
+         the LIMIT instead of making it here? -->
+    <li ng-repeat="n in news | limitTo: 4">
+      <div class="collapsible-header">{{ n.date + "-" + n.title }}</div>
+      <div class="collapsible-body"><p>{{ n.text }}</p></div>
     </li> 
-    <% END %>
    </ul>
 
    <div class="more">
@@ -69,7 +70,7 @@
       data-delay="50"
       data-tooltip="PDF"
       href="<% request.uri_base %>/dict.pdf"><img src="<% request.uri_base %>/images/pdf.png" 
-          style="width: 90%"
+          class="resource"
           alt="PDF"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
@@ -78,7 +79,7 @@
         data-delay="50"
         data-tooltip="ePub"
         href="<% request.uri_base %>/dicaberto.epub"><img src="<% request.uri_base %>/images/epub.png" 
-          style="width: 90%"
+          class="resource"
           alt="ePub"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
@@ -87,7 +88,7 @@
         data-delay="50"
         data-tooltip="StarDict"
         href="<% request.uri_base %>/stardict-DicAberto.tar.bz2"><img src="<% request.uri_base %>/images/sdict.png" 
-          style="width: 90%"
+          class="resource"
           alt="StarDict"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
@@ -96,7 +97,7 @@
         data-delay="50"
         data-tooltip="SQL"
         href="<% request.uri_base %>/dump.sql.gz"><img src="<% request.uri_base %>/images/sql.png" 
-          style="width: 90%"
+          class="resource"
           alt="SQL"/></a>
     </div>
     <div class="col s2" style="text-align: center;">
@@ -105,7 +106,7 @@
         data-delay="50"
         data-tooltip="XML/TXT"
         href="<% request.uri_base %>/estaticos/sources.html"><img src="<% request.uri_base %>/images/xml-small.png" 
-          style="width: 90%"
+          class="resource"
           alt="XML/TXT"/></a>
     </div>
     <div class="col s1">&nbsp;</div>    

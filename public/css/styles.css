@@ -8,12 +8,29 @@ main {
   flex: 1 0 auto;
 }
 
+.resource:hover {
+  filter: opacity(100%);
+}
+
+.resource {
+  width: 90%;
+  filter: opacity(60%);  
+}
 
 footer a { color: #0d47a1; }
 
-h5.title {font-weight: 300; text-transform: lowercase; border-bottom: solid 1px #0d47a1;}
+h5.title {
+  font-weight: 300;
+  text-transform: lowercase;
+  border-bottom: solid 1px #0d47a1;
+}
 
-h4.title { color: #0d47a1; font-weight: 200; text-align: center; }
+h4.title {
+  color: #0d47a1;
+  text-transform: lowercase;
+  font-weight: 200;
+  text-align: center;
+}
 
 .brand-logo img {
   height: 50px;

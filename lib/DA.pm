@@ -430,7 +430,12 @@ get '/profile' => sub {
 };
 
 get '/' => sub {
-	template 'mainmenu' => { news => get_news(4) }
+	template 'mainmenu';
+};
+
+get '/ajax/news' => sub {
+    content_type 'json';
+    to_json(get_news());
 };
 
 get '/news'   => sub { template 'news'     => { news => get_news() }  };
