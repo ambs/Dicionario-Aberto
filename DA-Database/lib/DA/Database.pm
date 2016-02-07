@@ -4,96 +4,68 @@ use 5.006;
 use strict;
 use warnings;
 
+use Scalar::Util qw.blessed.;
+use DBI;
+
 =head1 NAME
 
-DA::Database - The great new DA::Database!
-
-=head1 VERSION
-
-Version 0.01
-
-=cut
-
-our $VERSION = '0.01';
-
+DA::Database - Module to manage Dicionario-Aberto DB
 
 =head1 SYNOPSIS
 
-Quick summary of what the module does.
-
-Perhaps a little code snippet.
-
     use DA::Database;
 
-    my $foo = DA::Database->new();
-    ...
-
-=head1 EXPORT
-
-A list of functions that can be exported.  You can delete this section
-if you don't export anything, such as for a purely object-oriented module.
+    my $dic = DA::Database->new($dbh);
 
 =head1 SUBROUTINES/METHODS
 
-=head2 function1
+=head2 new
+
+Creates a new Dicionário-Aberto access object.
 
 =cut
 
-sub function1 {
+sub new {
+	my ($class, $dbh);
+	if (blessed($_[1]) && $_[1]->can("prepare")) {
+		($class, $dbh) = @_;
+	} else {
+		$class = shift;
+		$dbh = DBI->connect(@_);
+	}
+
+	my $self = { dbh => $dbh };
+	return bless $self, $class;
 }
 
-=head2 function2
+sub retrieve_news {
+	my ($self, %filter) = @_;
 
-=cut
+	my @where = ();
+	if (exists($filter{id}) && $filter{id} =~ /^\d+$/) {
+		push @where, "WHERE idnew = $filter{id}"
+	}
 
-sub function2 {
+	if (exists($filter{count}) && $filter{count} =~ /^\d+$/) {
+		push @where, "LIMIT $filter{count}"
+	}
+
+	push @where, "ORDER BY date DESC";
+
+	my $sql = "SELECT idnew, user, date, title, text FROM new";
+	$sql = join(" ", $sql, @where);
+
+	my $sth = $self->{dbh}->prepare($sql);
+	$sth->execute();
+
+	my @news = $sth->fetchall_arrayref({});
+
+	return \@news;
 }
 
 =head1 AUTHOR
 
 Alberto Simoes, C<< <ambs at cpan.org> >>
-
-=head1 BUGS
-
-Please report any bugs or feature requests to C<bug-da-database at rt.cpan.org>, or through
-the web interface at L<http://rt.cpan.org/NoAuth/ReportBug.html?Queue=DA-Database>.  I will be notified, and then you'll
-automatically be notified of progress on your bug as I make changes.
-
-
-
-
-=head1 SUPPORT
-
-You can find documentation for this module with the perldoc command.
-
-    perldoc DA::Database
-
-
-You can also look for information at:
-
-=over 4
-
-=item * RT: CPAN's request tracker (report bugs here)
-
-L<http://rt.cpan.org/NoAuth/Bugs.html?Dist=DA-Database>
-
-=item * AnnoCPAN: Annotated CPAN documentation
-
-L<http://annocpan.org/dist/DA-Database>
-
-=item * CPAN Ratings
-
-L<http://cpanratings.perl.org/d/DA-Database>
-
-=item * Search CPAN
-
-L<http://search.cpan.org/dist/DA-Database/>
-
-=back
-
-
-=head1 ACKNOWLEDGEMENTS
-
 
 =head1 LICENSE AND COPYRIGHT
 

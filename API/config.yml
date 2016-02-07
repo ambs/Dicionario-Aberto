@@ -44,9 +44,12 @@ template: "simple"
 #    Simple:
 #      cookie_name: testapp.session
 #
-#engines:
-#  session:
-#    YAML:
-#      cookie_name: eshop.session
-#      is_secure: 1
-#      is_http_only: 1
+plugins:
+  Database:
+    driver: 'mysql'
+    database: 'dicionario-aberto'
+    port: 3306
+    host: 127.0.0.1
+    username: 'root'
+    dbi_params:
+      mysql_enable_utf8: 1
