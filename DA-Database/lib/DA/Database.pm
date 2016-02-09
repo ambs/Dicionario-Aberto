@@ -58,9 +58,9 @@ sub retrieve_news {
 	my $sth = $self->{dbh}->prepare($sql);
 	$sth->execute();
 
-	my @news = $sth->fetchall_arrayref({});
+	my $news = $sth->fetchall_arrayref({});
 
-	return \@news;
+	return $news;
 }
 
 =head1 AUTHOR

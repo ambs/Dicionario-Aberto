@@ -1,4 +1,5 @@
 package DA::API;
+
 use DA::Database;
 
 use Dancer2;
@@ -7,6 +8,10 @@ use Dancer2::Plugin::Database;
 our $VERSION = '0.1';
 
 our $DIC = DA::Database->new(database);
+
+hook after => sub {
+	response->push_header('Access-Control-Allow-Origin', 'http://novo.dicionario-aberto.net');
+};
 
 get '/' => sub {
     "OK"
