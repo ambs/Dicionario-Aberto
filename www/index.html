@@ -17,9 +17,9 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
     <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
-
+    
     <script type="text/javascript" src="/js/controllers.js"></script>
 
     <!-- FIX ME ****************************************
@@ -42,7 +42,126 @@
   <main>
     <div class="container row">
 
-    <div ng-include="'html/main.html'"></div>
+  <!-- -*- html -*- -->
+
+
+<div id="news" class="col s6" ng-controller="NewsController">
+  <h4 class="title">novidades</h4>
+
+  <ul class="collapsible" data-collapsible="accordion">    
+    <!-- FIXME: probably we can make the controller use an
+         extra parameter so the query to the dtabase can do
+         the LIMIT instead of making it here? -->
+    <li ng-repeat="n in news | limitTo: 4">
+      <div class="collapsible-header">{{ n.date | date : "yyyy-mm-dd" }} {{ n.title }}</div>
+      <div class="collapsible-body"><p>{{ n.text }}</p></div>
+    </li> 
+   </ul>
+<!--
+   <div class="more">
+      <strong>&raquo; </strong><a href="/news">histórico</a>
+    </div>
+
+  <h4 class="title">Outros</h4>
+
+ <div class="card">
+  <div class="card-content">
+ 
+  <a href="/stats">Estatísticas</a>
+  <br/>
+  <a href="/estaticos/legal.html">Informação Legal</a>
+  <br/>
+  <a href="/estaticos/about.html">Sobre o Novo Diccionário</a>
+  <br/>
+  <a href="/estaticos/intro.html">Introduç&atilde;o do Novo Diccionário</a>
+  <br/>
+  <a href="/estaticos/abrev.html">Abreviaturas</a>
+  <br/>
+  <a href="/estaticos/geo.html">Apenso Geográfico</a>
+  <br/>
+  <a href="/estaticos/api.html" title="API RESTful">API RESTful</a>
+
+</div></div>
+
+</div>
+
+
+<div id="menu" class="col s6">
+
+  <h4 class="title">palavra do dia</h4>
+
+  <div class="card">
+    <div class="card-content">
+      <span class="card-title">Palavra</span>
+      <p>
+      <i>f.</i><br/>
+      Som articulado, que tem um sentido ou significação.<br/>
+      Vocábulo; termo.<br/>
+      Dicção ou frase.<br/>
+      Afirmação.<br/>
+      Fala, faculdade de exprimir as ideias por meio da voz.<br/>
+      O discorrer.</p>
+    </div>
+  </div>
+
+  <h4 class="title">recursos</h4>  
+
+  <div class="card">
+  <div class="row card-content">
+    <div class="col s1">&nbsp;</div>
+    <div class="col s2" style="text-align: center;">
+      <a class="tooltipped"
+      data-position="bottom"
+      data-delay="50"
+      data-tooltip="PDF"
+      href="/dict.pdf"><img src="/images/pdf.png" 
+          class="resource"
+          alt="PDF"/></a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="ePub"
+        href="/dicaberto.epub"><img src="/images/epub.png" 
+          class="resource"
+          alt="ePub"/></a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="StarDict"
+        href="/stardict-DicAberto.tar.bz2"><img src="/images/sdict.png" 
+          class="resource"
+          alt="StarDict"/></a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="SQL"
+        href="/dump.sql.gz"><img src="/images/sql.png" 
+          class="resource"
+          alt="SQL"/></a>
+    </div>
+    <div class="col s2" style="text-align: center;">
+      <a class="tooltipped"
+        data-position="bottom"
+        data-delay="50"
+        data-tooltip="XML/TXT"
+        href="/estaticos/sources.html"><img src="/images/xml-small.png" 
+          class="resource"
+          alt="XML/TXT"/></a>
+    </div>
+    <div class="col s1">&nbsp;</div>    
+  </div>
+  </div>
+
+
+-->
+
+</div>
 
     </div>
   </main> 

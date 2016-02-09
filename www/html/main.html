@@ -1,5 +1,6 @@
 <!-- -*- html -*- -->
 
+
 <div id="news" class="col s6" ng-controller="NewsController">
   <h4 class="title">novidades</h4>
 
@@ -8,11 +9,11 @@
          extra parameter so the query to the dtabase can do
          the LIMIT instead of making it here? -->
     <li ng-repeat="n in news | limitTo: 4">
-      <div class="collapsible-header">{{ n.date + "-" + n.title }}</div>
+      <div class="collapsible-header">{{ n.date | date : "yyyy-mm-dd" }} {{ n.title }}</div>
       <div class="collapsible-body"><p>{{ n.text }}</p></div>
     </li> 
    </ul>
-
+<!--
    <div class="more">
       <strong>&raquo; </strong><a href="/news">histórico</a>
     </div>
@@ -114,6 +115,6 @@
   </div>
 
 
-
+-->
 
 </div>
