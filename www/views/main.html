@@ -7,7 +7,7 @@
          extra parameter so the query to the dtabase can do
          the LIMIT instead of making it here? -->
     <li ng-repeat="n in news | limitTo: 4">
-      <div class="collapsible-header">{{ n.date | date : "yyyy-mm-dd" }} {{ n.title }}</div>
+      <div class="collapsible-header"><b>{{ n.date | myDate }}</b> &middot; {{ n.title }}</div>
       <div class="collapsible-body"><p ng-bind-html="n.text"></p></div>
     </li> 
    </ul>
