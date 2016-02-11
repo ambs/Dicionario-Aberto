@@ -3,13 +3,13 @@
 angular.module('DA')
   .config( function($stateProvider, $urlRouterProvider) {
 
-    $urlRouterProvider.otherwise('main');
+    $urlRouterProvider.otherwise('/');
 
     $stateProvider
       .state('main', {
         url: '/',
         templateUrl: 'views/main.html',   
-      })
+      });
       /*.state('queues', {
         url: '/queues',
         templateUrl: 'views/queues.html'
@@ -21,6 +21,6 @@ angular.module('DA')
      .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard.html'
-      })*/;
+      })*/
 
   });

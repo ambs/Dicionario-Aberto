@@ -1,7 +1,9 @@
 'use strict';
 
-angular.module('DA').controller('NewsController', function($scope, $http) {
+angular.module('DA').controller('NewsController', function($scope, $http, $sce) {
 		$http.get("http://api.dicionario-aberto.net/news").then(function(response) {
-			$scope.news = response.data;
+			$scope.news = 
+				$.map(response.data,
+					function (x) { x['text'] = $sce.trustAsHtml(x['text']); return x});
 		});
 	});

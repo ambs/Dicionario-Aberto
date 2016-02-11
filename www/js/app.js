@@ -1,6 +1,5 @@
 
 'use strict';
 
-var app = angular
-  .module('DA', ['ui.router']);
+var app = angular.module('DA', ['ui.router']);
   
