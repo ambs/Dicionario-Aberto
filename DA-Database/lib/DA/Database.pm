@@ -38,6 +38,27 @@ sub new {
 	return bless $self, $class;
 }
 
+
+
+sub wotd {
+	my ($self) = @_;
+	my $sth = $self->{dbh}->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
+	$sth->execute('wotd');
+
+	my ($wid) = $sth->fetchrow_array;
+
+	$sth = $self->{dbh}->prepare(<<"---");
+ SELECT `xml` FROM `word` INNER JOIN `revision` 
+     ON `word`.`word_id` = `revision`.`word_id`
+      AND `word`.`last_revision` = `revision`.`revision_id` 
+     WHERE `word`.`word_id` = ?;
+---
+
+	$sth->execute($wid);
+	my ($xml) = $sth->fetchrow_array;
+	return $xml;
+}
+
 sub retrieve_news {
 	my ($self, %filter) = @_;
 
