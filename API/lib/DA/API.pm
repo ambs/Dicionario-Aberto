@@ -5,9 +5,14 @@ use DA::Database;
 use Dancer2;
 use Dancer2::Plugin::Database;
 
+use XML::XML2JSON;
+
 our $VERSION = '0.1';
 
 our $DIC = DA::Database->new(database);
+our $X2J = XML::XML2JSON->new();
+
+set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook after => sub {
 	response->push_header('Access-Control-Allow-Origin', 'http://novo.dicionario-aberto.net');
@@ -17,30 +22,39 @@ get '/' => sub {
     "OK"
 };
 
+# 185.130.5.247
+# 
+post '/xmlrpc.php' => sub {
+	error ("FUCK THIS GUY, PLEASE! ", request->address);
+	"FUCK YOU";
+};
+
 get '/news' => sub {
-	content_type "json";
 	if (param('limit')) {
-		to_json($DIC->retrieve_news(limit => param('limit')));
+		return($DIC->retrieve_news(limit => param('limit')));
 	} else {
-		to_json($DIC->retrieve_news);			
+		return($DIC->retrieve_news);			
 	}
+};
+
+get '/wotd' => sub {
+#	return { xml => $X2J->convert($DIC->wotd) };
+	return { xml => $DIC->wotd };
 };
 
 get '/new/*' => sub {
 	my $id = splat;
 	if ($id !~ /^\d+$/) {
-		error('invalid new identifier');
+		return my_error('invalid new identifier');
 	}
 	else {
-		content_type "json";
-		to_json $DIC->retrieve_news( id => $id );
+		return $DIC->retrieve_news( id => $id );
 	}
 };
 
-sub error {
+sub my_error {
 	my $error = shift;
-	content_type "json";
-	return to_json { error => $error };
+	return { error => $error };
 };
 
 true;
