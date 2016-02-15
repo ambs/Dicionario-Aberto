@@ -26,28 +26,46 @@ Creates a new Dicionário-Aberto access object.
 =cut
 
 sub new {
-	my ($class, $dbh);
-	if (blessed($_[1]) && $_[1]->can("prepare")) {
-		($class, $dbh) = @_;
-	} else {
-		$class = shift;
-		$dbh = DBI->connect(@_);
+	my $class = shift;
+
+	my $self = bless {}, $class;
+
+	my $thing = shift;
+
+
+	if (ref($thing) eq "CODE") {
+		$self->{dbh_sub} = $thing;
+	}
+	elsif (blessed($thing) && $thing->can("prepare")) {
+		$self->{dbh} = $thing;
+	} 
+	else {
+		$self->{dbh} = DBI->connect($thing, @_);
 	}
 
-	my $self = { dbh => $dbh };
 	return bless $self, $class;
 }
 
+sub dbh {
+	my ($self) = shift;
 
+	if (exists($self->{dbh_sub})) {
+		return $self->{dbh_sub}->();
+	}
+	if (exists($self->{dbh})) {
+		return $self->{dbh};
+	}
+	die "no DBH?";
+}
 
 sub wotd {
 	my ($self) = @_;
-	my $sth = $self->{dbh}->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
+	my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
 	$sth->execute('wotd');
 
 	my ($wid) = $sth->fetchrow_array;
 
-	$sth = $self->{dbh}->prepare(<<"---");
+	$sth = $self->dbh->prepare(<<"---");
  SELECT `xml` FROM `word` INNER JOIN `revision` 
      ON `word`.`word_id` = `revision`.`word_id`
       AND `word`.`last_revision` = `revision`.`revision_id` 
@@ -76,7 +94,7 @@ sub retrieve_news {
 	my $sql = "SELECT idnew, user, date, title, text FROM new";
 	$sql = join(" ", $sql, @where);
 
-	my $sth = $self->{dbh}->prepare($sql);
+	my $sth = $self->dbh->prepare($sql);
 	$sth->execute();
 
 	my $news = $sth->fetchall_arrayref({});

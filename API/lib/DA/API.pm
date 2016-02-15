@@ -9,7 +9,7 @@ use XML::XML2JSON;
 
 our $VERSION = '0.1';
 
-our $DIC = DA::Database->new(database);
+our $DIC = DA::Database->new(sub { database });
 our $X2J = XML::XML2JSON->new();
 
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
