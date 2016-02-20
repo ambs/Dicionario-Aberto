@@ -13,7 +13,7 @@ var xmlString = "<entry><term>casa</term><usg type=\"dom\">Fam.</usg><def>edific
     document.getElementById("here").innerHTML=r;
 */
 
-function el(content, name, attr) {
+function el(name, content, attr) {
 	attr = attr || {};
 
 	var r = "<" + name;

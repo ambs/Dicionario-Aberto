@@ -6,12 +6,24 @@ $mod.controller('DailyWord', function($scope, $http, $sce) {
 		$http.get("http://api.dicionario-aberto.net/wotd").then(function(response) {
 			var xml = response.data['xml'];
 			
+			var div   = function(c) { return el("div", c); }
+			var empty = function()  { return "" }
+			var id    = function(c) { return c }
 			$scope.def = $sce.trustAsHtml(dt(xml, {
-				"orth"      : function() { return "" },
-				"gramGrp"   : function(c) { return el(el(c,"i"),"div") },
+				"orth"      : empty,
+				
+				"#document" : id,
 
-				"#document" : function(c,q,v) { return c },
-				"#default"  : function(c,q,v) { return "<b>"+q+"</b>: " + c }
+				"entry"     : div,
+				"form"      : div,
+				"sense"     : div,
+				"def"       : div,
+				"etym"      : div,
+
+				"gramGrp"   : function(c) { return el("div", el("i", c)) },
+				
+				"#default"  : function(c,q,v) { return el("b",q) + ": " + c },
+				"#text"     : function(c) { return c.replace(/_([^ ][^_]+)_/g, el("i", "$1")) }
 			}));
 			
 			var title = xml.replace(/<\/orth>(.|\n)*$/,"");
