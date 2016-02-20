@@ -85,11 +85,11 @@ sub retrieve_news {
 		push @where, "WHERE idnew = $filter{id}"
 	}
 
-	if (exists($filter{count}) && $filter{count} =~ /^\d+$/) {
-		push @where, "LIMIT $filter{count}"
-	}
-
 	push @where, "ORDER BY date DESC";
+
+	if (exists($filter{limit}) && $filter{limit} =~ /^\d+$/) {
+		push @where, "LIMIT $filter{limit}"
+	}
 
 	my $sql = "SELECT idnew, user, date, title, text FROM new";
 	$sql = join(" ", $sql, @where);
