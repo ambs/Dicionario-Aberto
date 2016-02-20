@@ -12,11 +12,6 @@
     </li> 
    </ul>
 
-<script>
-   angular.element(document).ready(function () {
-        $('.collapsible').collapsible({ accordion : false });
-   });
-</script>
 <!--
    <div class="more">
       <strong>&raquo; </strong><a href="/news">histórico</a>
@@ -62,7 +57,7 @@
 
   </div>
 
-  <!--
+
 
   <h4 class="title">recursos</h4>  
 
@@ -74,7 +69,7 @@
       data-position="bottom"
       data-delay="50"
       data-tooltip="PDF"
-      href="/dict.pdf"><img src="/images/pdf.png" 
+      href="/static/dict.pdf"><img src="/images/pdf.png" 
           class="resource"
           alt="PDF"/></a>
     </div>
@@ -83,7 +78,7 @@
         data-position="bottom"
         data-delay="50"
         data-tooltip="ePub"
-        href="/dicaberto.epub"><img src="/images/epub.png" 
+        href="/static/dicaberto.epub"><img src="/images/epub.png" 
           class="resource"
           alt="ePub"/></a>
     </div>
@@ -92,7 +87,7 @@
         data-position="bottom"
         data-delay="50"
         data-tooltip="StarDict"
-        href="/stardict-DicAberto.tar.bz2"><img src="/images/sdict.png" 
+        href="/static/stardict-DicAberto.tar.bz2"><img src="/images/sdict.png" 
           class="resource"
           alt="StarDict"/></a>
     </div>
@@ -101,7 +96,7 @@
         data-position="bottom"
         data-delay="50"
         data-tooltip="SQL"
-        href="/dump.sql.gz"><img src="/images/sql.png" 
+        href="#FIXME"><img src="/images/sql.png" 
           class="resource"
           alt="SQL"/></a>
     </div>
@@ -110,7 +105,7 @@
         data-position="bottom"
         data-delay="50"
         data-tooltip="XML/TXT"
-        href="/estaticos/sources.html"><img src="/images/xml-small.png" 
+        href="#FIXME"><img src="/images/xml-small.png" 
           class="resource"
           alt="XML/TXT"/></a>
     </div>
@@ -118,5 +113,13 @@
   </div>
 
   </div>
--->
+
 </div>
+
+
+<script>
+   angular.element(document).ready(function () {
+        $('.collapsible').collapsible({ accordion : false });
+        $('.tooltipped').tooltip({delay: 50});
+   });
+</script>
