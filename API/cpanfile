@@ -10,7 +10,4 @@ requires "HTTP::Parser::XS" => "0";
 
 # requires "XML::XML2JSON" => "0";
 
-on "test" => sub {
-    requires "Test::More"            => "0";
-    requires "HTTP::Request::Common" => "0";
-};
+requires "Net::Twitter" => "0";
