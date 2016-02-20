@@ -43,26 +43,26 @@
 
 </div></div>
 
+-->
+
 </div>
 
 
 <div id="menu" class="col s6">
 
-  <h4 class="title">palavra do dia</h4>
+  <h4 class="title">palavra em destaque</h4>
 
-  <div class="card">
+
+
+  <div class="card" ng-controller="DailyWord">
     <div class="card-content">
-      <span class="card-title">Palavra</span>
-      <p>
-      <i>f.</i><br/>
-      Som articulado, que tem um sentido ou significação.<br/>
-      Vocábulo; termo.<br/>
-      Dicção ou frase.<br/>
-      Afirmação.<br/>
-      Fala, faculdade de exprimir as ideias por meio da voz.<br/>
-      O discorrer.</p>
+      <span class="card-title">{{ word }}</span>
+      <p ng-bind-html="def"></p>
     </div>
+
   </div>
+
+  <!--
 
   <h4 class="title">recursos</h4>  
 
@@ -116,9 +116,7 @@
     </div>
     <div class="col s1">&nbsp;</div>    
   </div>
+
   </div>
-
-
 -->
-
 </div>
