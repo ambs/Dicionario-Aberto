@@ -58,14 +58,21 @@ sub dbh {
 	die "no DBH?";
 }
 
-sub wotd {
+sub random {
 	my ($self) = @_;
-	my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
-	$sth->execute('wotd');
-
+	my $sth = $self->dbh->prepare(<<"---");
+ SELECT word_id FROM word ORDER BY rand() LIMIT 1
+---
+	$sth->execute();
 	my ($wid) = $sth->fetchrow_array;
+		           
+	return $self->revision_from_wid($wid);
+}
 
-	$sth = $self->dbh->prepare(<<"---");
+sub revision_from_wid {
+	my ($self, $wid) = @_;
+
+	my $sth = $self->dbh->prepare(<<"---");
  SELECT `xml` FROM `word` INNER JOIN `revision` 
      ON `word`.`word_id` = `revision`.`word_id`
       AND `word`.`last_revision` = `revision`.`revision_id` 
@@ -75,6 +82,16 @@ sub wotd {
 	$sth->execute($wid);
 	my ($xml) = $sth->fetchrow_array;
 	return $xml;
+}
+
+sub wotd {
+	my ($self) = @_;
+	my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
+	$sth->execute('wotd');
+
+	my ($wid) = $sth->fetchrow_array;
+
+	return $self->revision_from_wid($wid);
 }
 
 sub retrieve_news {

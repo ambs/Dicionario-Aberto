@@ -37,8 +37,11 @@ get '/news' => sub {
 	}
 };
 
+get '/random' => sub {
+	return { xml => $DIC->random };
+};
+
 get '/wotd' => sub {
-#	return { xml => $X2J->convert($DIC->wotd) };
 	return { xml => $DIC->wotd };
 };
 
