@@ -7,10 +7,7 @@ $mod.controller('Random', function($scope, $http, $sce) {
 			var xml = response.data['xml'];
 			
 			$scope.def = $sce.trustAsHtml(format_entry(xml));
-			
-			var title = xml.replace(/<\/orth>(.|\n)*$/,"");
-			title = title.replace(/^(.|\n)*<orth>/,"");
-			$scope.word = title;
+			$scope.word = get_title(xml);
 		});
 	});
 
