@@ -5,7 +5,7 @@ function format_entry(xml) {
 	var div   = function(c) { return el("div", c); }
 	var empty = function()  { return "" }
 	var id    = function(c) { return c }
-	
+
 	return dt(xml, {
 		"orth"      : empty,
 		
@@ -23,4 +23,6 @@ function format_entry(xml) {
 		"def"       : function(c)     { 
 			return div(c.replace(/_([^ ][^_]+)_/g, el("i", "$1"))
 				        .replace(/\n\s*\n/g,"\n").replace(/\n/g,"<br/>")); }
-});}
+});
+}
+

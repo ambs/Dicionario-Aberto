@@ -9,11 +9,11 @@ angular.module('DA')
       .state('main', {
         url: '/',
         templateUrl: 'views/main.html',   
-      });
-      /*.state('queues', {
-        url: '/queues',
-        templateUrl: 'views/queues.html'
       })
+      .state('random', {
+        url: '/random',
+        templateUrl: 'views/random.html'
+      })/*
       .state('tasks', {
         url: '/tasks/:id',
         templateUrl: 'views/tasks.html'
@@ -21,6 +21,6 @@ angular.module('DA')
      .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard.html'
-      })*/
+      })*/;
 
   });
