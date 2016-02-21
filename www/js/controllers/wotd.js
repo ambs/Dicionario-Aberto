@@ -13,17 +13,17 @@ $mod.controller('DailyWord', function($scope, $http, $sce) {
 				"orth"      : empty,
 				
 				"#document" : id,
+				"#text"     : function(c) { return c.replace(/^[\s\n]+|[\s\n]+$/g, "")},
 
 				"entry"     : div,
 				"form"      : div,
 				"sense"     : div,
-				"def"       : div,
 				"etym"      : div,
 
 				"gramGrp"   : function(c) { return el("div", el("i", c)) },
 				
 				"#default"  : function(c,q,v) { return el("b",q) + ": " + c },
-				"#text"     : function(c) { return c.replace(/_([^ ][^_]+)_/g, el("i", "$1")) }
+				"def"     : function(c) { return div(c.replace(/_([^ ][^_]+)_/g, el("i", "$1")).replace(/\n\s*\n/g,"\n").replace(/\n/g,"<br/>")); }
 			}));
 			
 			var title = xml.replace(/<\/orth>(.|\n)*$/,"");
