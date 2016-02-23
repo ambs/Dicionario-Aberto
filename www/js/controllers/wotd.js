@@ -2,7 +2,7 @@
 
 var $mod = angular.module('DA');
 
-$mod.controller('DailyWord', function($scope, $http, $sce) {
+$mod.controller('DailyWord', function($scope, $http, $sce, API) {
 		$http.get(API + "/wotd").then(function(response) {
 			var xml = response.data['xml'];
 			
