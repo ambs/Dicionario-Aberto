@@ -3,5 +3,5 @@
 
 var app = angular
   .module('DA', ['ui.router'])
-  .constant('API', 'http://localhost:5000');
+  .constant('API', 'http://api.dicionario-aberto.net');
 
