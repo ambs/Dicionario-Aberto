@@ -54,13 +54,15 @@
 
   <main>
     <!-- search box -->
-    <div class="row" ng-controller="Search">
-      <div class="col s12" style="margin: 20px;">
-        <center>
-          <input id="mysearch" placeholder="Procurar" style="width: 300px;">
-          <a ui-sref="search({word: 'cavalo'})" 
-          ui-sref-opts="{reload: true} id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
-        </center>
+    <div class="row">
+      <div class="col s12">
+        <form><center>
+          <input ng-model="query" id="mysearch" placeholder="Procurar" style="width: 300px;">
+          <button type="submit" ui-sref="search({word: query})" 
+          ui-sref-opts="{reload: true}" id="mysearchbtn"
+          class="blue z-depth-0 waves-effect waves-light btn">
+          <i id="mysearchbtni" class="material-icons">search</i></button>
+        </center></form>
       </div>
     </div>
 

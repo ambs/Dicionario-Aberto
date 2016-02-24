@@ -1,7 +1,13 @@
 'use strict';
 
 function get_title (xml) {
-	return xml.replace(/^[\s\S]+<orth>/,"").replace(/<\/orth>[\s\S]+$/, "");
+	var n = "";
+	var re = /entry[^>]+n="(\d+)"/;
+	var m = re.exec(xml);
+	if (m != null) {
+		n = "<sup>"+m[1]+"</sup>";
+	}
+	return xml.replace(/^[\s\S]+<orth>/,"").replace(/<\/orth>[\s\S]+$/, "") + n;
 }
 
 function fix_italics (c) {

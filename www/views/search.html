@@ -1,12 +1,10 @@
 
-<div id="results">
+<div id="results" ng-controller="Search">
   <div class="col s8">
-    <div class="card" ng-controller="Search">
-
-      <div ng-repeat="entry in entries">
-
+    <div ng-repeat="entry in entries">
+      <div class="card">
         <div class="card-content">
-          <span class="card-title">{{ entry.word }}</span>
+          <span class="card-title" ng-bind-html="entry.word"></span>
           <p ng-bind-html="entry.def"></p>
         </div>
       </div>

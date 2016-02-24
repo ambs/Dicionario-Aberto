@@ -11,7 +11,7 @@ $mod.controller('Search', function($scope, $http, $sce, $stateParams, API) {
 		if (response.data.length > 0) {
 			$scope.entries = __map(response.data, function(x) {
 				return { "def" : $sce.trustAsHtml(format_entry(x.xml)),
-				  		     "word" : get_title(x.xml) };
+				  		     "word" : $sce.trustAsHtml(get_title(x.xml)) };
 			});
 		}
 	});

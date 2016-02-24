@@ -7,7 +7,7 @@ $mod.controller('DailyWord', function($scope, $http, $sce, API) {
 			var xml = response.data['xml'];
 			
 			$scope.def = $sce.trustAsHtml(format_entry(xml));
-			$scope.word = get_title(xml);
+			$scope.word = $sce.trustAsHtml(get_title(xml));
 		});
 	});
 
