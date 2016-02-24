@@ -12,16 +12,11 @@ $mod.controller('Search', function($scope, $http, $sce, $state, API) {
 
 			if (response.data.length > 0) {
 				$scope.entries = __map(response.data, function(x) {
-
 					return { "def" : $sce.trustAsHtml(format_entry(x.xml)),
-				  		"title" : get_title(x.xml) };
-
+  				  		     "word" : get_title(x.xml) };
 				});
+				$state.go("search");
 			}
-
-			$state.go("search");
-
 		});
-
 	}
 });
