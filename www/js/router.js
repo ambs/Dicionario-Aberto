@@ -13,11 +13,11 @@ angular.module('DA')
       .state('random', {
         url: '/random',
         templateUrl: 'views/random.html'
-      })/*
-      .state('tasks', {
-        url: '/tasks/:id',
-        templateUrl: 'views/tasks.html'
       })
+      .state('search', {
+        url: '/search',
+        templateUrl: 'views/search.html'
+      })/*
      .state('dashboard', {
         url: '/dashboard',
         templateUrl: 'views/dashboard.html'

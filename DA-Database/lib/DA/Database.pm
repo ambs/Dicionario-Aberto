@@ -61,7 +61,7 @@ sub dbh {
 sub random {
 	my ($self) = @_;
 	my $sth = $self->dbh->prepare(<<"---");
- SELECT word_id FROM word ORDER BY rand() LIMIT 1
+ SELECT word_id FROM word WHERE deleted=0 ORDER BY rand() LIMIT 1
 ---
 	$sth->execute();
 	my ($wid) = $sth->fetchrow_array;
@@ -92,6 +92,24 @@ sub wotd {
 	my ($wid) = $sth->fetchrow_array;
 
 	return $self->revision_from_wid($wid);
+}
+
+sub retrieve_entry {
+	my ($self, $word, $n) = @_;
+
+	my $query = <<"---";
+SELECT * FROM word INNER JOIN revision 
+  ON word.last_revision = revision.revision_id AND word.word_id = revision.word_id
+  WHERE word=? %%AND%% AND word.deleted=0;
+---
+
+	$query =~ s/%%AND%%/ $n ? "AND sense=?" : "" /e;
+
+	my $sth = $self->dbh->prepare($query);
+	$sth->execute($word, $n ? $n : ());
+
+	return $sth->fetchall_arrayref({});
+
 }
 
 sub retrieve_news {

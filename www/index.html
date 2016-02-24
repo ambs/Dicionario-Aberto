@@ -54,11 +54,11 @@
 
   <main>
     <!-- search box -->
-    <div class="row">
+    <div class="row" ng-controller="Search">
       <div class="col s12" style="margin: 20px;">
         <center>
-          <input id="mysearch" value="Procurar" style="width: 300px;">
-          <a id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
+          <input id="mysearch" placeholder="Procurar" style="width: 300px;">
+          <a ng-click="click()" id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
         </center>
       </div>
     </div>
@@ -118,6 +118,7 @@
  <script src="js/controllers/news.js"></script>
  <script src="js/controllers/wotd.js"></script>
  <script src="js/controllers/random.js"></script>
+ <script src="js/controllers/search.js"></script>
 
 <script type="text/javascript">
   $( document ).ready(function(){

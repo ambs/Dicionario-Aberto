@@ -37,6 +37,14 @@ get '/news' => sub {
 	}
 };
 
+get '/word/**' => sub {
+	my ($x) = splat;
+	my $word = $x->[0];
+	my $sense = $x->[1];
+
+	return $DIC->retrieve_entry($word, $sense);
+};
+
 get '/random' => sub {
 	return { xml => $DIC->random };
 };
