@@ -58,7 +58,8 @@
       <div class="col s12" style="margin: 20px;">
         <center>
           <input id="mysearch" placeholder="Procurar" style="width: 300px;">
-          <a ng-click="click()" id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
+          <a ui-sref="search({word: 'cavalo'})" 
+          ui-sref-opts="{reload: true} id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
         </center>
       </div>
     </div>

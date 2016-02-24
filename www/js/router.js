@@ -15,7 +15,7 @@ angular.module('DA')
         templateUrl: 'views/random.html'
       })
       .state('search', {
-        url: '/search',
+        url: '/search/:word',
         templateUrl: 'views/search.html'
       })/*
      .state('dashboard', {
