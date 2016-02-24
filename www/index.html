@@ -31,42 +31,39 @@
   <body>
 
   <header>
-   
-
-
-<div class="navbar-fixed">
-  <nav class="blue lighten-5">
-    <div class="nav-wrapper">
-
-    <div class="left">
-   <ul>
-        <li><a href="#"><i class="material-icons">perm_identity</i></a></li>   
-    <li><a ui-sref="random" ui-sref-opts="{reload: true}"><i class="material-icons">loop</i></a></li>        
-        <li><a href="/browse"><i class="material-icons">sort_by_alpha</i></a></li>             
-        <li>
-        <form method="post" action="/search" id="pesquisa" enctype="multipart/form-data">
-        <div class="input-field">
-          <input id="search" type="search" required name="word">
-          <label for="search"><i class="material-icons">search</i></label>
-          <i onclick="$('#search').val('').focusout();" class="material-icons">close</i>
+    <div class="navbar-fixed">
+      <nav class="blue lighten-3">
+        <div class="nav-wrapper">
+          <div class="container" style="width: 90%">
+            <a href="/" class="brand-logo"><img src="./images/logo.png" alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
+            <ul class="right">
+              <li>
+                <a class="blue-text text-darken-4" ui-sref="random" ui-sref-opts="{reload: true}">
+                <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">loop</i>Palavra Aleatória</a>
+              </li>
+              <li>
+                <a class="blue-text text-darken-4" href="/browse">
+                <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">sort_by_alpha</i>Navegar Dicionário</a>
+              </li>
+            </ul>
+          </div>
         </div>
-        </form>
-        </li>
-        </ul>
+      </nav>
     </div>
-
-
-      <a href="/" class="brand-logo right">
-        <img src="./images/logo.png"
-             alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
-
-    </div>
-  </nav>
-</div>
-
   </header>
 
   <main>
+    <!-- search box -->
+    <div class="row">
+      <div class="col s12" style="margin: 20px;">
+        <center>
+          <input id="mysearch" value="Procurar" style="width: 300px;">
+          <a id="mysearchbtn" class="blue z-depth-0 waves-effect waves-light btn"><i id="mysearchbtni" class="material-icons">search</i></a>
+        </center>
+      </div>
+    </div>
+
+    <!-- main content -->
     <div class="container row">
        <div ui-view/></div>
     </div>

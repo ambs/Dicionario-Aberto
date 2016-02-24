@@ -41,24 +41,27 @@ h4.title {
   margin: 5px;
 }
 
-.nav-wrapper ul a:hover { background-color: #0d47a1; color: #ffffff;}
+#mysearch {
+  height: 28px;
+  margin-top: 18px;
+  border: 1px solid #ccc;
+  color: #999;
+  padding: 4px;
+  margin-left: 10px;
+}
 
-.nav-wrapper ul a { color: #0d47a1;}
+#mysearchbtn {
+  margin-top: 18px;
+  height: 27px;
+  width: 20px;
+  margin-top: -1px;
+  margin-right: 10px;
+}
 
-.nav-wrapper li {height: 64px;}
-.nav-wrapper form { height: 64px;}
+#mysearchbtni {
+  margin-top: -4px;
+  font-size: 21px;
+  margin-left: -10px;
+  color: white;
+}
 
-.nav-wrapper form .input-field > label        > i { color: #0d47a1; }
-.nav-wrapper form .input-field > label.active > i { color: #0d47a1; } 
-.nav-wrapper form:hover .input-field > label        > i { color: #FFF; }
-.nav-wrapper form:hover .input-field > label.active > i { color: #FFF; } 
-
-.nav-wrapper form > .input-field > label.active + i.active { color: #0d47a1; }
-.nav-wrapper form:hover > .input-field > label.active + i.active { color: #FFF; }
-
-
-.nav-wrapper .input-field input { color: #0d47a1;}
-.nav-wrapper .input-field input:focus { background-color: inherit; color: #0d47a1;}
-
-.nav-wrapper form:hover { background-color: #0d47a1;}
-.nav-wrapper form:hover .input-field input[type="search"]{ color: #FFF;}
