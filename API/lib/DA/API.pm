@@ -45,6 +45,11 @@ get '/word/**' => sub {
 	return $DIC->retrieve_entry($word, $sense);
 };
 
+get '/near/*' => sub {
+	my ($word) = splat;
+	return $DIC->near_misses($word);
+};
+
 get '/random' => sub {
 	return { xml => $DIC->random };
 };
