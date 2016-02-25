@@ -4,6 +4,8 @@ use 5.006;
 use strict;
 use warnings;
 
+use utf8;
+
 use Scalar::Util qw.blessed.;
 use DBI;
 
@@ -24,6 +26,9 @@ DA::Database - Module to manage Dicionario-Aberto DB
 Creates a new Dicionário-Aberto access object.
 
 =cut
+
+our @LETTERS = qw!a b c d e f g h i j k l m n o p q r s t u v w x y z
+                  ã õ á é í ó ú à è ì ò ù â ê î ô û ç ä ë ï ö ü ÿ ý ũ ẽ -!;
 
 sub new {
 	my $class = shift;
@@ -135,6 +140,91 @@ sub retrieve_news {
 	my $news = $sth->fetchall_arrayref({});
 
 	return $news;
+}
+
+
+
+
+
+sub _delete_queries {
+    my @ans;
+    for (0..length($_[0])-1) {
+        my $x = $_[0];
+        substr($x,$_,1) = "";
+        push @ans, $x;
+    }
+    \@ans;
+}
+
+sub _trs_queries {
+    my @ans;
+    for (0..length($_[0])-2) {
+        my $x = $_[0];
+        (substr($x,$_,1), substr($x,$_+1,1)) = (substr($x,$_+1,1),substr($x,$_,1));
+        push @ans, $x;
+    }
+    \@ans;
+}
+
+sub _replace_queries {
+    my @ans;
+    for (0..length($_[0])-1) {
+        my $x = $_[0];
+        substr($x,$_,1) = "_";
+        push @ans, $x;
+    }
+    \@ans;
+}
+
+sub _add_queries {
+    my @ans;
+    push @ans, "_$_[0]";
+    for (1..length($_[0])-1) {
+        my $x = $_[0];
+        substr($x,$_,0) = "_";
+        push @ans, $x;
+    }
+    push @ans, "$_[0]_";
+    \@ans;
+}
+
+sub near_misses {
+    my ($self, $word, %conf) = @_;
+    my $includeself = 1 if $conf{includeself};
+
+    my %WORDS;
+
+    my $deletions = _delete_queries($word);
+    my $trs       = _trs_queries($word);
+    $WORDS{$_}++ for (@$deletions, @$trs);
+
+    my $replaces  = _replace_queries($word);
+    my $additions = _add_queries($word);
+    for my $word (@$replaces, @$additions) {
+        for my $letter (@LETTERS) {
+            my $x = $word;
+            $x =~ s/_/$letter/;
+            $WORDS{$x}++
+        }
+    }
+
+    my $query = join(", ", map { "'$_'" } keys %WORDS);
+    %WORDS = ();
+
+    $query = "SELECT DISTINCT(word) FROM word WHERE word IN ($query)";
+    my $sth = $self->dbh->prepare($query);
+    return [] unless $sth;
+
+    $sth->execute();
+
+    my $val;
+    my @ANS = ();
+    while( ($val) = $sth->fetchrow_array) {
+        push @ANS, $val;
+    }
+    @ANS = grep { $_ ne $word } @ANS unless $includeself;
+
+    return \@ANS;
 }
 
 =head1 AUTHOR
