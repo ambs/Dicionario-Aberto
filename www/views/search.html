@@ -1,18 +1,42 @@
 
 <div id="results" ng-controller="Search">
-  <div class="col s8">
-    <div ng-repeat="entry in entries">
+
+  <div ng-if="entries.length > 0">
+
+    <div class="col s8">
+      <div ng-repeat="entry in entries">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title" ng-bind-html="entry.word"></span>
+            <p ng-bind-html="entry.def"></p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div> <!-- if -->
+
+  <div ng-if="entries.length < 1">
+    <div class="col s8">
       <div class="card">
         <div class="card-content">
-          <span class="card-title" ng-bind-html="entry.word"></span>
-          <p ng-bind-html="entry.def"></p>
+          <p>Palavra não encontrada</p>
         </div>
       </div>
-
     </div>
+  </div> <!-- if -->
 
-  </div>
+
   <div class="col s4">
-  	something in the future?
+    <div class="card">
+      <div class="card-content">
+        <span class="card-title">Ver também...</span>
+        <div ng-repeat="entry in near">
+          <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
+    	  </div>
+      </div>
+    </div>
   </div>
+
 </div>
+
