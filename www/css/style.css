@@ -65,3 +65,12 @@ h4.title {
   color: white;
 }
 
+.letterlnk {
+  text-transform: uppercase;
+}
+
+.lettersep {
+  padding-left: 4px;
+  padding-right: 4px;
+}
+

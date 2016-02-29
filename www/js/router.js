@@ -17,6 +17,10 @@ angular.module('DA')
       .state('search', {
         url: '/search/:word',
         templateUrl: 'views/search.html'
+      })
+      .state('browse', {
+        url: '/browse',
+        templateUrl: 'views/browse.html'
       })/*
      .state('dashboard', {
         url: '/dashboard',
