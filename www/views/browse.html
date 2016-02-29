@@ -1,0 +1,9 @@
+<div class="col s12" ng-controller="BrowseController">
+  <h4 class="title">navegar dicionário</h4>
+  <div id="letters" class="center-align">
+    <span ng-repeat="l in range('a','z')">
+      <a class="letterlnk" href="#">{{ l }}</a>
+      <span class="lettersep" ng-if="!$last">•</span>
+    </span>
+  </div>
+</div>
