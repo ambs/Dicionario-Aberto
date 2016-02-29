@@ -1,12 +1,26 @@
-
 <div id="results">
-<div class="col s8">
-  <div class="card" ng-controller="Random">
-    <div class="card-content">
-      <span class="card-title" ng-bind-html="word"></span>
-      <p ng-bind-html="def"></p>
+  <div class="col s8">
+    <div class="card" ng-controller="Random">
+      <div class="card-content">
+        <!-- loader -->
+        <div class="preloader-wrapper small active" ng-if="loading">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+        <!-- /loader -->
+        <div ng-ig="!loading">
+          <span class="card-title" ng-bind-html="word"></span>
+          <p ng-bind-html="def"></p>
+        </div>
+      </div>
     </div>
-  </div>
   </div>
   <div class="col s4">
   	something in the future?
