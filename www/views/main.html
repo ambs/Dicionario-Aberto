@@ -2,15 +2,29 @@
 <div id="news" class="col s6" ng-controller="NewsController">
   <h4 class="title">novidades</h4>
 
-  <ul class="collapsible" data-collapsible="accordion">    
-    <!-- FIXME: probably we can make the controller use an
-         extra parameter so the query to the dtabase can do
-         the LIMIT instead of making it here? -->
-    <li ng-repeat="n in news">
-      <div class="collapsible-header"><b>{{ n.date | myDate }}</b> &middot; {{ n.title }}</div>
-      <div class="collapsible-body"><p ng-bind-html="n.text"></p></div>
-    </li> 
-   </ul>
+   <!-- loader -->
+    <div class="preloader-wrapper small active" ng-if="loading">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /loader -->
+    <div ng-ig="!loading">
+ 
+
+      <ul class="collapsible" data-collapsible="accordion">    
+        <li ng-repeat="n in news">
+          <div class="collapsible-header"><b>{{ n.date | myDate }}</b> &middot; {{ n.title }}</div>
+          <div class="collapsible-body"><p ng-bind-html="n.text"></p></div>
+        </li> 
+       </ul>
+    </div>
 
 <!--
    <div class="more">
@@ -51,8 +65,23 @@
 
   <div class="card" ng-controller="DailyWord">
     <div class="card-content">
-      <span class="card-title" ng-bind-html="word"></span>
-      <p ng-bind-html="def"></p>
+      <!-- loader -->
+      <div class="preloader-wrapper small active" ng-if="loading">
+        <div class="spinner-layer spinner-blue-only">
+          <div class="circle-clipper left">
+            <div class="circle"></div>
+          </div><div class="gap-patch">
+            <div class="circle"></div>
+          </div><div class="circle-clipper right">
+            <div class="circle"></div>
+          </div>
+        </div>
+      </div>
+      <!-- /loader -->
+      <div ng-ig="!loading">
+        <span class="card-title" ng-bind-html="word"></span>
+        <p ng-bind-html="def"></p>
+      </div>
     </div>
 
   </div>
