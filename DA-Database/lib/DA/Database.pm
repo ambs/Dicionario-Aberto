@@ -95,7 +95,7 @@ sub browse_by_letter {
   $offset = 0 unless $offset;
   my $limit = 10;
 
-  my $sth = $self->dbh->prepare("SELECT * FROM `word` WHERE `word` LIKE ? LIMIT $limit OFFSET $offset");
+  my $sth = $self->dbh->prepare("SELECT * FROM `word` WHERE `word` LIKE ? AND deleted = 0 LIMIT $limit OFFSET $offset");
   $sth->execute($like);
 
   my @words;
