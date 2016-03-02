@@ -50,6 +50,12 @@ get '/near/*' => sub {
 	return $DIC->near_misses($word);
 };
 
+get '/browse/:letter' => sub {
+  my $letter = param('letter');
+
+  return $DIC->browse_by_letter($letter);
+};
+
 get '/random' => sub {
 	return { xml => $DIC->random };
 };

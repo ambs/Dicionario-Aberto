@@ -89,6 +89,23 @@ sub revision_from_wid {
 	return $xml;
 }
 
+sub browse_by_letter {
+  my ($self, $letter, $offset) = @_;
+  my $like = lc($letter) . '%';
+  $offset = 0 unless $offset;
+  my $limit = 10;
+
+  my $sth = $self->dbh->prepare("SELECT * FROM `word` WHERE `word` LIKE ? LIMIT $limit OFFSET $offset");
+  $sth->execute($like);
+
+  my @words;
+  while (my $row = $sth->fetchrow_hashref) {
+    push @words, $row;
+  }
+
+  return [@words];
+}
+
 sub wotd {
 	my ($self) = @_;
 	my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
