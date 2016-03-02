@@ -2,8 +2,28 @@
   <h4 class="title">navegar dicionário</h4>
   <div id="letters" class="center-align">
     <span ng-repeat="l in range('a','z')">
-      <a class="letterlnk" href="#">{{ l }}</a>
+      <a ng-if="l != curr.letter" ui-sref="browse({letter: l})" class="letterlnk">{{ l }}</a>
+      <span ng-if="l == curr.letter" class="letterlnk">{{ l }}</span>
       <span class="lettersep" ng-if="!$last">•</span>
     </span>
+  </div>
+  <div class="row" style="margin-top: 20px;">
+    <div class="col s9">
+      <h4 class="title" style="text-align: left;">{{ curr.word }}</h4>
+      <div ng-repeat="entry in entries">
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title" ng-bind-html="entry.word"></span>
+            <p ng-bind-html="entry.def"></p>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col s3">
+      <h4 class="title" style="text-align: right;">{{ curr.letter }}</h4>
+      <div class="collection align-right">
+        <a ng-repeat="w in words" ng-click="select(w.word)" style="cursor: pointer;" class="collection-item" style="color: #039be5;" ng-class="{ active: curr.word == w.word }">{{ w.word }}</a>
+      </div>
+    </div>
   </div>
 </div>

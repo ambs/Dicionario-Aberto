@@ -19,7 +19,7 @@ angular.module('DA')
         templateUrl: 'views/search.html'
       })
       .state('browse', {
-        url: '/browse',
+        url: '/browse/:letter',
         templateUrl: 'views/browse.html'
       })/*
      .state('dashboard', {

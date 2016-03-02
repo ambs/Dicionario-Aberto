@@ -35,14 +35,14 @@
       <nav class="blue lighten-3">
         <div class="nav-wrapper">
           <div class="container" style="width: 90%">
-            <a href="/" class="brand-logo"><img src="./images/logo.png" alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
+            <a ui-sref="main" class="brand-logo"><img src="./images/logo.png" alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
             <ul class="right">
               <li ui-sref-active="active">
                 <a class="blue-text text-darken-4" ui-sref="random" ui-sref-opts="{reload: true}">
                 <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">loop</i>Palavra Aleatória</a>
               </li>
               <li ui-sref-active="active">
-                <a class="blue-text text-darken-4" ui-sref="browse">
+                <a class="blue-text text-darken-4" ui-sref="browse({letter: 'a'})">
                 <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">sort_by_alpha</i>Navegar Dicionário</a>
               </li>
             </ul>
