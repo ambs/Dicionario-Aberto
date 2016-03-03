@@ -1,41 +1,71 @@
 
 <div id="results" ng-controller="Search">
+  
+  <div class="col s8">
+    <!-- loader -->
+    <div class="preloader-wrapper small active"
+         ng-if="mainLoading">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
+        </div>
+      </div>
+    </div>
+    <!-- /loader -->
+    <div ng-if="!mainLoading">    
+      <div ng-if="entries.length > 0">
+        <div ng-repeat="entry in entries">
+          <div class="card">
+            <div class="card-content">
+              <span class="card-title" ng-bind-html="entry.word"></span>
+              <p ng-bind-html="entry.def"></p>
+            </div>
+          </div>
 
-  <div ng-if="entries.length > 0">
+        </div>
+      </div> <!-- if -->
 
-    <div class="col s8">
-      <div ng-repeat="entry in entries">
+      <div ng-if="entries.length < 1">
         <div class="card">
           <div class="card-content">
-            <span class="card-title" ng-bind-html="entry.word"></span>
-            <p ng-bind-html="entry.def"></p>
+            <p>Palavra não encontrada</p>
           </div>
         </div>
+      </div> <!-- if -->
+    </div>  
+  </div><!-- col s8 -->
 
-      </div>
-    </div>
-  </div> <!-- if -->
+  <div class="col s4">
 
-  <div ng-if="entries.length < 1">
-    <div class="col s8">
-      <div class="card">
-        <div class="card-content">
-          <p>Palavra não encontrada</p>
+    <!-- loader -->
+    <div class="preloader-wrapper small active"
+         ng-if="nearLoading">
+      <div class="spinner-layer spinner-blue-only">
+        <div class="circle-clipper left">
+          <div class="circle"></div>
+        </div><div class="gap-patch">
+          <div class="circle"></div>
+        </div><div class="circle-clipper right">
+          <div class="circle"></div>
         </div>
       </div>
     </div>
-  </div> <!-- if -->
+    <!-- /loader -->
+    <div ng-if="!nearLoading">    
 
-
-  <div class="col s4">
-    <div class="card">
-      <div class="card-content">
-        <span class="card-title">Ver também...</span>
-        <div ng-repeat="entry in near">
-          <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
-    	  </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Ver também...</span>
+          <div ng-repeat="entry in near">
+            <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
+      	  </div>
+        </div>
       </div>
-    </div>
+    </div> <!-- nearLoading -->
   </div>
 
 </div>
