@@ -57,14 +57,16 @@
     <!-- /loader -->
     <div ng-if="!nearLoading">    
 
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Ver também...</span>
-          <div ng-repeat="entry in near">
-            <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
-      	  </div>
+      <div ng-if='near.length > 0'>
+        <div class="card">
+          <div class="card-content">
+            <span class="card-title">Ver também...</span>
+            <div ng-repeat="entry in near">
+              <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
+        	  </div>
+          </div>
         </div>
-      </div>
+      </div> <!-- near.length > 0 -->        
     </div> <!-- nearLoading -->
   </div>
 
