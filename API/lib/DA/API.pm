@@ -51,9 +51,11 @@ get '/near/*' => sub {
 };
 
 get '/browse/:letter' => sub {
-  my $letter = param('letter');
+  my ($letter) = param('letter');
 
-  return $DIC->browse_by_letter($letter);
+  my $idx = $DIC->get_browse_letter_position($letter);
+
+  return $DIC->get_browse_range($idx);
 };
 
 get '/random' => sub {

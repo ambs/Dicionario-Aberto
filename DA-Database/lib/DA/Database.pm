@@ -89,21 +89,44 @@ sub revision_from_wid {
 	return $xml;
 }
 
-sub browse_by_letter {
-  my ($self, $letter, $offset) = @_;
-  my $like = lc($letter) . '%';
-  $offset = 0 unless $offset;
-  my $limit = 10;
+sub get_browse_range {
+  my ($self, $position) = @_;
 
-  my $sth = $self->dbh->prepare("SELECT * FROM `word` WHERE `word` LIKE ? AND deleted = 0 LIMIT $limit OFFSET $offset");
-  $sth->execute($like);
+  my $margin = 7;
+  my $lower  = $position - $margin;
+  my $higher = $position + $margin;
+  my $range  = ($margin - 1) * 2 + 1;
 
-  my @words;
-  while (my $row = $sth->fetchrow_hashref) {
-    push @words, $row;
+  my $sth = $self->dbh->prepare(<<"---");
+  SELECT idx, word FROM browse_idx
+  WHERE idx > ? AND idx < ? ORDER BY idx
+---
+  $sth->execute($lower, $higher);
+
+  my $cword = "";
+  my @words = ();
+  while (my ($id, $word) = $sth->fetchrow_array) {
+    push @words, { id => $id , word => $word} ;
+    $cword = $word if $id == $position;
   }
 
-  return [@words];
+  return { words => \@words, cword => $cword };
+}
+
+sub get_browse_letter_position {
+  my ($self, $letter) = @_;
+
+  my $l = lc $letter;
+  my $ll = "$l%";
+  my $sth = $self->dbh->prepare(<<"---");
+   SELECT idx FROM browse_idx
+      WHERE word = ? OR word LIKE ? 
+      ORDER BY idx LIMIT 1
+---
+  $sth->execute($l, $ll);
+  my ($position) = $sth->fetchrow_array;
+
+  return $position;
 }
 
 sub wotd {
