@@ -12,6 +12,7 @@ $mod.controller('BrowseController',
           if (response.status === 200) {
             $scope.words = response.data.words;
             $scope.curr.word = response.data.cword;
+            $scope.curr.id  = response.data.cid;
             $scope.select($scope.curr.word);
 
             $scope.loading_words = false;

@@ -29,14 +29,35 @@
 
     <div class="col s3">
 
-  <!-- <i class="material-icons">skip_previousa</i>
-  <i class="material-icons">fast_rewind</i>
-  <i class="material-icons">fast_forward</i>
-  <i class="material-icons">skip_next</i> -->
+  
+    
 
 <!--      <h4 class="title" style="text-align: right;">{{ curr.letter }}</h4> -->
-      <div class="collection align-right">
-        <a ng-repeat="w in words" ng-click="select(w.word)" style="cursor: pointer;" class="collection-item" style="color: #039be5;" ng-class="{ active: curr.word == w.word }">{{ w.word }}</a>
+      <div class="collection align-right browse">
+        <div class="row browse-item collection-header">
+
+          <div class="col s3">
+            <span ng-if="words[0].id > 100"><i class="my-link material-icons">skip_previous</i></span>
+            <span ng-if="words[0].id <= 100">&nbsp;</span>
+          </div>
+
+          <div class="col s3">
+            <span ng-if="words[0].id > 10"><i class="my-link material-icons">fast_rewind</i></span>
+            <span ng-if="words[0].id <= 10">material-icons&nbsp;</span>
+          </div>
+
+          <!-- this one is cheating -->
+          <div ng-if="words[words.length-1].id - curr.id > 5">
+            <div class="col s3"><i class="my-link material-icons">fast_forward</i></div>
+            <div class="col s3"><i class="my-link material-icons">skip_next</i></div>
+          </div>
+          <div ng-if="words[words.length-1].id - curr.id <= 5">          
+            <div class="col s3">&nbsp;</div>
+            <div class="col s3">&nbsp;</div>
+          </div>
+        </div>
+
+        <a ng-repeat="w in words" ng-click="select(w.word)" class="my-link browse-item collection-item"  ng-class="{ active: curr.word == w.word }">{{ w.word }}</a>
       </div>
     </div>
   </div>

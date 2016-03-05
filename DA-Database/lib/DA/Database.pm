@@ -104,13 +104,17 @@ sub get_browse_range {
   $sth->execute($lower, $higher);
 
   my $cword = "";
+  my $cid = 0;
   my @words = ();
   while (my ($id, $word) = $sth->fetchrow_array) {
     push @words, { id => $id , word => $word} ;
-    $cword = $word if $id == $position;
+    if ($id == $position) {
+      $cword = $word;
+      $cid = $id;
+    }
   }
 
-  return { words => \@words, cword => $cword };
+  return { words => \@words, cword => $cword, cid => $cid };
 }
 
 sub get_browse_letter_position {

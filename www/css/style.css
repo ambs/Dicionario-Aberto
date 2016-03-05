@@ -74,3 +74,16 @@ h4.title {
   padding-right: 4px;
 }
 
+/* #### BROWSe STUFF */
+
+.browse .browse-item {
+  margin: 0px;
+  padding: 4px 10px 4px 10px;
+}
+
+.my-link {
+  cursor: pointer;
+}
+
+
+
