@@ -50,6 +50,11 @@ get '/near/*' => sub {
 	return $DIC->near_misses($word);
 };
 
+get qr'/browse/(\d+)' => sub {
+	my ($idx) = splat;
+    return $DIC->get_browse_range($idx);
+};
+
 get '/browse/:letter' => sub {
   my ($letter) = param('letter');
 
