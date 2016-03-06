@@ -92,6 +92,14 @@ sub revision_from_wid {
 sub get_browse_range {
   my ($self, $position) = @_;
 
+  my $mSth = $self->dbh->prepare(<<"---");
+  SELECT MAX(idx) FROM browse_idx;
+---
+  $mSth->execute();
+  my ($max) = $mSth->fetchrow_array;
+
+  $position = $max if $position > $max;
+
   my $margin = 7;
   my $lower  = $position - $margin;
   my $higher = $position + $margin;

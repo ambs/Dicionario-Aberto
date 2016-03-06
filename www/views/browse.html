@@ -37,19 +37,19 @@
         <div class="row browse-item collection-header">
 
           <div class="col s3">
-            <span ng-if="words[0].id > 100"><i class="my-link material-icons">skip_previous</i></span>
+            <span ng-if="words[0].id > 100"><a ng-click="browseIdx(words[0].id-100)" class="my-link material-icons">skip_previous</a></span>
             <span ng-if="words[0].id <= 100">&nbsp;</span>
           </div>
 
           <div class="col s3">
-            <span ng-if="words[0].id > 10"><i class="my-link material-icons">fast_rewind</i></span>
-            <span ng-if="words[0].id <= 10">material-icons&nbsp;</span>
+            <span ng-if="words[0].id > 10"><a ng-click="browseIdx(words[0].id-6)" class="my-link material-icons">fast_rewind</a></span>
+            <span ng-if="words[0].id <= 10">&nbsp;</span>
           </div>
 
           <!-- this one is cheating -->
           <div ng-if="words[words.length-1].id - curr.id > 5">
-            <div class="col s3"><i class="my-link material-icons">fast_forward</i></div>
-            <div class="col s3"><i class="my-link material-icons">skip_next</i></div>
+            <div class="col s3"><a ng-click="browseIdx(1*words[0].id+18)" class="my-link material-icons">fast_forward</a></div>
+            <div class="col s3"><a ng-click="browseIdx(1*words[0].id+100)" class="my-link material-icons">skip_next</a></div>
           </div>
           <div ng-if="words[words.length-1].id - curr.id <= 5">          
             <div class="col s3">&nbsp;</div>
