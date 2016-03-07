@@ -81,6 +81,18 @@ get '/new/*' => sub {
 	}
 };
 
+get '/stats/size' => sub {
+	return $DIC->words_by_size();
+};
+
+get '/stats/moderation' => sub {
+	return $DIC->moderation_stats();
+};
+
+get '/stats/letter' => sub {
+	return $DIC->words_by_letter();
+};
+
 sub my_error {
 	my $error = shift;
 	return { error => $error };

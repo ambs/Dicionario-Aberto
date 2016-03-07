@@ -279,6 +279,78 @@ sub near_misses {
     return \@ANS;
 }
 
+sub words_by_letter {
+  my $self = shift;
+  my $ans = $self->dbh->selectall_arrayref(<<"---");
+  SELECT substr(normalized,1,1) AS letter, COUNT(word) FROM word GROUP BY letter ORDER BY letter;
+---
+
+  my $data;
+  while (my $pair = shift(@$ans)) {
+    push @{$data->{axis}}   => $pair->[0];
+    push @{$data->{values}} => $pair->[1]*1;
+  }
+
+  return $data;
+}
+
+sub words_by_size {
+  my $self = shift;
+  my $sth = $self->dbh->prepare(<<"---");
+SELECT tamanho, COUNT(tamanho) FROM
+   (SELECT LENGTH(word) AS tamanho FROM word) AS tamanhos GROUP BY tamanho ORDER BY tamanho
+---
+  $sth->execute();
+  my $data;
+  my $ans = $sth->fetchall_arrayref;
+  while (my $pair = shift(@$ans)) {
+    push @{$data->{axis}}   => $pair->[0]*1;
+    push @{$data->{values}} => $pair->[1]*1;
+  }
+  return $data;
+}
+
+sub moderation_stats {
+  my $self = shift;
+  my ($D, $M, $T);
+  my $totals = $self->dbh->selectall_hashref(<<"---", 'letter');
+   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word group by letter order by letter;
+---
+
+  my $deleted = $self->dbh->selectall_hashref(<<"---", 'letter');
+   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
+                                                       on word.word_id = revision.word_id
+                                                    where revision.deleted = 1 and revision_id = 2
+                                                 group by letter order by letter;
+---
+
+  my $moderated = $self->dbh->selectall_hashref(<<"---", 'letter');
+    SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
+                                                       on word.word_id = revision.word_id
+                                                    where revision.deleted = 0 AND
+                                              revision.moderator is not null and revision_id = 2
+                                                 group by letter order by letter;
+---
+
+    for ('a'..'z') {
+        my $t = $totals->{$_}{'COUNT(word)'};
+        my $d = $deleted->{$_}{'COUNT(word)'} || 0;
+        my $m = $moderated->{$_}{'COUNT(word)'} || 0;
+
+        push @$D => 0+$d;
+        push @$M => 0+$m;
+        push @$T => 0+($t-$d-$m);
+    }
+
+    return { letters => ['a'..'z'],
+             data => [
+                      { name => 'apagadas',    color => '#BB6666', data => $D },
+                      { name => 'aprovadas',   color => '#45A772', data => $M },
+                      { name => 'por moderar', color => '#4572A7', data => $T },
+                     ]
+           }; 
+}
+
 =head1 AUTHOR
 
 Alberto Simoes, C<< <ambs at cpan.org> >>

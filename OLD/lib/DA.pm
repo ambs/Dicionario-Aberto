@@ -440,9 +440,9 @@ get '/ajax/news' => sub {
 
 get '/news'   => sub { template 'news'     => { news => get_news() }  };
 
-get '/stats'  => sub {
-	template 'stats'
-};
+# get '/stats'  => sub {
+# 	template 'stats'
+# };
 
 get '/login'  => sub { template 'login'                               };
 
@@ -581,32 +581,32 @@ prefix "/ajax" => sub {
     };
 
 
-	post "/wordModStatus" => sub {
-        content_type "json";
-        to_json(DA::Database->moderation_stats());
-    };
+	# post "/wordModStatus" => sub {
+ #        content_type "json";
+ #        to_json(DA::Database->moderation_stats());
+ #    };
 
-    post "/wordsByLetter" => sub {
-        my $ans = database->selectall_arrayref("SELECT substr(normalized,1,1) AS letter, COUNT(word) FROM word GROUP BY letter ORDER BY letter;");
-        my $data;
-        while (my $pair = shift(@$ans)) {
-            push @{$data->{axis}}   => $pair->[0];
-            push @{$data->{values}} => $pair->[1]*1;
-        }
-        content_type "json";
-        to_json($data);
-    };
+    # post "/wordsByLetter" => sub {
+    #     my $ans = database->selectall_arrayref("SELECT substr(normalized,1,1) AS letter, COUNT(word) FROM word GROUP BY letter ORDER BY letter;");
+    #     my $data;
+    #     while (my $pair = shift(@$ans)) {
+    #         push @{$data->{axis}}   => $pair->[0];
+    #         push @{$data->{values}} => $pair->[1]*1;
+    #     }
+    #     content_type "json";
+    #     to_json($data);
+    # };
 
-    post "/wordsBySize" => sub {
-        my $ans = database->selectall_arrayref("SELECT tamanho,COUNT(tamanho) FROM (SELECT LENGTH(word) AS tamanho FROM word) AS tamanhos GROUP BY tamanho ORDER BY tamanho;");
-        my $data;
-        while (my $pair = shift(@$ans)) {
-            push @{$data->{axis}}   => $pair->[0]*1;
-            push @{$data->{values}} => $pair->[1]*1;
-        }
-        content_type "json";
-        to_json($data);
-    };    
+    # post "/wordsBySize" => sub {
+    #     my $ans = database->selectall_arrayref("SELECT tamanho,COUNT(tamanho) FROM (SELECT LENGTH(word) AS tamanho FROM word) AS tamanhos GROUP BY tamanho ORDER BY tamanho;");
+    #     my $data;
+    #     while (my $pair = shift(@$ans)) {
+    #         push @{$data->{axis}}   => $pair->[0]*1;
+    #         push @{$data->{values}} => $pair->[1]*1;
+    #     }
+    #     content_type "json";
+    #     to_json($data);
+    # };    
 
     get '/userAvailable' => sub {
         DA::Users->existe(param 'username') ? 'false' : 'true';
