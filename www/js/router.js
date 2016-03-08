@@ -21,6 +21,10 @@ angular.module('DA')
       .state('browse', {
         url: '/browse/:letter',
         templateUrl: 'views/browse.html'
+      })
+      .state('stats', {
+        url: '/stats',
+        templateUrl: 'views/stats.html'
       })/*
      .state('dashboard', {
         url: '/dashboard',
