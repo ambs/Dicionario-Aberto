@@ -25,6 +25,10 @@ angular.module('DA')
       .state('stats', {
         url: '/stats',
         templateUrl: 'views/stats.html'
+      })
+      .state('legal', {
+        url: '/legal',
+        templateUrl: 'views/legal.html'
       })/*
      .state('dashboard', {
         url: '/dashboard',
