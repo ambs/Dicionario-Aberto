@@ -26,9 +26,9 @@ angular.module('DA')
         url: '/stats',
         templateUrl: 'views/stats.html'
       })
-      .state('legal', {
-        url: '/legal',
-        templateUrl: 'views/legal.html'
+      .state('about', {
+        url: '/about',
+        templateUrl: 'views/about.html'
       })/*
      .state('dashboard', {
         url: '/dashboard',
