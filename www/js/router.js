@@ -42,6 +42,10 @@ angular.module('DA')
         url: '/geo',
         templateUrl: 'views/geo.html'
       })
-          ;
+      .state('history', {
+        url: '/history',
+        templateUrl: 'views/history.html'
+      })
+      ;
 
   });
