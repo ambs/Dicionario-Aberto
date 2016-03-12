@@ -3,7 +3,7 @@
 var $mod = angular.module('DA');
 
 $mod.controller('SignIn',
-	function($scope, $http, $state, API) {
+	function($scope, $http, $window, $state, API) {
 
 		$scope.auth = { username: '', password: '' };
 
@@ -13,7 +13,7 @@ $mod.controller('SignIn',
           			.post(API + '/auth', $scope.auth)
 	            	.then( function(response) {
       		 	   		if (response.data.success) {
-							$window.sessionStorage.token = response.data.token;
+							$window.sessionStorage.token    = response.data.token;
 							$window.sessionStorage.username = $scope.auth.username;
               
 							$state.go('index');
