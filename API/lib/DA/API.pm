@@ -4,6 +4,7 @@ use DA::Database;
 
 use Dancer2;
 use Dancer2::Plugin::Database;
+use Dancer2::Plugin::JWT;
 
 use XML::XML2JSON;
 
@@ -92,6 +93,21 @@ get '/stats/moderation' => sub {
 get '/stats/letter' => sub {
 	return $DIC->words_by_letter();
 };
+
+
+
+post '/auth' => sub {
+	my ($password, $username) = (param ("password"), param ("username"));
+
+	if ($DIC->authenticate($username, $password)) {
+		jwt { username => $username };
+		return { success => "User $username authenticated"};
+	} else {
+		jwt {};
+		return { error => "Invalid user/password"};
+	}
+};
+
 
 sub my_error {
 	my $error = shift;

@@ -197,14 +197,14 @@ A equipa do Dicionário Aberto.
 EOT
 }
 
-sub autenticado {
-    my ($self, $user, $pass) = @_;
-    $pass = md5_hex $pass;
+# sub autenticado {
+#     my ($self, $user, $pass) = @_;
+#     $pass = md5_hex $pass;
 
-    return database->quick_select( user => { username => $user,
-                                             password => $pass,
-                                             banned   => 0 }) ? true : false;
-}
+#     return database->quick_select( user => { username => $user,
+#                                              password => $pass,
+#                                              banned   => 0 }) ? true : false;
+# }
 
 sub reportado {
     my ($self, $user) = @_;

@@ -1,6 +1,7 @@
 # requires "DA::Database"       => "0";
 requires "Dancer2"            => "0.166001";
 requires "Dancer2::Plugin::Database"  => "0";
+requires "Dancer2::Plugin::JWT" => "0";
 requires "DBD::mysql"         => "0";
 
 requires "YAML"             => "0";

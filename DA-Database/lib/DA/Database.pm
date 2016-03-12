@@ -7,6 +7,7 @@ use warnings;
 use utf8;
 
 use Scalar::Util qw.blessed.;
+use Digest::MD5 'md5_hex';
 use DBI;
 
 =head1 NAME
@@ -88,6 +89,19 @@ sub revision_from_wid {
 	my ($xml) = $sth->fetchrow_array;
 	return $xml;
 }
+
+sub authenticate {
+  my ($self, $user, $password) = @_;
+  $password = md5_hex $password;
+
+  my $sth = $self->dbh->prepare(<<"---");
+    SELECT * FROM user WHERE username = ? AND password = ? and banned = 0;
+---
+  $sth->execute($user, $password);
+  my @row = $sth->fetchrow_array();
+  return @row ? 1 : 0;
+}
+
 
 sub get_browse_range {
   my ($self, $position) = @_;

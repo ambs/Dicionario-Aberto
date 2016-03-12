@@ -3,16 +3,17 @@
   <h4 class="title">entrar</h4>
 	<div class="card">
 		<div class="card-content">
+			<form>
 			<label for="inUser">Utilizador</label>
-			<input id="inUser" type="text" placeholder="username" />
+			<input id="inUser" type="text" placeholder="username"  ng-model="auth.username"/>
 
 			<label for="inPass">Senha</label>
-			<input id="inPass" type="password" />
+			<input id="inPass" type="password" ng-model="auth.password"/>
 
 			<div style="text-align: right;">
-				<button>Entrar</button>
+				<button ng-click="login()" type="submit" class="waves-effect waves-light btn">Entrar</button>
 			</div>	
-			
+			</form>
 		</div>
 	</div>
 
