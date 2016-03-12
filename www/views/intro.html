@@ -1,7 +1,10 @@
-<div class="col s12">
-  <h4 class="title">Sobre o Dicionário</h4>
+<div class="col s12" ng-controller="Scroller">
+  <h4 class="title">introdução</h4>
   <div class="container">
-     <h1>Introdução</h1>
+
+  <style type="text/css">
+  hr { border: none; padding-top: 60px; }
+  </style>
 
     <p class="justify">Redigido em harmonia com os modernos princípios da sciência da
       linguagem, e em que se contém quási o dôbro dos vocábulos até
@@ -12,20 +15,22 @@
 
     <p class="justify">Essencialmente refundida, corrigida e copiosamente ampliada.</p>
 
-    <div style="text-align: left">
-    <ul>
-      <li><a href="#chapI">Razão da obra</a></li>
-      <li><a href="#chapII">Materiaes da obra</a></li>
-      <li><a href="#chapIII">Processo da obra</a></li>
-      <li><a href="#chapIV">A orthographia</a></li>
-      <li><a href="#chapV">A pronúncia</a></li>
-      <li><a href="#chapVI">A accentuação gráphica</a></li>
-      <li><a href="#chapVII">A etymologia</a></li>
-      <li><a href="#chapVIII">A grammática</a></li>
-    </ul>
+    <div style="text-align: left;">
+    <ol style="list-style-type: upper-roman;">
+      <li><a ng-click="scrollTo('chapI')">Razão da obra</a></li>
+      <li><a ng-click="scrollTo('chapII')">Materiaes da obra</a></li>
+      <li><a ng-click="scrollTo('chapIII')">Processo da obra</a></li>
+      <li><a ng-click="scrollTo('chapIV')">A orthographia</a></li>
+      <li><a ng-click="scrollTo('chapV')">A pronúncia</a></li>
+      <li><a ng-click="scrollTo('chapVI')">A accentuação gráphica</a></li>
+      <li><a ng-click="scrollTo('chapVII')">A etymologia</a></li>
+      <li><a ng-click="scrollTo('chapVIII')">A grammática</a></li>
+    </ol>
     </div>
 
-    <h2 id="chapI">I - Razão da obra</h2>
+    <hr id="chapI"/>
+
+    <h5>I - Razão da obra</h5>
 
     <p class="justify">A história dos diccionários da língua portuguesa, de par com
       alguns deploráveis documentos de insciência, de leviandade e de
@@ -175,7 +180,9 @@
       durante vinte e dois annos, despendi larga parte dos meus
       cuidados e trabalho.</p>
 
-    <h2 id="chapII">II - Materiaes da obra</h2>
+    <hr id="chapII"/>
+
+    <h5>II - Materiaes da obra</h5>
 
 
     <p class="justify">Nado e criado entre as serranias da Beira, nunca achei
@@ -685,7 +692,9 @@
       não podendo têr tudo, tivesse ao menos alguma coisa de tudo e de
       novo.</p>
 
-    <h2 id="chapIII">III - Processo da obra</h2>
+    <hr id="chapIII"/>
+
+    <h5>III - Processo da obra</h5>
 
     <p class="justify">Reunidos os materiaes através de duas dezenas de annos e á
       custa de incompensáveis fadigas, dois caminhos se me antolhavam:
@@ -843,7 +852,9 @@
       natural ou primitiva, consignando sucessivamente a extensiva e a
       figurada, quando para um vocábulo há variedade de accepções.</p>
 
-    <h2 id="chapIV">IV - A orthographia</h2>
+    <hr id="chapIV"/>
+
+    <h5>IV - A orthographia</h5>
 
     <p class="justify">A orthographia, que, para os antigos padres-mestres, era uma
       parte da grammática, está reduzida actualmente a um intricado e
@@ -1287,7 +1298,9 @@
     portuguesa não há o suffixo <i>isar</i>, mas <i>izar</i>, do
     grego <i>izein</i>: <i>realizar</i>, <i>civilizar</i>, <i>idealizar</i>...</p>
   
-  <h2 id="chapV">V - A pronúncia</h2>
+  <hr id="chapV"/>
+
+  <h5>V - A pronúncia</h5>
 
   <p class="justify">A fixação e representação da pronúncia é uma das mais graves
     difficuldades, com que pódem defrontar diccionaristas
@@ -1447,7 +1460,9 @@
     determinação da vogal tónica, naturalmente nos abeiramos do
     problema da accentuação gráphica[<a href="#nota6">6</a>].</p>
 
-  <h2 id="chapVI">VI - A accentuação gráphica</h2>
+  <hr id="chapVI"/>
+
+  <h5>VI - A accentuação gráphica</h5>
 
   <p class="justify">Muitos diccionários portugueses e estrangeiros representam a
     pronúncia das palavras, escrevendo-as sonicamente; em
@@ -1814,7 +1829,9 @@
 
   <p class="justify">O autor propõe; os mais entendidos e o público dispõem.[<a href="#nota8">8</a>]</p>
 
-  <h2 id="chapVII">VII - A etymologia</h2>
+  <hr id="chapVII"/>
+
+  <h5>VII - A etymologia</h5>
 
   <p class="justify">Para o commum dos leitores, não tem elevado valor a parte
     etymológica de um diccionário; mas, para a história da língua,
@@ -1931,7 +1948,9 @@
       por <i>u</i>, e nisto vou de acôrdo com a prática de quem mais
       sabe, embora em desacôrdo com a de talentosos hellenistas.</p>
 
-    <h2 id="chapVIII">VIII - A grammática</h2>
+    <hr id="chapVIII"/>
+
+    <h5>VIII - A grammática</h5>
 
   <p class="justify">Desde que se divulgou a notícia do próximo apparecimento
     do <i>Novo Diccionário da Língua Portuguesa</i>, mais de um dos
