@@ -33,6 +33,15 @@ angular.module('DA')
      .state('intro', {
         url: '/intro',
         templateUrl: 'views/intro.html'
-      });
+      })
+      .state('abbrev', {
+        url: '/abbrev',
+        templateUrl: 'views/abbrev.html'
+      })
+      .state('geo', {
+        url: '/geo',
+        templateUrl: 'views/geo.html'
+      })
+          ;
 
   });
