@@ -28,6 +28,9 @@ function format_entry(xml) {
 		"term"      : function(c) { return nbsp + el("a", c, {"href":"#"})},
 		"ref"       : div,
 
+		"cit"       : id,
+		"quote"     : id, 
+
 		"#document" : id,
 		"#text"     : function(c) { return c.replace(/^[\s\n]+|[\s\n]+$/g, "")},
 

@@ -46,6 +46,10 @@ angular.module('DA')
         url: '/history',
         templateUrl: 'views/history.html'
       })
+      .state('login', {
+        url: '/login',
+        templateUrl: 'views/login.html'
+      })      
       ;
 
   });
