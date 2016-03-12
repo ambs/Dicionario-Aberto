@@ -29,10 +29,10 @@ angular.module('DA')
       .state('about', {
         url: '/about',
         templateUrl: 'views/about.html'
-      })/*
-     .state('dashboard', {
-        url: '/dashboard',
-        templateUrl: 'views/dashboard.html'
-      })*/;
+      })
+     .state('intro', {
+        url: '/intro',
+        templateUrl: 'views/intro.html'
+      });
 
   });
