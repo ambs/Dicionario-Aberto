@@ -1,7 +1,7 @@
 
-<div id="results" ng-controller="Search">
+<div id="results" ng-controller="Search" class="row">
   
-  <div class="col s8">
+  <div class="col-md-8">
     <!-- loader -->
     <div class="preloader-wrapper small active"
          ng-if="mainLoading">
@@ -19,13 +19,13 @@
     <div ng-if="!mainLoading">    
       <div ng-if="entries.length > 0">
         <div ng-repeat="entry in entries">
-          <div class="card">
-            <div class="card-content">
-
-                 
-              <span class="card-title" ng-bind-html="entry.word"></span>
+     <div class="panel panel-info">
+  
+  <div class="panel-heading">
+    <h3 class="panel-title"  ng-bind-html="entry.word"></h3>
+  </div>                 
+<div class="panel-body">
               <p ng-bind-html="entry.def"></p>
-
             </div>
           </div>
 
@@ -33,16 +33,16 @@
       </div> <!-- if -->
 
       <div ng-if="entries.length < 1">
-        <div class="card">
-          <div class="card-content">
-            <p>Palavra não encontrada</p>
+<div class="panel panel-default">
+  <div class="panel-body">
+              <p>Palavra não encontrada</p>
           </div>
         </div>
       </div> <!-- if -->
     </div>  
-  </div><!-- col s8 -->
+  </div><!-- col-md-8 -->
 
-  <div class="col s4">
+  <div class="col-md-4">
 
     <!-- loader -->
     <div class="preloader-wrapper small active"
@@ -61,9 +61,13 @@
     <div ng-if="!nearLoading">    
 
       <div ng-if='near.length > 0'>
-        <div class="card">
-          <div class="card-content">
-            <span class="card-title">Ver também...</span>
+        <div class="panel panel-default">
+
+<div class="panel-heading">
+    <h3 class="panel-title">Ver também...</h3>
+  </div>                
+  <div class="panel-body">
+
             <div ng-repeat="entry in near">
               <div><a ui-sref="search({word: entry})" ui-sref-opts="{reload: true}">{{ entry }}</a></div>
         	  </div>
