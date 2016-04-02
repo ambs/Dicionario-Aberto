@@ -1,24 +1,20 @@
 <html ng-app="DA">
   <head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
     <link rel="shortcut icon" href="./images/favicon.gif"/>
 
     <title>Dicionário Aberto</title>
 
-    <!--Import Google Icon Font-->
-    <link href="http://fonts.googleapis.com/icon?family=Material+Icons"
-          rel="stylesheet"/>
-
-    <!--Import materialize.css-->
-     <link href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/css/materialize.min.css"
-          rel="stylesheet"/>
-
-
-    <!--Let browser know website is optimized for mobile-->
-    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>   
-    
-
-
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet"
+          href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" 
+          integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" 
+          crossorigin="anonymous">
 
 
     <!-- FIX ME ****************************************
@@ -35,48 +31,63 @@
   <body>
 
 
-
-  <header>
-    <div class="navbar-fixed">
-      <nav class="blue lighten-3">
-        <div class="nav-wrapper">
-          <div class="container" style="width: 90%">
-            <a ui-sref="main" class="brand-logo"><img src="./images/logo.png" alt="Dicionário-Aberto" title="Dicionário-Aberto"/></a>
-            <ul class="right">
-              <li ui-sref-active="active">
-                <a class="blue-text text-darken-4" ui-sref="random" ui-sref-opts="{reload: true}">
-                <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">loop</i>Palavra Aleatória</a>
-              </li>
-              <li ui-sref-active="active">
-                <a class="blue-text text-darken-4" ui-sref="browse({letter: 'a'})">
-                <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">sort_by_alpha</i>Navegar Dicionário</a>
-              </li>
-              <li ui-sref-active="active">
-                <a class="blue-text text-darken-4" ui-sref="login">
-                <i class="material-icons left" style="font-size: 21px; margin-right: 5px;">perm_identity</i>Entrar/Registar</a>
-              </li>
-            </ul>
-          </div>
+  <div class="container-fluid">
+      <div class="row">
+        <div class="col-sm-3 col-md-2 sidebar">
+          <a ui-sref="main" id="logo">
+            <img src="./images/logo.png" alt="Dicionário-Aberto" title="Dicionário-Aberto"/>
+          </a>
+          <ul class="nav nav-sidebar">
+            <li ui-sref-active="active">
+              <a ui-sref="main"><span class="glyphicon glyphicon-bullhorn"></span> Início</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="random" ui-sref-opts="{reload: true}">
+              <span class="glyphicon glyphicon-refresh"></span> Palavra Aleatória</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="browse({letter: 'a'})">
+              <span class="glyphicon glyphicon-sort-by-alphabet"></span> Navegar Dicionário</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="login">
+              <span class="glyphicon glyphicon-user"></span> Entrar/Registar</a>
+            </li>         
+          </ul>
+          <ul class="nav nav-sidebar">
+            <li ui-sref-active="active">
+              <a ui-sref="about">
+              <span class="glyphicon glyphicon-info-sign"></span>
+              Sobre o Dicionário</a></li>
+            <li ui-sref-active="active">
+              <a ui-sref="stats">      
+              <span class="glyphicon glyphicon-stats"></span> Estatísticas</a>
+            </li>
+            <li ui-sref-active="active">
+              <a ui-sref="api">      
+              <span class="glyphicon glyphicon-wrench"></span>API REST</a>
+            </li>
+          </ul>
         </div>
-      </nav>
-    </div>
-  </header>
+        <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
 
-
-  <main>
+  <main>  
     <!-- search box -->
-    <div class="row">
-      <div class="col s12">
-        <form><center>
-          <input ng-model="query" id="mysearch" placeholder="Procurar" style="width: 300px;">
-          <button type="submit" ui-sref="search({word: query})" 
-          ui-sref-opts="{reload: true}" id="mysearchbtn"
-          class="blue z-depth-0 waves-effect waves-light btn">
-          <i id="mysearchbtni" class="material-icons">search</i></button>
-        </center></form>
-      </div>
-    </div>
+    <div class="panel panel-default">
+  <div class="panel-body" style="text-align: center;">
+    <form class="form-inline" style="margin: 0px">
+      <label for="mysearch">Procurar</label>
+      <input ng-model="query" id="mysearch" class="form-control"
+             placeholder="Procurar" style="width: 300px;"/>
+      <button type="submit" class="btn btn-primary"
+              ui-sref="search({word: query})" 
+              ui-sref-opts="{reload: true}"
+              id="mysearchbtn">&nbsp;<span
+              id="mysearchbtni"
+              class="glyphicon glyphicon-search"></span>&nbsp;</button>
+    </form>
+    </div></div>
 
     <!-- main content -->
     <div class="container row">
@@ -85,18 +96,14 @@
   </main> 
 
 
-<!-- bottom links -->
-      
-  <div class="container">
-    <a class="waves-effect waves-blue btn-flat" ui-sref="about">
-      <i class="material-icons left">info_outline</i>Sobre o Dicionário</a>
-    <a class="waves-effect waves-blue btn-flat" ui-sref="stats">      
-      <i class="material-icons left">equalizer</i>Estatísticas</a>
-    <a class="waves-effect waves-blue btn-flat" ui-sref="api">      
-      <i class="material-icons left">settings_ethernet</i>API REST</a>
-  </div>
 
-  <footer class="page-footer light-blue darken-4 white-text">
+
+  
+
+
+
+
+  <footer>
       <div style="float: left; margin-right: 10px;">
         <a href="https://creativecommons.org/licenses/by-sa/2.5/"><img src="images/sa-by.png" alt="CC-BY-SA"/></a>
       </div>
@@ -137,8 +144,17 @@
       </footer>    
 
 
+
+        </div> <!-- main --> 
+      </div> <!-- row --> 
+  </div> <!-- container fluid -->
+
+
+
  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
- <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.3/js/materialize.min.js"></script>
+ <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+         integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
+         crossorigin="anonymous"></script>
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 
