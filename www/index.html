@@ -71,13 +71,13 @@
         </div>
         <div class="col-sm-9 col-sm-offset-3 col-md-10 col-md-offset-2 main">
 
-
-  <main>  
     <!-- search box -->
-    <div class="panel panel-default">
-  <div class="panel-body" style="text-align: center;">
+<!--    <div class="panel panel-default"> -->
+ <!--    <div class="panel-heading">
+     <h3 class="panel-title">Procurar</h3>
+ </div> -->
+  <!--<div class="panel-body">-->
     <form class="form-inline" style="margin: 0px">
-      <label for="mysearch">Procurar</label>
       <input ng-model="query" id="mysearch" class="form-control"
              placeholder="Procurar" style="width: 300px;"/>
       <button type="submit" class="btn btn-primary"
@@ -87,13 +87,13 @@
               id="mysearchbtni"
               class="glyphicon glyphicon-search"></span>&nbsp;</button>
     </form>
-    </div></div>
+    <hr/>
+<!--    </div></div>-->
 
     <!-- main content -->
-    <div class="container-fluid">
-       <div ui-view/></div>
-    </div>
-  </main> 
+   <!-- <div class="container-fluid"> -->
+   
+   <div class="container" ui-view/></div>
 
 
 
@@ -152,9 +152,9 @@
 
 
  <script src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
+ <!-- <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"
          integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" 
-         crossorigin="anonymous"></script>
+         crossorigin="anonymous"></script> -->
  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/angular-ui-router/0.2.18/angular-ui-router.min.js"></script>
 
@@ -173,6 +173,9 @@
  <script src="js/controllers/browse.js"></script>
  <script src="js/controllers/scroller.js"></script>
  <script src="js/other/highcharts-ng.min.js"></script>
+ <script src="js/other/angular-animate.min.js"></script>
+ <script src="js/other/angular-touch.min.js"></script>
+ <script src="js/other/ui-bootstrap-tpls-1.2.5.min.js"></script>
 
 
 <script type="text/javascript">

@@ -48,13 +48,17 @@
   background-color: #428bca;
 }
 
+.nav-sidebar > li > a:hover {
+  background-color: #86cefc;
+}
+
 
 /*
  * Main content
  */
 
 .main {
-  padding: 20px;
+  padding-top: 20px;
 }
 @media (min-width: 768px) {
   .main {
@@ -70,17 +74,12 @@
 
 /* --- */
 
-body {
+/*body {
   display: flex;
   min-height: 100vh;
   flex-direction: column;
 }
-
-
-main {
-  flex: 1 0 auto;
-}
-
+*/
 #results {
   margin-top: 20px;
 }

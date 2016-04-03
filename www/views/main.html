@@ -1,6 +1,6 @@
-
-<div id="news" class="col s6" ng-controller="NewsController">
-  <h4 class="title">novidades</h4>
+<div class="row">
+<div id="news" class="col-md-6" ng-controller="NewsController">
+  <h3>novidades</h3>
 
    <!-- loader -->
     <div class="preloader-wrapper small active" ng-if="loading">
@@ -17,24 +17,35 @@
     <!-- /loader -->
     <div ng-ig="!loading">
  
-
-      <ul class="collapsible" data-collapsible="accordion">    
-        <li ng-repeat="n in news">
-          <div class="collapsible-header"><b>{{ n.date | myDate }}</b> &middot; {{ n.title }}</div>
-          <div class="collapsible-body"><p ng-bind-html="n.text"></p></div>
-        </li> 
-       </ul>
-    </div>
-
+      <!-- <div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true"> -->
+      <uib-accordion>
+<!--       <div class="panel panel-default" ng-repeat="n in news">       -->
+           <uib-accordion-group heading="{{ n.date | myDate }} &middot; {{ n.title }}" ng-repeat="n in news">
+<!--        <div class="panel-heading" role="tab" id="headingOne"> 
+         <h4 class="panel-title">
+          <a role="button" data-toggle="collapse" data-parent="#accordion"
+             href="#{{ n.date }}" aria-expanded="true" aria-controls="{{ n.date }}">
+           <b></b> 
+          </a>
+         </h4>
+        </div>
+        <div id="#{{ n.date }}" class="panel-collapse collapse in" role="tabpanel">
+         <div class="panel-body" ng-bind-html="n.text"></div>-->
+         <div ng-bind-html="n.text"></div>
+        <!--</div>
+       </div>
+      </div>-->
+      </uib-accordion-group>
+      </uib-accordion>
       
-
+    </div> <!-- loading -->
 
 <!--
    <div class="more">
       <strong>&raquo; </strong><a href="/news">histórico</a>
     </div>
 
-  <h4 class="title">Outros</h4>
+  <h3>Outros</h3>
 
  <div class="card">
   <div class="card-content">
@@ -60,9 +71,9 @@
 </div>
 
 
-<div id="menu" class="col s6">
+<div id="menu" class="col-md-6">
 
-  <h4 class="title">palavra em destaque</h4>
+  <h3>palavra em destaque</h3>
 
 
 
@@ -91,7 +102,7 @@
 
 
 
-  <h4 class="title">recursos</h4>  
+  <h3>recursos</h3>  
 
   <div class="card">
   <div class="row card-content">
@@ -146,6 +157,7 @@
 
   </div>
 
+</div>
 </div>
 
 
