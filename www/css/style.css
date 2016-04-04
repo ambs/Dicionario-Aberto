@@ -52,6 +52,26 @@
   background-color: #86cefc;
 }
 
+.nav-sidebar ul {
+  list-style: none;
+  margin-left: -41px;
+}
+
+.nav-sidebar > li > ul > li > a {
+  display:  block;
+  padding-right: 20px;
+  padding-left: 40px;
+  padding-top: 3px;
+  padding-bottom: 3px;
+  text-decoration: none;
+  position: relative;
+  
+}
+
+.nav-sidebar > li > ul > li > a:hover {
+  background-color: #86cefc;
+  display: block;
+}
 
 /*
  * Main content

@@ -53,6 +53,18 @@
               <a ui-sref="login">
               <span class="glyphicon glyphicon-user"></span> Entrar/Registar</a>
             </li>         
+            <li ui-sref-active="active">
+              <a><span class="glyphicon glyphicon-chevron-right"
+                  style="display: block; float: right;"></span>
+                <span class="glyphicon glyphicon-file"></span> Recursos</a>
+              <ul>
+                <li><a href="/static/dict.pdf">PDF</a></li>
+                <li><a href="/static/dicaberto.epub">ePub</a></li>
+                <li><a href="/static/stardict-DicAberto.tar.bz2">StarDict</a></li>
+                <li><a ui-sref="#FIXME">SQL</a></li>
+                <li><a ui-sref="#FIXME">XML/TXT</a></li>
+              </ul>
+            </li>
           </ul>
           <ul class="nav nav-sidebar">
             <li ui-sref-active="active">
