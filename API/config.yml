@@ -48,8 +48,9 @@ plugins:
   Database:
     driver: 'mysql'
     database: 'dicionario-aberto'
-    port: 3306
+    port: 13306
     host: 127.0.0.1
-    username: 'root'
+    username: 'dicionarioaberto'
+    password: 'et83YcQkuWysXHJRV'
     dbi_params:
       mysql_enable_utf8: 1

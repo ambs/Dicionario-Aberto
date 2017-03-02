@@ -1,7 +1,8 @@
 # requires "DA::Database"       => "0";
+requires "WWW::Form::UrlEncoded::XS" => "0";
 requires "Dancer2"            => "0.166001";
 requires "Dancer2::Plugin::Database"  => "0";
-requires "Dancer2::Plugin::JWT" => "0";
+#requires "Dancer2::Plugin::JWT" => "0";
 requires "DBD::mysql"         => "0";
 
 requires "YAML"             => "0";
@@ -9,6 +10,6 @@ requires "URL::Encode::XS"  => "0";
 requires "CGI::Deurl::XS"   => "0";
 requires "HTTP::Parser::XS" => "0";
 
-# requires "XML::XML2JSON" => "0";
+#requires "XML::XML2JSON" => "0";
 
 requires "Net::Twitter" => "0";
