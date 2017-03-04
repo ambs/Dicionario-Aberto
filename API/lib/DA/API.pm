@@ -17,7 +17,7 @@ hook after => sub {
 };
 
 get '/' => sub {
-    "OK"
+    redirect "/index.html";
 };
 
 # 185.130.5.247
