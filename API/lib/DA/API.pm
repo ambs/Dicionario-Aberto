@@ -13,7 +13,7 @@ our $DIC = DA::Database->new(sub { database });
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook after => sub {
-	response->push_header('Access-Control-Allow-Origin', 'http://novo.dicionario-aberto.net');
+	response->push_header('Access-Control-Allow-Origin', "http://dicionario-aberto.net");
 };
 
 get '/' => sub {
