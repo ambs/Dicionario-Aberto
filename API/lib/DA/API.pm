@@ -70,7 +70,7 @@ get '/wotd' => sub {
 };
 
 get '/new/*' => sub {
-	my $id = splat;
+	my ($id) = splat;
 	if ($id !~ /^\d+$/) {
 		return my_error('invalid new identifier');
 	}
@@ -91,6 +91,10 @@ get '/stats/letter' => sub {
 	return $DIC->words_by_letter();
 };
 
+get '/metadata/*' => sub {
+	my ($key) = splat;
+	return { $key => $DIC->metadata($key) };
+};
 
 
 #post '/auth' => sub {

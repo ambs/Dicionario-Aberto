@@ -165,6 +165,18 @@ sub wotd {
 	return $self->revision_from_wid($wid);
 }
 
+sub metadata {
+  my ($self, $key) = @_;
+  return undef unless grep {$key eq $_} qw.count first_word last_word wotd.;
+  my $query = <<"";
+    SELECT `value` FROM `metadata` WHERE `key` = ?
+
+  my $sth = $self->dbh->prepare($query);
+  $sth->execute($key);
+  my ($ans) = $sth->fetchrow_array;
+  return $ans;
+}
+
 sub retrieve_entry {
 	my ($self, $word, $n) = @_;
 
