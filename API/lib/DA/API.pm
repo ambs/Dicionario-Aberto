@@ -93,6 +93,7 @@ get '/stats/letter' => sub {
 
 get '/metadata/*' => sub {
 	my ($key) = splat;
+	push_response_header 'Cache-control' => 'public, max-age=31536000';
 	return { $key => $DIC->metadata($key) };
 };
 
