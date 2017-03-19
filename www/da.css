@@ -1,0 +1,119 @@
+
+html, body, nav { margin: 0px; }
+
+nav { margin-bottom: 30px; }
+
+h1 {
+    padding: 15px;
+    margin: 0px;
+    font-family: 'Indie Flower', cursive;
+    color: #fff;
+    font-size: xx-large;
+}  
+
+footer {
+    padding: 30px;
+    font-size: small;
+    color: #888;
+}
+footer a {
+    color: #88a;
+}
+
+.box h2 {
+    display: inline-block;
+    padding: 0px;
+    margin-right: 0px;
+    margin-left: 1.5em;
+    margin-top: -.6em;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
+    color: #789;
+    font-size: x-large;
+    text-align: center;
+    background-color: #fff;
+}
+
+.box > div {
+    padding: 0 2em 2em 2em;
+}
+
+
+.large {
+    font-size: large;
+    font-weight: bold;
+    color: #789;
+}
+
+.box {
+    border: solid 3px #789;
+    border-radius: 30px;
+    padding: 0px;
+}
+
+#news dt {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#news dd {
+    margin-bottom: 10px;
+}
+
+nav {
+    border-bottom: solid 1px #333;
+    background-color: #333;
+}
+
+#menu li {
+    margin: 0px;
+    display: inline;
+    background-color: #789;
+    padding: 3px;
+    padding-left: 13px; 
+    padding-right: 13px;
+    border-radius: 15px;
+    margin-right: 15px;
+}
+
+#menu li:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #348;
+}
+
+#menu {
+    float: right;
+    padding: 20px;
+}
+
+#menu .glyphicon {
+    margin-right: 10px;
+}
+
+#search {
+    clear: both;
+    padding: 7px;
+    padding-left: 20px;
+    background-color: #789;
+    border: 0px;
+}
+
+
+#search input {
+    background-color: #789;
+    border: none;
+    width: 50%;
+    color: white;
+}
+#search .glyphicon {
+    margin-right: 5px;
+}
+#search .glyphicon:hover {
+    margin-right: 5px;
+    color: white;
+    cursor: pointer;
+}
