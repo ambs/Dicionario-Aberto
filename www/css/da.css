@@ -3,6 +3,10 @@ html, body, nav { margin: 0px; }
 
 nav { margin-bottom: 30px; }
 
+h3 { padding: 0px; margin-top: 0px; }
+
+.box div { padding: 0px; margin: 0px; }
+
 h1 {
     padding: 15px;
     margin: 0px;
@@ -116,4 +120,12 @@ nav {
     margin-right: 5px;
     color: white;
     cursor: pointer;
+}
+
+/* -- Entries -- */
+gramGrp {
+    font-style: italic;
+}
+def {
+    display: block;
 }
