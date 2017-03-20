@@ -12,8 +12,8 @@ function formatWord(data) {
 	    return xml$dt.tag(q,c,v);
 	},
 	'def' : function(q,c,v) {
-	    var s = c.replace(/\n/g,"<br/>");
-	    return xml$dt.tag(q,c,v);
+	    var s = c.replace(/_([^_]+)_/g, "<i>$1</i>");
+	    return xml$dt.tag(q,s,v);
 	},
 	'etym' : function(q,c,v) {
 	    return c.replace(/_([^_]+)_/g, "<i>$1</i>");
@@ -32,3 +32,7 @@ function formatEntry(data) {
     return template(formatWord(data));
 }
 
+function formatNews(data) {
+    var template = doT.template("<dl>{{~it.news :value:index}}<dt>{{=value.date}}</dt><dd>{{=value.text}}</dd>{{~}}</dl>");
+    return template({news: data});
+}

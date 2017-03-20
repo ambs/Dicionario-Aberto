@@ -113,20 +113,9 @@ nav {
     width: 50%;
     color: white;
 }
-#search .glyphicon {
-    margin-right: 5px;
-}
-#search .glyphicon:hover {
-    margin-right: 5px;
-    color: white;
-    cursor: pointer;
-}
-
-/* -- Entries -- */
-gramGrp {
-    font-style: italic;
-}
-def {
+#search a {
+    text-decoration: none;
+    color: #000;
     display: block;
 }
 usg {

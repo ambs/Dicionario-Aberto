@@ -19,7 +19,7 @@
 	    </ul>
             <h1>Dicionário Aberto</h1>
 	    <div id="search">
-		<span class="glyphicon glyphicon-refresh"></span>
+		<a  href="random" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></a>
 		<span class="glyphicon glyphicon-search"></span>
 		<input type="text" name="word" placeholder="Procurar"/>
 	    </div>
@@ -44,22 +44,6 @@
 		    <div class="box" >
 			<h2>Novidades</h2>			
 			<div id="news" >
-			    <dl>
-				<dt>2015-04-06 - 16K entradas revistas</dt>
-				<dd>Já há muito tempo que o processo
-				    de revisão está em curso. A verdade é
-				    que não temos tido facilidade em
-				    arranjar tempo para isso. No sentido
-				    de tentar despachar este processo
-				    estamos à procura de voluntários que
-				    tenham vontade de perder algum tempo a
-				    validar a modernização da ortografia
-				    das entradas do dicionário.</dd>
-				<dt>2014-09-30 - Aplicação Windows 8</dt>
-				<dd>Está disponível, já há algum
-				    tempo, uma aplicação do Dicionário Aberto
-				    para Windows 8. Mais informações aqui.
-				</dd></dl>
 			</div>
 		    </div>
 		</div>
@@ -87,6 +71,12 @@
 		 cache: false,
 	     }).done(function(data) {
 		 $('#wotd').html(formatEntry(data.xml));
+	     });
+	     $.ajax({
+		 url: 'http://camelia.perl-hackers.net/news?limit=2',
+		 cache: false,
+	     }).done(function(data) {
+		 $('#news').html(formatNews(data));
 	     });
 	 });
 	 
