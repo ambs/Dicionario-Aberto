@@ -1,5 +1,15 @@
 
 var xml$dt = {};
+xml$dt.father = {};
+
+xml$dt.__extend = function(destination, source) {
+    for (var property in source) {
+        if (source.hasOwnProperty(property)) {
+            destination[property] = source[property];
+        }
+    }
+    return destination;
+};
 
 xml$dt.process = function(str, conf) {
     var parser = new DOMParser();
@@ -14,8 +24,8 @@ xml$dt.process = function(str, conf) {
         for (var i = 0; i < keys.length; i++) {
             /* Yep, this is a closure! */
             (function() {
-            var outTag = conf['#map'][keys[i]];
-            conf[keys[i]] = function(q,c,v){return xml$dt.tag( outTag, c,v);};
+		var outTag = conf['#map'][keys[i]];
+		conf[keys[i]] = function(q,c,v){return xml$dt.tag( outTag, c,v);};
             })();
         }
     }
@@ -38,7 +48,7 @@ xml$dt.tag = function(name, content, attr) {
     	r += ">" + content + "</" + name + ">";
     }
     else {
-	    r += "/>";
+	r += "/>";
     }
     return r;
 };
@@ -54,20 +64,26 @@ xml$dt.__map = function (list, func) {
 
 xml$dt.__dt = function (element, conf) {
     var child;
+    var extraAttributes = {};
     if (element.childNodes.length > 0) {
-        childs = xml$dt.__map(element.childNodes, function(x) { 
-            return xml$dt.__dt(x, conf); 
+        childs = xml$dt.__map(element.childNodes, function(x) {
+	    xml$dt.father = {};
+            var r = xml$dt.__dt(x, conf);
+	    extraAttributes = xml$dt.__extend(extraAttributes, xml$dt.father);
+	    return r;
         });
         child = childs.join("");
     }
     else {
-	    child = element.data;
+	xml$dt.father = {};
+	child = element.data;
+	extraAttributes = xml$dt.father;
     }
     
-    var attr = {};
+    var attr = extraAttributes;
     var attributes = element.attributes; // nodeName / nodeValue
     for (var i = 0; attributes && i < attributes.length; i++) {
-	    attr[attributes[i].nodeName] = attributes[i].nodeValue;
+	attr[attributes[i].nodeName] = attributes[i].nodeValue;
     }
     
     var result = child;
