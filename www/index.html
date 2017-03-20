@@ -8,6 +8,7 @@
 	      crossorigin="anonymous"/>
         <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"/>
 	<link rel="stylesheet" href="css/da.css"/>
+	<title>Dicionário Aberto</title>
     </head>
     <body>
         <nav>
@@ -24,7 +25,8 @@
 	    </div>
         </nav>
 
-
+	<div id="#contents">
+	
 	<div style="text-align: center;">
 	    <img src="images/book.jpg" alt="Livro"/>
 	</div>
@@ -35,13 +37,7 @@
 		<div class="col-sm-6" style="margin-top: 30px;">
 		    <div class="box">
 			<h2>Destaque</h2>
-			<div id="wotd">
-			    <b>Maltosta</b><br/>
-			    <i>f.</i><br/>
-			    Imposto de 48 reis por tonel, que pagavam os que no Porto embarcavam vinho.<br/>
-			    (Do b. lat. <i>mala tolta</i>)
-
-			</div>
+			<div id="wotd"></div>
 		    </div>
 		</div>
 		<div class="col-sm-6" style="margin-top: 30px;">
@@ -51,17 +47,17 @@
 			    <dl>
 				<dt>2015-04-06 - 16K entradas revistas</dt>
 				<dd>Já há muito tempo que o processo
-				de revisão está em curso. A verdade é
-				que não temos tido facilidade em
-				arranjar tempo para isso. No sentido
-				de tentar despachar este processo
-				estamos à procura de voluntários que
-				tenham vontade de perder algum tempo a
-				validar a modernização da ortografia
-				das entradas do dicionário.</dd>
+				    de revisão está em curso. A verdade é
+				    que não temos tido facilidade em
+				    arranjar tempo para isso. No sentido
+				    de tentar despachar este processo
+				    estamos à procura de voluntários que
+				    tenham vontade de perder algum tempo a
+				    validar a modernização da ortografia
+				    das entradas do dicionário.</dd>
 				<dt>2014-09-30 - Aplicação Windows 8</dt>
 				<dd>Está disponível, já há algum
-			    tempo, uma aplicação do Dicionário Aberto
+				    tempo, uma aplicação do Dicionário Aberto
 				    para Windows 8. Mais informações aqui.
 				</dd></dl>
 			</div>
@@ -70,6 +66,7 @@
 	    </div>
 	</div>
 
+	</div>
 	<footer class="container">
 	    <div class="row">
 		<div class="col-sm-12">
@@ -80,5 +77,19 @@
 	</footer>
 
 	<script type="text/javascript" src="js/doT.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
+	<script type="text/javascript" src="js/xml-dt.js"></script> 
+	<script type="text/javascript" src="js/da.js"></script>
+	<script type="text/javascript" >
+	 $(function() {
+	     $.ajax({
+		 url: 'http://camelia.perl-hackers.net/wotd',
+		 cache: false,
+	     }).done(function(data) {
+		 $('#wotd').html(formatEntry(data.xml));
+	     });
+	 });
+	 
+	</script>
     </body>
 </html>
