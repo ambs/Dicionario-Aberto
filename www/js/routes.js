@@ -31,4 +31,9 @@ my_routes.root = function() {
 function registerRoutes() {
     $.router.add('/', my_routes.root);
     $.router.add('/random', my_routes.random);
+    $.router.addErrorHandler(function (url) {
+	// url is the URL which the router couldn't find a callback for
+	// console.log(url);
+	$.router.go('/');
+    });
 }
