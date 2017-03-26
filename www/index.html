@@ -19,7 +19,7 @@
 	    </ul>
             <h1>Dicionário Aberto</h1>
 	    <div id="search">
-		<a  href="random" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></a>
+		<span onClick="$.router.go('random');" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></span>
 		<span class="glyphicon glyphicon-search"></span>
 		<input type="text" name="word" placeholder="Procurar"/>
 	    </div>
@@ -62,7 +62,10 @@
 
 	<script type="text/javascript" src="js/doT.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
+	<script type="text/javascript" src="js/jquery.router.js"></script> 
 	<script type="text/javascript" src="js/xml-dt.js"></script> 
+	<script type="text/javascript" src="js/routes.js"></script>
+
 	<script type="text/javascript" src="js/da.js"></script>
 	<script type="text/javascript" >
 	 $(function() {

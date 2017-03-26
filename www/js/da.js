@@ -1,4 +1,16 @@
 
+function parseDate(date) {
+    var fields = date.match(/(\d+)-(\d+)-(\d+)\s+(\d+):(\d+):(\d+)/);
+    return {
+	year:    fields[1],
+	month:   fields[2],
+	day:     fields[3],
+	hours:   fields[4],
+	minutes: fields[5],
+	seconds: fields[6]
+    };
+}
+
 function formatWord(data) {
     var word;
     var entry = xml$dt.process(data, {
@@ -33,6 +45,7 @@ function formatEntry(data) {
 }
 
 function formatNews(data) {
-    var template = doT.template("<dl>{{~it.news :value:index}}<dt>{{=value.date}}</dt><dd>{{=value.text}}</dd>{{~}}</dl>");
+    var template = doT.template("<dl>{{~it.news :value:index}}<dt>{{=value.date.year}}-{{=value.date.month}}-{{=value.date.day}}</dt><dd>{{=value.text}}</dd>{{~}}</dl>");
+    data = $.map(data, function(v,i) { v.date = parseDate(v.date); return v; });
     return template({news: data});
 }

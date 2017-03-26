@@ -83,6 +83,8 @@ nav {
     margin-right: 15px;
 }
 
+
+
 #menu li:hover {
     cursor: pointer;
     background-color: #fff;
@@ -113,11 +115,19 @@ nav {
     width: 50%;
     color: white;
 }
-#search a {
-    text-decoration: none;
-    color: #000;
-    display: block;
+#search span {
+    display: inline-block;
+    margin-right: 5px;
 }
+#search span:hover { color: #fff; cursor: pointer; }
+
+/* format entries */
+
 usg {
     font-style: italic;
 }
+
+def {
+    display: block;
+}
+
