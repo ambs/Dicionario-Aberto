@@ -17,38 +17,15 @@
 		<li><span class="glyphicon glyphicon-wrench"></span>Desenvolvimento</li>
 		<li><span class="glyphicon glyphicon-user"></span>Entrar</li>
 	    </ul>
-            <h1>Dicionário Aberto</h1>
+            <h1 onClick="$.router.go('/');">Dicionário Aberto</h1>
 	    <div id="search">
-		<span onClick="$.router.go('random');" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></span>
+		<span onClick="$.router.go('/random');" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></span>
 		<span class="glyphicon glyphicon-search"></span>
 		<input type="text" name="word" placeholder="Procurar"/>
 	    </div>
         </nav>
 
-	<div id="#contents">
-	
-	<div style="text-align: center;">
-	    <img src="images/book.jpg" alt="Livro"/>
-	</div>
-
-	<div class="container">
-
-	    <div class="row">
-		<div class="col-sm-6" style="margin-top: 30px;">
-		    <div class="box">
-			<h2>Destaque</h2>
-			<div id="wotd"></div>
-		    </div>
-		</div>
-		<div class="col-sm-6" style="margin-top: 30px;">
-		    <div class="box" >
-			<h2>Novidades</h2>			
-			<div id="news" >
-			</div>
-		    </div>
-		</div>
-	    </div>
-	</div>
+	<div id="contents">
 
 	</div>
 	<footer class="container">
@@ -69,18 +46,8 @@
 	<script type="text/javascript" src="js/da.js"></script>
 	<script type="text/javascript" >
 	 $(function() {
-	     $.ajax({
-		 url: 'http://camelia.perl-hackers.net/wotd',
-		 cache: false,
-	     }).done(function(data) {
-		 $('#wotd').html(formatEntry(data.xml));
-	     });
-	     $.ajax({
-		 url: 'http://camelia.perl-hackers.net/news?limit=2',
-		 cache: false,
-	     }).done(function(data) {
-		 $('#news').html(formatNews(data));
-	     });
+	     registerRoutes();
+	     $.router.go('/');
 	 });
 	 
 	</script>

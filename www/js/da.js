@@ -49,3 +49,14 @@ function formatNews(data) {
     data = $.map(data, function(v,i) { v.date = parseDate(v.date); return v; });
     return template({news: data});
 }
+
+
+function load_template(template_name, callback) {
+    var url = "/templates/" + template_name + ".tmpl";
+    $.ajax({ url: url, dataType: 'html' , mimeType: 'text/html'})
+	.done(function(html){
+	    $('#contents').html(html);
+	    callback();
+	});
+}
+
