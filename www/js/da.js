@@ -31,7 +31,10 @@ function formatWord(data) {
 	    return c.replace(/_([^_]+)_/g, "<i>$1</i>");
 	},
 	'entry': function(q,c,v) {
-	    word = v.id + ('n' in v ? "<sup>"+v.n+"</sup>" : "");
+	    word = v.id;
+	    if (word.match(/:\d+$/)) {
+		word = word.replace(/:(\d+)/, "<sup>$1</sup>");
+	    }
 	    return xml$dt.tag(q,c,v);
 	}
     });
