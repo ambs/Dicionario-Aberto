@@ -5,19 +5,22 @@
 		<title>Dicionário Aberto : API</title>
 		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
 		<style type="text/css" >
-		 pre { width: 97%; }
-		 code { overflow-x: hidden; }
+		 pre { width: 97%;  }
+		 code {  overflow: hidden  !important; }
+		 ul { list-style-type: none; }
+		 .route { display: block; padding: 15px; border: solid 1px #555; width: 95%; 
+		     background-color: #dddddd; margin-top: 3em; }
 		</style>
 	</head>
 	<body>
 		<h1>Dicionario Aberto: API</h1>
 		<ul>
 			<li>
-				<p>
-					<tt>/news</tt><br/><tt>/news?limit=10</tt>
-				</p>
-				<p>Obter novidades, opcionalmente com limite ao número de itens.</p>
-				<p>
+			    <p class="route">
+				<tt>/news</tt><br/><tt>/news?limit=10</tt>
+			    </p>
+			    <p>Obter novidades, opcionalmente com limite ao número de itens.</p>
+			    <p>
 				<pre><code class="json">[
   {
     "title": "16K entradas revistas",
@@ -34,30 +37,30 @@
     "user": "ambs"
   }
 ]</code></pre>
-				</p>
+			    </p>
 			</li>
 			<li>
-				<p>
-					<tt>/metadata/<i>key</i></tt></p>
-					<p>Permite obter alguns metadados. Chaves válidas são:
-					<table>
-						<tr><td><tt>count</tt></td><td>Número de entradas no dicionário</td></tr>
-						<tr><td><tt>first_word</tt></td><td>Primeira palavra do dicionário</td></tr>
-						<tr><td><tt>last_word</tt></td><td>Última palavra do dicionário</td></tr>
-						<tr><td><tt>word</tt></td><td>Identificador da palavra do dia</td></tr>
-					</table>
-					</p>
-					<pre><code class="json">{"count":"128521"}</code></pre>
+			    <p class="route">
+				<tt>/metadata/<i>key</i></tt></p>
+			    <p>Permite obter alguns metadados. Chaves válidas são:
+				<table>
+				    <tr><td><tt>count</tt></td><td>Número de entradas no dicionário</td></tr>
+				    <tr><td><tt>first_word</tt></td><td>Primeira palavra do dicionário</td></tr>
+				    <tr><td><tt>last_word</tt></td><td>Última palavra do dicionário</td></tr>
+				    <tr><td><tt>word</tt></td><td>Identificador da palavra do dia</td></tr>
+				</table>
+			    </p>
+			    <pre><code class="json">{"count":"128521"}</code></pre>
 			</li>
 			<li>
-			    <p><tt>/wotd</tt></p>
+			    <p class="route"><tt>/wotd</tt></p>
 			    <p>Retorna a entrada em destaque (calculada cada 2 horas).</p>
 			    <pre><code class="json">{
   "xml": "&lt;entry id=\"quartodecimanos\" ast=\"1\">\r\n&lt;form>\r\n&lt;orth>Quartodecimanos&lt;/orth>\r\n&lt;/form>\r\n&lt;sense>\r\n&lt;gramGrp>m. pl.&lt;/gramGrp>\r\n&lt;def>\r\nNome, que se deu aos Cristãos, que celebravam a Páscoa no 14º dia depois do equinócio da primavera.\r\n&lt;/def>\r\n&lt;/sense>\r\n&lt;etym orig=\"Lat\">(Lat. _quartodecimani_)&lt;/etym>\r\n&lt;/entry>"
 }</code></pre>
 			</li>
 			<li>
-			    <p><tt>/random</tt></p>
+			    <p class="route"><tt>/random</tt></p>
 			    <p>Retorna uma entrada aleatória.</p>
 			    <pre><code class="json">{
   "xml": "&lt;entry id=\"catombo\" ast=\"1\">\n&lt;form>\n&lt;orth>Catombo&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>m.&lt;/gramGrp>\n&lt;usg type=\"geo\">Bras. do N&lt;/usg>\n&lt;def>\nInchaço; tumor.\n</def>\n</sense>\n&lt;/entry>"
