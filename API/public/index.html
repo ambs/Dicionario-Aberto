@@ -3,18 +3,22 @@
 	<head>
 		<meta charset="utf-8" /> 
 		<title>Dicionário Aberto : API</title>
-			<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+		<link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/styles/default.min.css">
+		<style type="text/css" >
+		 pre { width: 97%; }
+		 code { overflow-x: hidden; }
+		</style>
 	</head>
 	<body>
 		<h1>Dicionario Aberto: API</h1>
-		<ol>
+		<ul>
 			<li>
 				<p>
 					<tt>/news</tt><br/><tt>/news?limit=10</tt>
 				</p>
 				<p>Obter novidades, opcionalmente com limite ao número de itens.</p>
 				<p>
-				<pre style="width: 97%"><code style="overflow-x: hidden;" class="json">[
+				<pre><code class="json">[
   {
     "title": "16K entradas revistas",
     "user": "ambs",
@@ -43,9 +47,26 @@
 						<tr><td><tt>word</tt></td><td>Identificador da palavra do dia</td></tr>
 					</table>
 					</p>
-			<pre style="width: 97%"><code style="overflow-x: hidden;" class="json">{"count":"128521"}</code></pre>		
-		</ol>
+					<pre><code class="json">{"count":"128521"}</code></pre>
+			</li>
+			<li>
+			    <p><tt>/wotd</tt></p>
+			    <p>Retorna a entrada em destaque (calculada cada 2 horas).</p>
+			    <pre><code class="json">{
+  "xml": "&lt;entry id=\"quartodecimanos\" ast=\"1\">\r\n&lt;form>\r\n&lt;orth>Quartodecimanos&lt;/orth>\r\n&lt;/form>\r\n&lt;sense>\r\n&lt;gramGrp>m. pl.&lt;/gramGrp>\r\n&lt;def>\r\nNome, que se deu aos Cristãos, que celebravam a Páscoa no 14º dia depois do equinócio da primavera.\r\n&lt;/def>\r\n&lt;/sense>\r\n&lt;etym orig=\"Lat\">(Lat. _quartodecimani_)&lt;/etym>\r\n&lt;/entry>"
+}</code></pre>
+			</li>
+			<li>
+			    <p><tt>/random</tt></p>
+			    <p>Retorna uma entrada aleatória.</p>
+			    <pre><code class="json">{
+  "xml": "&lt;entry id=\"catombo\" ast=\"1\">\n&lt;form>\n&lt;orth>Catombo&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>m.&lt;/gramGrp>\n&lt;usg type=\"geo\">Bras. do N&lt;/usg>\n&lt;def>\nInchaço; tumor.\n</def>\n</sense>\n&lt;/entry>"
+}</code></pre>
+			</li>
+		</ul>
 
+
+		
 	<script src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.9.0/highlight.min.js"></script>
 	<script>hljs.initHighlightingOnLoad();</script>
 	</body>
