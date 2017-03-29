@@ -1,4 +1,10 @@
 
+function formSearchBox() {
+    var word = $('#word').val();
+    $.router.go('/search/' + word);
+}
+
+
 function parseDate(date) {
     var fields = date.match(/(\d+)-(\d+)-(\d+)\s+(\d+):(\d+):(\d+)/);
     return {

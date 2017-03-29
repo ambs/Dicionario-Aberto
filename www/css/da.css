@@ -102,13 +102,18 @@ nav {
 }
 
 #search {
+    display: block;
     clear: both;
     padding: 7px;
     padding-left: 20px;
     background-color: #789;
     border: 0px;
+    margin: 0px;
 }
 
+.center {
+    text-align: center;
+}
 
 #search input {
     background-color: #789;
@@ -116,11 +121,14 @@ nav {
     width: 50%;
     color: white;
 }
-#search span {
+#search button {
     display: inline-block;
     margin-right: 5px;
+    padding: 0px;
+    border: none;
+    background-color: inherit;
 }
-#search span:hover { color: #fff; cursor: pointer; }
+#search button:hover { color: #fff; cursor: pointer; }
 
 /* format entries */
 

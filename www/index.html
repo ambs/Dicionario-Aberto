@@ -18,10 +18,10 @@
 		<li><span class="glyphicon glyphicon-user"></span>Entrar</li>
 	    </ul>
             <h1 onClick="$.router.go('/');">Dicionário Aberto</h1>
-	    <div id="search">
-		<span onClick="$.router.go('/random');" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></span>
-		<span class="glyphicon glyphicon-search"></span>
-		<input type="text" name="word" placeholder="Procurar"/>
+	    <dir id="search">
+		<button onClick="$.router.go('/random');" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></button>
+		<button onClick="formSearchBox();" class="glyphicon glyphicon-search"></button>
+		<input type="text" name="word" placeholder="Procurar" id="word"/>
 	    </div>
         </nav>
 
@@ -46,9 +46,11 @@
 	<script type="text/javascript" src="/js/da.js"></script>
 	<script type="text/javascript" >
 	 $(function() {
+	     $("#word").keyup(function(event){
+		 if(event.keyCode == 13) { formSearchBox(); }
+	     });
 	     registerRoutes();
-$.router.check();
-//	     $.router.go('/');
+	     $.router.check();
 	 });
 	 
 	</script>
