@@ -17,6 +17,17 @@ function parseDate(date) {
     };
 }
 
+function formatNearMisses(data) {
+    return $.map(data, function(v,i) {
+	return div(spanOnClick(v, "$.router.go('/search/" + v + "');"));
+    }).join("");
+}
+
+function div(c) { return "<div class='col-xs-4'>" + c + "</div>"; }
+
+function spanOnClick(c, f) { return "<span class='near' onClick=\"" + f + "\">" + c + "</span>"; }
+
+
 function formatWord(data) {
     var word;
     var entry = xml$dt.process(data, {
@@ -30,7 +41,7 @@ function formatWord(data) {
 	    return xml$dt.tag(q,c,v);
 	},
 	'def' : function(q,c,v) {
-	    var s = c.replace(/_([^_]+)_/g, "<i>$1</i>");
+	    var s = c.replace(/(^\n(\s*\n)*|\n(\s*\n)*$)/g,"").replace(/_([^_]+)_/g, "<i>$1</i>").replace(/\n(\s*\n)*/g,"<br/>");
 	    return xml$dt.tag(q,s,v);
 	},
 	'etym' : function(q,c,v) {
@@ -46,6 +57,10 @@ function formatWord(data) {
     });
 
     return { term: word, def: entry };
+}
+
+function formatResults(data) {
+    return $.map(data, function(v,i) { return formatEntry(v.xml); }).join("");
 }
 
 function formatEntry(data) {

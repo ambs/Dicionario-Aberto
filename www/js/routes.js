@@ -9,8 +9,19 @@ my_routes.search = function(data) {
 		$('#notFound').removeClass("hidden");
 		$('#entries').addClass('hidden');
 	    } else {
+		$('#entriesContents').html(formatResults(data));
 	    }
 	});
+	$.ajax({
+	    url: 'http://camelia.perl-hackers.net/near/' + data.word
+	}).done(function(data) {
+	    if (data.length == 0) {
+		$('#nearMisses').addClass('hidden');
+	    } else {
+		$('#nearMissesContents').html(formatNearMisses(data));
+	    }
+	});
+	    
     });
 };
 

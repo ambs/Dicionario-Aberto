@@ -5,6 +5,8 @@ nav { margin-bottom: 30px; }
 
 h3 { padding: 0px; margin-top: 0px; }
 
+div + h3 { margin-top: 20px; }
+
 .box div { padding: 0px; margin: 0px; }
 
 nav h1 {
@@ -138,5 +140,13 @@ usg {
 
 def {
     display: block;
+}
+
+/* near misses */
+.near { color: #223322; }
+.near:hover {
+    color: #333366;
+    cursor: pointer;
+    text-decoration: underline;
 }
 
