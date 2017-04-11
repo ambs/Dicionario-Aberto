@@ -46,7 +46,7 @@ function formatWord(data) {
 
 	    /* [[anona:1]]. */
 	    
-	    c = c.replace(/(\smesmo\sque\s)\[\[([^:]+):(\d+)\]\]/g,
+	    c = c.replace(/(\smesmo\sque\s|Cp\.\s)\[\[([^:]+):(\d+)\]\]/g,
 			  "$1" + entryLink("$2", "$3")); 
 
 	    
