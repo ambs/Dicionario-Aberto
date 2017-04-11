@@ -1,4 +1,6 @@
 
+a[onClick]:hover { cursor: pointer; }
+
 html, body, nav { margin: 0px; }
 
 nav { margin-bottom: 30px; }

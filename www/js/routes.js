@@ -1,9 +1,10 @@
 
 var my_routes = {};
+
 my_routes.search = function(data) {
     load_template("search", function(){
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/word/' + data.word
+	    url: 'http://camelia.perl-hackers.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
 	}).done(function(data) {
 	    if (data.length == 0) {
 		$('#notFound').removeClass("hidden");
@@ -58,6 +59,7 @@ function registerRoutes() {
     $.router.add('/', my_routes.root);
     $.router.add('/random', my_routes.random);
     $.router.add('/search/:word', my_routes.search);
+    $.router.add('/search/:word/:n', my_routes.search);
     $.router.addErrorHandler(function (url) {
 	// url is the URL which the router couldn't find a callback for
 	// console.log(url);

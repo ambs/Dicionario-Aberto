@@ -26,21 +26,30 @@ function formatNearMisses(data) {
 function div(c) { return "<div class='col-xs-4'>" + c + "</div>"; }
 
 function spanOnClick(c, f) { return "<span class='near' onClick=\"" + f + "\">" + c + "</span>"; }
-
+function entryLink(c, n) {
+    return "<a onClick=\"$.router.go('/search/" + c + (n?"/"+n:"") + "');\">" + c
+	+ (n?"<sup>"+n+"</sup>":"") + "</a>";
+}
 
 function formatWord(data) {
     var word;
     var entry = xml$dt.process(data, {
 	'#map' : { 'form': 'div' },
 	'#default' : function(q,c,v) { return xml$dt.tag(q,c,v); },
-	'orth' : function(q,c,v) {
-	    if (!('term' in xml$dt.father)) {
-		xml$dt.father.term = c;
-		return "";
-	    }
-	    return xml$dt.tag(q,c,v);
-	},
 	'def' : function(q,c,v) {
+
+	    c = c.replace(/(\smesmo\sque\s)_([^_]+)_(\sou\s)_([^_]+)_/g,
+			  "$1" + entryLink("$2") + "$3" + entryLink("$4"));
+
+	    c = c.replace(/(\smesmo\sque\s)_([^_]+)_/g,
+			  "$1" + entryLink("$2"));
+
+	    /* [[anona:1]]. */
+	    
+	    c = c.replace(/(\smesmo\sque\s)\[\[([^:]+):(\d+)\]\]/g,
+			  "$1" + entryLink("$2", "$3")); 
+
+	    
 	    var s = c.replace(/(^\n(\s*\n)*|\n(\s*\n)*$)/g,"").replace(/_([^_]+)_/g, "<i>$1</i>").replace(/\n(\s*\n)*/g,"<br/>");
 	    return xml$dt.tag(q,s,v);
 	},
