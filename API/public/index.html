@@ -66,6 +66,70 @@
   "xml": "&lt;entry id=\"catombo\" ast=\"1\">\n&lt;form>\n&lt;orth>Catombo&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>m.&lt;/gramGrp>\n&lt;usg type=\"geo\">Bras. do N&lt;/usg>\n&lt;def>\nInchaço; tumor.\n</def>\n</sense>\n&lt;/entry>"
 }</code></pre>
 			</li>
+			<li>
+			    <p class="route" ><tt>/word/cavalo</tt><br/>
+				<tt>/word/nona/3</tt></p>
+			    <p>Retorna a entrada correspondente ao verbete procurado. Se não for indicado
+				o número de aceção e existirem mais que que uma, serão retornadas todas.</p>
+			    <pre><code class="json" >[
+    {
+        "word": "nona",
+        "deletor": null,
+        "revision_id": 2,
+        "moderator": null,
+        "xml": "&lt;entry n=\"1\" id=\"nona:1\" type=\"hom\">\n&lt;form>\n&lt;orth>Nona&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>f.&lt;/gramGrp>\n&lt;usg type=\"style\">Ant.&lt;/usg>\n&lt;def>\nO mesmo que _monja_ ou _freira_.\n&lt;/def>\n&lt;/sense>\n&lt;etym orig=\"Lat\">(Lat. eccles. _nona_)&lt;/etym>\n&lt;/entry>",
+        "deleted": 0,
+        "last_revision": 2,
+        "sense": 1,
+        "creator": "ambs",
+        "timestamp": "2011-08-14 16:11:09",
+        "normalized": "nona",
+        "derived_from": null,
+        "word_id": 86609
+    },
+    {
+        "sense": 2,
+        "last_revision": 2,
+        "word_id": 86610,
+        "derived_from": null,
+        "normalized": "nona",
+        "timestamp": "2011-08-14 16:11:10",
+        "creator": "ambs",
+        "revision_id": 2,
+        "deletor": null,
+        "word": "nona",
+        "xml": "&lt;entry n=\"2\" id=\"nona:2\" type=\"hom\" ast=\"1\">\n&lt;form>\n&lt;orth>Nona&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>f.&lt;/gramGrp>\n&lt;def>\nO mesmo que [[anona:1]].\n&lt;/def>\n&lt;/sense>\n&lt;/entry>",
+        "deleted": 0,
+        "moderator": null
+    },
+    {
+        "last_revision": 2,
+        "sense": 3,
+        "creator": "ambs",
+        "derived_from": null,
+        "word_id": 86611,
+        "timestamp": "2011-08-14 16:11:10",
+        "normalized": "nona",
+        "revision_id": 2,
+        "deletor": null,
+        "word": "nona",
+        "moderator": null,
+        "xml": "&lt;entry n=\"3\" id=\"nona:3\" type=\"hom\" ast=\"1\">\n&lt;form>\n&lt;orth>Nona&lt;/orth>\n&lt;/form>\n&lt;sense>\n&lt;gramGrp>f.&lt;/gramGrp>\n&lt;def>\nEstrofe de nove versos, usada especialmente em cancioneiros antigos.\nUma das horas, em que os Romanos dividiam o dia e que correspondia às três horas da tarde.\n&lt;/def>\n&lt;/sense>\n&lt;sense>\n&lt;usg type=\"dom\">Mús.&lt;/usg>\n&lt;def>\nIntervalo de nove graus.\n&lt;/def>\n&lt;/sense>\n&lt;sense>\n&lt;gramGrp>Pl.&lt;/gramGrp>\n&lt;def>\nA segunda das duas partes, em que os Romanos dividiam o mês.\n&lt;/def>\n&lt;/sense>\n&lt;etym orig=\"lat\">(Do lat. _nonus_)&lt;/etym>\n&lt;/entry>",
+        "deleted": 0
+    }
+]</code></pre>
+			</li>
+			<li>
+			    <p class="route" >/near/caralho</p>
+			    <p>Retorna uma lista de palavras próximas, com distância de Levenshtein 1.</p>
+			    <pre><code>[
+    "baralho",
+    "cagalho",
+    "camalho",
+    "carilho",
+    "carvalho"
+]</code></pre>
+			</li>
 		</ul>
 
 
