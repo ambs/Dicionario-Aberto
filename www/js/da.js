@@ -1,6 +1,11 @@
 function formatBrowse(data) {
     return $.map(data.words, function(v,i) {
-	return "<div>" + v.word + "</div>";
+	var ar;
+	if (ar = v.word.match(/([^:]+):(\d+)/)) {
+	    return div(entryLink(ar[0], ar[1]));
+	} else {
+	    return div(entryLink(v.word));
+	}
     });
 }
 
@@ -24,11 +29,12 @@ function parseDate(date) {
 
 function formatNearMisses(data) {
     return $.map(data, function(v,i) {
-	return div(spanOnClick(v, "$.router.go('/search/" + v + "');"));
+	return div4(spanOnClick(v, "$.router.go('/search/" + v + "');"));
     }).join("");
 }
 
-function div(c) { return "<div class='col-xs-4'>" + c + "</div>"; }
+function div4(c) { return "<div class='col-xs-4'>" + c + "</div>"; }
+function div(c) { return "<div>" + c + "</div>"; }
 
 function spanOnClick(c, f) { return "<span class='near' onClick=\"" + f + "\">" + c + "</span>"; }
 function entryLink(c, n) {
