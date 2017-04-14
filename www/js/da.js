@@ -1,3 +1,8 @@
+function formatBrowse(data) {
+    return $.map(data.words, function(v,i) {
+	return "<div>" + v.word + "</div>";
+    });
+}
 
 function formSearchBox() {
     var word = $('#word').val();
