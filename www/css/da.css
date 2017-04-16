@@ -152,3 +152,18 @@ def {
     text-decoration: underline;
 }
 
+.box .browseIcon {
+    text-align: center;
+    font-size: x-large;
+    cursor: pointer;
+    margin: 0px;
+    padding-bottom: 0px;
+    color: #789;
+}
+.box .browseIcon:hover {
+    color: #000099;
+}
+
+#browseContents {
+    padding-bottom: 0px;
+}

@@ -9,6 +9,36 @@ function formatBrowse(data) {
     });
 }
 
+function update_browse(cid) {
+    $.ajax({
+	url: 'http://camelia.perl-hackers.net/browse/' + cid
+    }).done(function(data) {
+	var size = data.words.length;
+	if (data.cid - size/2 > 0) {
+	    $('#browseUp').removeClass('hidden');
+	    $('#browseUp').unbind().click(function(){
+		update_browse(data.cid - size  + 1);
+	    });
+	}
+	else {
+	    $('#browseUp').addClass('hidden');
+	}
+
+
+	if (Math.round(data.cid + size / 2 - 1) == data.words[data.words.length-1].id) {
+	    $('#browseDown').removeClass('hidden');
+	    $('#browseDown').unbind().click(function(){
+		update_browse(data.cid + size  - 1);
+	    });
+	}
+	else {
+	    $('#browseDown').addClass('hidden');
+	}
+	
+	$('#browseContents').html(formatBrowse(data));
+    });
+}
+
 function formSearchBox() {
     var word = $('#word').val();
     $.router.go('/search/' + word);

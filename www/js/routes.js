@@ -22,11 +22,7 @@ my_routes.search = function(data) {
 		$('#nearMissesContents').html(formatNearMisses(data));
 	    }
 	});
-	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/browse/' + data.word
-	}).done(function(data) {
-	    $('#browseContents').html(formatBrowse(data));
-	});
+	update_browse(data.word);
     });
 };
 
