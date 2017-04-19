@@ -143,26 +143,28 @@ sub get_browse_letter_position {
   my ($self, $letter) = @_;
 
   my $l = lc $letter;
-  my $ll = "$l%";
-  my $sth = $self->dbh->prepare(<<"---");
-   SELECT idx FROM browse_idx
-      WHERE word = ? OR word LIKE ? 
-      ORDER BY idx LIMIT 1
----
-  $sth->execute($l, $ll);
+
+  my $sth = $self->dbh->prepare("SELECT idx FROM browse_idx WHERE word = ?");
+  $sth->execute($l);
+  my @ans = $sth->fetchrow_array;
+  return $ans[0] if @ans;
+  
+
+  $sth = $self->dbh->prepare('CALL getClosestMatch(?);');
+  $sth->execute($l);
   my ($position) = $sth->fetchrow_array;
 
   return $position;
 }
 
 sub wotd {
-	my ($self) = @_;
-	my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
-	$sth->execute('wotd');
+    my ($self) = @_;
+    my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
+    $sth->execute('wotd');
+    
+    my ($wid) = $sth->fetchrow_array;
 
-	my ($wid) = $sth->fetchrow_array;
-
-	return $self->revision_from_wid($wid);
+    return $self->revision_from_wid($wid);
 }
 
 sub metadata {
@@ -180,11 +182,10 @@ sub metadata {
 sub retrieve_entry {
 	my ($self, $word, $n) = @_;
 
-	my $query = <<"---";
+	my $query = <<"";
 SELECT * FROM word INNER JOIN revision 
   ON word.last_revision = revision.revision_id AND word.word_id = revision.word_id
   WHERE word=? %%AND%% AND word.deleted=0;
----
 
 	$query =~ s/%%AND%%/ $n ? "AND sense=?" : "" /e;
 
