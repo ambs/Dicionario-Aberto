@@ -1,3 +1,12 @@
+function random() {
+	$.ajax({
+	    url: 'http://camelia.perl-hackers.net/random',
+	    cache: false,
+	}).done(function(data) {
+	    $.router.go('/search/' + data.word + "/" + data.sense);
+	});
+}
+
 function formatBrowse(data) {
     return $.map(data.words, function(v,i) {
 	var ar;

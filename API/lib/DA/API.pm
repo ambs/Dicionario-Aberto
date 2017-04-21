@@ -62,7 +62,8 @@ get '/browse/:letter' => sub {
 };
 
 get '/random' => sub {
-	return { xml => $DIC->random };
+    my ($wid, $word, $sense) = $DIC->random();
+    return { word => $word, wid => $wid , sense => $sense};
 };
 
 get '/wotd' => sub {

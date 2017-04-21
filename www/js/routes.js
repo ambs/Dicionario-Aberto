@@ -26,18 +26,6 @@ my_routes.search = function(data) {
     });
 };
 
-
-my_routes.random = function() {
-    load_template("random", function(){
-	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/random',
-	    cache: false,
-	}).done(function(data) {
-	    $('#random').html(formatEntry(data.xml));
-	});
-
-    });
-};
 my_routes.root = function() {
     load_template("index", function() {
 	$.ajax({
@@ -57,7 +45,6 @@ my_routes.root = function() {
 
 function registerRoutes() {
     $.router.add('/', my_routes.root);
-    $.router.add('/random', my_routes.random);
     $.router.add('/search/:word', my_routes.search);
     $.router.add('/search/:word/:n', my_routes.search);
     $.router.addErrorHandler(function (url) {

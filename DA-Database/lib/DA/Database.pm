@@ -67,12 +67,12 @@ sub dbh {
 sub random {
 	my ($self) = @_;
 	my $sth = $self->dbh->prepare(<<"---");
- SELECT word_id FROM word WHERE deleted=0 ORDER BY rand() LIMIT 1
+ SELECT word_id, word, sense FROM word WHERE deleted=0 ORDER BY rand() LIMIT 1
 ---
 	$sth->execute();
-	my ($wid) = $sth->fetchrow_array;
+	my ($wid, $word, $sense) = $sth->fetchrow_array;
 		           
-	return $self->revision_from_wid($wid);
+	return ($wid, $word, $sense);
 }
 
 sub revision_from_wid {
