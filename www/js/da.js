@@ -84,7 +84,7 @@ function entryLink(c, n) {
 function formatWord(data) {
     var word;
     var entry = xml$dt.process(data, {
-	'#map' : { 'form': 'div' },
+	'form' : function() { return ""; },
 	'#default' : function(q,c,v) { return xml$dt.tag(q,c,v); },
 	'def' : function(q,c,v) {
 
