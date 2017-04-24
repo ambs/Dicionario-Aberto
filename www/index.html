@@ -15,7 +15,7 @@
 	    <ul id="menu">
 		<li><span class="glyphicon glyphicon-info-sign"></span>Informações</li>
 		<li><span class="glyphicon glyphicon-wrench"></span>Desenvolvimento</li>
-		<li><span class="glyphicon glyphicon-user"></span>Entrar</li>
+		<li onClick="$.router.go('/login');"><span class="glyphicon glyphicon-user"></span>Entrar</li>
 	    </ul>
             <h1 onClick="$.router.go('/');">Dicionário Aberto</h1>
 	    <dir id="search">
@@ -39,7 +39,10 @@
 
 	<script type="text/javascript" src="/js/doT.js"></script>
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.0.min.js" ></script>
-	<script type="text/javascript" src="/js/jquery.router.js"></script> 
+	<script type="text/javascript" src="/js/jquery.router.js"></script>
+
+
+	
 	<script type="text/javascript" src="/js/xml-dt.js"></script> 
 	<script type="text/javascript" src="/js/routes.js"></script>
 

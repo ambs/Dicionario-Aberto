@@ -26,6 +26,15 @@ my_routes.search = function(data) {
     });
 };
 
+my_routes.login = function() {
+    load_template("login", function() {
+	$('a[role="tab"]').click(function (e) {
+	    e.preventDefault();
+	    $(this).tab('show');
+	});
+    });
+};
+
 my_routes.root = function() {
     load_template("index", function() {
 	$.ajax({
@@ -45,6 +54,7 @@ my_routes.root = function() {
 
 function registerRoutes() {
     $.router.add('/', my_routes.root);
+    $.router.add('/login', my_routes.login);
     $.router.add('/search/:word', my_routes.search);
     $.router.add('/search/:word/:n', my_routes.search);
     $.router.addErrorHandler(function (url) {

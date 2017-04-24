@@ -143,3 +143,17 @@ function load_template(template_name, callback) {
 	});
 }
 
+
+/* login page et al */
+function show_and_hide(show, hide) {
+    $.each(show, function (i, e) {
+	$("#" + e).removeClass("hidden");
+	$("#" + e + "Btn").addClass("hidden");
+    });
+    $.each(hide, function (i, e) {
+	$("#" + e).addClass("hidden");
+	$("#" + e + "Btn").removeClass("hidden");
+    });
+
+};
+

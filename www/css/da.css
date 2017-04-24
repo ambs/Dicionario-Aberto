@@ -77,6 +77,17 @@ nav {
     background-color: #333;
 }
 
+.badgeMenu li {
+    margin: 0px;
+    display: inline;
+    background-color: #CDE;
+    padding: 3px;
+    padding-left: 13px; 
+    padding-right: 13px;
+    border-radius: 15px;
+    margin-right: 15px;
+}
+
 #menu li {
     margin: 0px;
     display: inline;
@@ -88,7 +99,16 @@ nav {
     margin-right: 15px;
 }
 
+.badgeMenu {
+    margin-top: 5px;
+}
 
+
+.badgeMenu li:hover {
+    cursor: pointer;
+    background-color: #789;
+    color: #ffffff;
+}
 
 #menu li:hover {
     cursor: pointer;
@@ -101,6 +121,7 @@ nav {
     padding: 20px;
 }
 
+.badgeMenu .glyphicon,
 #menu .glyphicon {
     margin-right: 10px;
 }
