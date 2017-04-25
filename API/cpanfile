@@ -4,6 +4,7 @@ requires "Dancer2"            => "0.166001";
 requires "Dancer2::Plugin::Database"  => "0";
 #requires "Dancer2::Plugin::JWT" => "0";
 requires "DBD::mysql"         => "0";
+requires "Dancer2::Plugin::Emailesque" => "0.03";
 
 requires "YAML"             => "0";
 requires "URL::Encode::XS"  => "0";

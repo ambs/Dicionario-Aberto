@@ -4,10 +4,11 @@ use DA::Database;
 
 use Dancer2;
 use Dancer2::Plugin::Database;
+use Dancer2::Plugin::Emailesque;
 #use Dancer2::Plugin::JWT;
 
 our $VERSION = '0.1';
-
+our $host = "http://novo.dicionario-aberto.net";
 our $DIC = DA::Database->new(sub { database });
 
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
@@ -98,6 +99,22 @@ get '/metadata/*' => sub {
 	return { $key => $DIC->metadata($key) };
 };
 
+post '/recover' => sub {
+    my $data = param "recover";
+    my $recover_data = $DIC->recover_password($data);
+    if ($recover_data) {
+	email { to => $recover_data->{email},
+		from => 'hashashin@gmail.com',
+		subject => "[Dicionário Aberto] Recuperação de senha",
+		message => _msg_change_pass($recover_data->{'username'},
+					    $recover_data->{'md5'}) };
+	return OK();
+    }
+    else {
+	return my_error("not found");
+    }
+};
+
 
 #post '/auth' => sub {
 	#my ($password, $username) = (param ("password"), param ("username"));
@@ -111,6 +128,23 @@ get '/metadata/*' => sub {
 	##}
 #};
 
+sub OK {
+    return { status => 'OK' };
+}
+
+sub _msg_change_pass {
+    my ($user, $md5) = @_;
+    <<"--";
+Bom Dia,
+
+Para confirmar/alterar a senha do seu utilizador ($user) aceda ao seguinte endereço:
+  http://$host/confirm/$md5
+
+Obrigado,
+
+A equipa do Dicionário Aberto.
+--
+};
 
 sub my_error {
 	my $error = shift;

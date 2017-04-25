@@ -381,10 +381,11 @@ sub moderation_stats {
 sub recover_password {
     my ($self, $data) = @_;
     my $q = "SELECT username, email FROM user WHERE " . ($data =~ /@/ ? "email" : "username") . " = ?";
-    my $sth = $self->dhb->prepare($q);    
-    my @data = $sth->execute($data);
-    if (@data) {
-	for my $u (@data) {
+    my $sth = $self->dbh->prepare($q);
+    $sth->execute($data);
+    my $records = $sth->fetchall_arrayref;
+    if (@$records) {
+	for my $u (@$records) {
 	    my ($username, $email) = ($u->[0], $u->[1]);
 	    my $md5 = md5_hex("$username ".localtime);
 	    $self->quick_delete('user_restore', { user => $username });
@@ -408,7 +409,7 @@ sub quick_insert {
     }
     my $columns = join(",", @where);
     my $qmarks  = join(",", ("?") x @where);
-    my $sth = $self->dbh->prepare("INSERT INTO ? ($columns) VALUES ($qmarks);");
+    my $sth = $self->dbh->prepare("INSERT INTO $table ($columns) VALUES ($qmarks);");
     $sth->execute(@data);
 }
 
@@ -421,8 +422,8 @@ sub quick_delete {
 	push @where, $c;
     }
     my $where = join (" AND ", map { "$_ = ?" } @where);
-    my $sth = $self->dbh->prepare("DELETE FROM ? WHERE $where;");
-    $sth->execute($table, @data);
+    my $sth = $self->dbh->prepare("DELETE FROM $table WHERE $where;");
+    $sth->execute(@data);
     
 }
 
