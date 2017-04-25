@@ -138,7 +138,7 @@ sub _msg_change_pass {
 Bom Dia,
 
 Para confirmar/alterar a senha do seu utilizador ($user) aceda ao seguinte endereço:
-  http://$host/confirm/$md5
+  $host/confirm/$md5
 
 Obrigado,
 
