@@ -378,6 +378,54 @@ sub moderation_stats {
            }; 
 }
 
+sub recover_password {
+    my ($self, $data) = @_;
+    my $q = "SELECT username, email FROM user WHERE " . ($data =~ /@/ ? "email" : "username") . " = ?";
+    my $sth = $self->dhb->prepare($q);    
+    my @data = $sth->execute($data);
+    if (@data) {
+	for my $u (@data) {
+	    my ($username, $email) = ($u->[0], $u->[1]);
+	    my $md5 = md5_hex("$username ".localtime);
+	    $self->quick_delete('user_restore', { user => $username });
+	    $self->quick_insert('user_restore', {
+		md5   => $md5, user  => $username,
+		new   => 0, email => $email, name  => "" });
+
+	    return { email => $email, username => $username, md5 => $md5 };
+	}
+    } else {
+	return undef;
+    }
+}
+
+sub quick_insert {
+    my ($self, $table, $data) = @_;
+    my (@data, @where);
+    foreach my $c (keys %$data) {
+	push @data, $data->{$c};
+	push @where, $c;
+    }
+    my $columns = join(",", @where);
+    my $qmarks  = join(",", ("?") x @where);
+    my $sth = $self->dbh->prepare("INSERT INTO ? ($columns) VALUES ($qmarks);");
+    $sth->execute(@data);
+}
+
+sub quick_delete {
+    my ($self, $table, $constraints) = @_;
+
+    my (@data, @where);
+    foreach my $c (keys %$constraints) {
+	push @data, $constraints->{$c};
+	push @where, $c;
+    }
+    my $where = join (" AND ", map { "$_ = ?" } @where);
+    my $sth = $self->dbh->prepare("DELETE FROM ? WHERE $where;");
+    $sth->execute($table, @data);
+    
+}
+
 =head1 AUTHOR
 
 Alberto Simoes, C<< <ambs at cpan.org> >>
