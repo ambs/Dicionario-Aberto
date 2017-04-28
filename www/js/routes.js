@@ -13,13 +13,16 @@ my_routes.search = function(data) {
 		$('#entriesContents').html(formatResults(data));
 	    }
 	});
+	var word = data.word;
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/near/' + data.word
+	    url: 'http://camelia.perl-hackers.net/near/' + word
 	}).done(function(data) {
 	    if (data.length == 0) {
 		$('#nearMisses').addClass('hidden');
 	    } else {
-		$('#nearMissesContents').html(formatNearMisses(data));
+		$('#nearMissesContents').html(formatNearMisses($.grep(data, function(v){
+		    return v != word
+		})));
 	    }
 	});
 	update_browse(data.word);

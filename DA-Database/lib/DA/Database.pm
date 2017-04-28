@@ -268,8 +268,7 @@ sub _add_queries {
 }
 
 sub near_misses {
-    my ($self, $word, %conf) = @_;
-    my $includeself = 1 if $conf{includeself};
+    my ($self, $word) = @_;
 
     my %WORDS;
 
@@ -301,7 +300,6 @@ sub near_misses {
     while( ($val) = $sth->fetchrow_array) {
         push @ANS, $val;
     }
-    @ANS = grep { $_ ne $word } @ANS unless $includeself;
 
     return \@ANS;
 }
