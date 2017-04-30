@@ -7,7 +7,7 @@ my_routes.search = function(data) {
 	    url: 'http://camelia.perl-hackers.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
 	}).done(function(data) {
 	    if (data.length == 0) {
-		$('#notFound').removeClass("hidden");
+		show_danger_alert("Nenhum resultado encontrado");
 		$('#entries').addClass('hidden');
 	    } else {
 		$('#entriesContents').html(formatResults(data));
@@ -63,6 +63,6 @@ function registerRoutes() {
     $.router.addErrorHandler(function (url) {
 	// url is the URL which the router couldn't find a callback for
 	// console.log(url);
-	$.router.go('/');
+	GO('/');
     });
 }

@@ -1,9 +1,27 @@
+
+function GO(url) {
+    hide_alert();
+    $.router.go(url);
+}
+
+function show_danger_alert(msg) {
+    $('#msg').removeClass("hidden");
+    $('#msgAlert').addClass("alert");
+    $('#msgAlert').addClass("alert-danger");
+    $('#msgAlert').html(msg);
+}
+
+function hide_alert() {
+    $('#msg').addClass("hidden");
+    $('#msgAlert').removeClass();
+}
+
 function random() {
 	$.ajax({
 	    url: 'http://camelia.perl-hackers.net/random',
 	    cache: false,
 	}).done(function(data) {
-	    $.router.go('/search/' + data.word + "/" + data.sense);
+	    GO('/search/' + data.word + "/" + data.sense);
 	});
 }
 
@@ -50,7 +68,7 @@ function update_browse(cid) {
 
 function formSearchBox() {
     var word = $('#word').val();
-    $.router.go('/search/' + word);
+    GO('/search/' + word);
 }
 
 
@@ -68,7 +86,7 @@ function parseDate(date) {
 
 function formatNearMisses(data) {
     return $.map(data, function(v,i) {
-	return div4(spanOnClick(v, "$.router.go('/search/" + v + "');"));
+	return div4(spanOnClick(v, "GO('/search/" + v + "');"));
     }).join("");
 }
 
@@ -77,7 +95,7 @@ function div(c) { return "<div>" + c + "</div>"; }
 
 function spanOnClick(c, f) { return "<span class='near' onClick=\"" + f + "\">" + c + "</span>"; }
 function entryLink(c, n) {
-    return "<a onClick=\"$.router.go('/search/" + c + (n?"/"+n:"") + "');\">" + c
+    return "<a onClick=\"GO('/search/" + c + (n?"/"+n:"") + "');\">" + c
 	+ (n?"<sup>"+n+"</sup>":"") + "</a>";
 }
 
