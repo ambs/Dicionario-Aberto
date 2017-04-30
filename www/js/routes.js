@@ -65,4 +65,11 @@ function registerRoutes() {
 	// console.log(url);
 	GO('/');
     });
+
+    $( document ).ajaxStop(function() {
+	NProgress.done(); NProgress.remove();
+    });
+    $( document ).ajaxStart(function() {
+	NProgress.start();
+    });
 }

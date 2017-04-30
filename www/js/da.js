@@ -28,12 +28,13 @@ function hide_alert() {
 }
 
 function random() {
-	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/random',
-	    cache: false,
-	}).done(function(data) {
-	    GO('/search/' + data.word + "/" + data.sense);
-	});
+    NProgress.start();    
+    $.ajax({
+	url: 'http://camelia.perl-hackers.net/random',
+	cache: false,
+    }).done(function(data) {
+	GO('/search/' + data.word + "/" + data.sense);
+    });
 }
 
 function formatBrowse(data) {
