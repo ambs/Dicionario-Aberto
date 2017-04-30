@@ -4,10 +4,17 @@ function GO(url) {
     $.router.go(url);
 }
 
+function show_info_alert(msg) {
+    _show_alert('info', msg);
+}
 function show_danger_alert(msg) {
+    _show_alert('danger', msg);
+}
+
+function _show_alert(type, msg) {
     $('#msg').removeClass("hidden");
     $('#msgAlert').addClass("alert");
-    $('#msgAlert').addClass("alert-danger");
+    $('#msgAlert').addClass("alert-" + type);
     $('#msgAlert').html(msg);
 }
 
