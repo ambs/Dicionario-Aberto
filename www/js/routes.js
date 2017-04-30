@@ -4,7 +4,7 @@ var my_routes = {};
 my_routes.search = function(data) {
     load_template("search", function(){
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
+	    url: 'http://api.dicionario-aberto.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
 	}).done(function(data) {
 	    if (data.length == 0) {
 		show_danger_alert("Nenhum resultado encontrado");
@@ -15,7 +15,7 @@ my_routes.search = function(data) {
 	});
 	var word = data.word;
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/near/' + word
+	    url: 'http://api.dicionario-aberto.net/near/' + word
 	}).done(function(data) {
 	    if (data.length == 0) {
 		$('#nearMisses').addClass('hidden');
@@ -41,13 +41,13 @@ my_routes.login = function() {
 my_routes.root = function() {
     load_template("index", function() {
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/wotd',
+	    url: 'http://api.dicionario-aberto.net/wotd',
 	    cache: false,
 	}).done(function(data) {
 	    $('#wotd').html(formatEntry(data.xml));
 	});
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/news?limit=2',
+	    url: 'http://api.dicionario-aberto.net/news?limit=2',
 	    cache: false,
 	}).done(function(data) {
 	    $('#news').html(formatNews(data));
