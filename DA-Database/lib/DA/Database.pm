@@ -398,6 +398,39 @@ sub recover_password {
     }
 }
 
+sub register_user {
+    my ($self, $data) = @_;
+    my ($username, $email, $name) = ($data->{username}, $data->{email}, $data->{name});
+
+    return undef if $self->user_exists($username);
+    
+    my $md5 = md5_hex("$username ". localtime);
+
+    $self->quick_delete( user_restore => { user => $username });
+    $self->quick_insert( user_restore => { 
+	md5 => $md5, user => $username, new => 1, email => $email, name => $name });
+
+    return { email => $email, username => $username, md5 => $md5 };
+}
+
+sub user_exists {
+    my ($self, $username) = @_;
+    my $sth = $self->{dbh}->prepare("SELECT * FROM user WHERE username = ?");
+    $sth->execute($username);
+    my $records = $sth->fetchall_arrayref;
+    return @$records ? 1 : 0;
+}
+
+
+sub email_exists {
+    my ($self, $email) = @_;
+    my $sth = $self->{dbh}->prepare("SELECT * FROM user WHERE email = ?");
+    $sth->execute($email);
+    my $records = $sth->fetchall_arrayref;
+    return @$records ? 1 : 0;
+}
+
+
 sub quick_insert {
     my ($self, $table, $data) = @_;
     my (@data, @where);
