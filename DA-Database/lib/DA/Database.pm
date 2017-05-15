@@ -405,7 +405,6 @@ sub register_user {
     return undef if $self->user_exists($username);
     
     my $md5 = md5_hex("$username ". localtime);
-
     $self->quick_delete( user_restore => { user => $username });
     $self->quick_insert( user_restore => { 
 	md5 => $md5, user => $username, new => 1, email => $email, name => $name });

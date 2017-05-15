@@ -14,3 +14,4 @@ requires "HTTP::Parser::XS" => "0";
 #requires "XML::XML2JSON" => "0";
 
 requires "Net::Twitter" => "0";
+requires "Regexp::Common::Email::Address" => "0";

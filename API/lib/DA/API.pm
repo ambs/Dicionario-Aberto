@@ -6,6 +6,8 @@ use Dancer2;
 use Dancer2::Plugin::Database;
 use Dancer2::Plugin::Emailesque;
 #use Dancer2::Plugin::JWT;
+use Regexp::Common qw[Email::Address];
+use Email::Address;
 
 our $VERSION = '0.1';
 our $host = "http://novo.dicionario-aberto.net";
@@ -101,20 +103,50 @@ get '/metadata/*' => sub {
 
 post '/recover' => sub {
     my $data = param "recover";
-    my $recover_data = $DIC->recover_password($data);
-    if ($recover_data) {
-	email { to => $recover_data->{email},
-		from => 'hashashin@gmail.com',
-		subject => "[Dicionário Aberto] Recuperação de senha",
-		message => _msg_change_pass($recover_data->{'username'},
-					    $recover_data->{'md5'}) };
-	return OK();
+
+    if ($data) {
+	my $recover_data = $DIC->recover_password($data);
+	if ($recover_data) {
+	    email { to => $recover_data->{email},
+		    from => 'hashashin@gmail.com',
+		    subject => "[Dicionário Aberto] Recuperação de senha",
+		    message => _msg_change_pass($recover_data->{'username'},
+						$recover_data->{'md5'}) };
+	    return OK();
+	}
+	else {
+	    return my_error("not found");
+	}
     }
     else {
-	return my_error("not found");
+	return my_error("no info");
+    }    
+};
+
+post '/register' => sub {
+    my $data = param "register";
+    if (_is_email($data->{email}) && length($data->{username}) >= 4) {
+	my $ans = $DIC->register_user($data);
+	if ($ans) {
+	    email { to => $ans->{email},
+		    from => 'hashashin@gmail.com',
+		    subject => "[Dicionário Aberto] Confirmação de Registo",
+		    message => _msg_change_pass($ans->{'username'},
+						$ans->{'md5'}) };
+	    
+	    return OK();
+	};
+	return my_error("Email or username already in use!");
+    }
+    else {
+	return my_error("No email, or username too short!");
     }
 };
 
+sub _is_email {
+    my $email = shift;
+    return $email =~ /^$RE{Email}{Address}/;
+}
 
 #post '/auth' => sub {
 	#my ($password, $username) = (param ("password"), param ("username"));
@@ -147,8 +179,8 @@ A equipa do Dicionário Aberto.
 };
 
 sub my_error {
-	my $error = shift;
-	return { error => $error };
+    my $error = shift;
+    return { error => $error };
 };
 
 true;
