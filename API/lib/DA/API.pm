@@ -124,8 +124,9 @@ post '/recover' => sub {
 };
 
 post '/register' => sub {
-    my $data = param "register";
-    if (_is_email($data->{email}) && length($data->{username}) >= 4) {
+    my $data = { map { ($_ => param($_)) } qw.username email name. };
+
+    if (_is_email($data->{email}) && length($data->{username}) >= 2) {
 	my $ans = $DIC->register_user($data);
 	if ($ans) {
 	    email { to => $ans->{email},
@@ -136,16 +137,16 @@ post '/register' => sub {
 	    
 	    return OK();
 	};
-	return my_error("Email or username already in use!");
+	return my_error("E-mail ou utilizador já registado!");
     }
     else {
-	return my_error("No email, or username too short!");
+	return my_error("Utilizador demasiado curto ou e-mail inválido!");
     }
 };
 
 sub _is_email {
     my $email = shift;
-    return $email =~ /^$RE{Email}{Address}/;
+    return $email =~ /^$RE{Email}{Address}$/;
 }
 
 #post '/auth' => sub {

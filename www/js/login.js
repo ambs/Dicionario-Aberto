@@ -1,4 +1,28 @@
 
+function register_user() {
+    var data = {
+	username: $('#reg-username').val(),
+	email: $('#reg-email').val(),
+	name: $('#reg-nome').val()
+    };
+
+    $.ajax({
+	url: 'http://api.dicionario-aberto.net/register',
+	method: 'POST',
+	data: data
+    }).done(function(ans){
+	if ('status' in ans && ans.status == "OK") {
+	    show_info_alert("Verifique o seu e-mail e siga as instruções indicadas.");
+	} else {
+	    show_warning_alert(ans.error);
+	}
+    }).fail(function(ans){
+	show_danger_alert("Não foi possível ligar ao servidor. Por favor tente mais tarde.");	
+    });
+    
+    return false;
+}
+
 function recover_pass() {
     var token = $('#recover').val();
 
