@@ -6,6 +6,8 @@ function register_user() {
 	name: $('#reg-nome').val()
     };
 
+    shade_forms();
+
     $.ajax({
 	url: 'http://api.dicionario-aberto.net/register',
 	method: 'POST',
@@ -26,6 +28,8 @@ function register_user() {
 function recover_pass() {
     var token = $('#recover').val();
 
+    shade_forms();
+    
     $.ajax({
 	url: 'http://api.dicionario-aberto.net/recover',
 	method: 'POST',

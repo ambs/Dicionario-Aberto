@@ -67,9 +67,15 @@ function registerRoutes() {
     });
 
     $( document ).ajaxStop(function() {
+	$('form').unblock();
 	NProgress.done(); NProgress.remove();
     });
     $( document ).ajaxStart(function() {
 	NProgress.start();
     });
+}
+
+
+function shade_forms() {
+    $('form').block({message: null, overlayCSS:  { backgroundColor: '#FFF' } });
 }
