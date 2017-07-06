@@ -5,7 +5,7 @@ use DA::Database;
 use Dancer2;
 use Dancer2::Plugin::Database;
 use Dancer2::Plugin::Emailesque;
-#use Dancer2::Plugin::JWT;
+use Dancer2::Plugin::JWT;
 use Regexp::Common qw[Email::Address];
 use Email::Address;
 
@@ -31,11 +31,11 @@ post '/xmlrpc.php' => sub {
 };
 
 get '/news' => sub {
-	if (param('limit')) {
-		return($DIC->retrieve_news(limit => param('limit')));
-	} else {
-		return($DIC->retrieve_news);			
-	}
+    if (param('limit')) {
+	return($DIC->retrieve_news(limit => param('limit')));
+    } else {
+	return($DIC->retrieve_news);			
+    }
 };
 
 get '/word/**' => sub {
@@ -124,7 +124,7 @@ post '/recover' => sub {
 };
 
 post '/register' => sub {
-    my $data = { map { ($_ => param($_)) } qw.username email name. };
+    my $data = _params(qw.username email name.);
 
     if (_is_email($data->{email}) && length($data->{username}) >= 2) {
 	my $ans = $DIC->register_user($data);
@@ -144,9 +144,27 @@ post '/register' => sub {
     }
 };
 
+post '/login' => sub {
+    my $data = _params(qw.username password.);
+
+    if (length($data->{username}) && length($data->{password})) {
+	my $type;
+	if (0 != ($type = $DIC->authenticate($data->{username}, $data->{password}))) {
+	    jwt { username => $data->{username}, usertype => $type };
+	    return OK();
+	}
+	return my_error("Nome do utilizador ou palavra chave inválidos.");
+    }
+    return my_error("Por favor preencha ambos os campos.");
+};
+
 sub _is_email {
     my $email = shift;
     return $email =~ /^$RE{Email}{Address}$/;
+}
+
+sub _params {
+    return { map { ( $_ => param($_)) } @_ };
 }
 
 #post '/auth' => sub {

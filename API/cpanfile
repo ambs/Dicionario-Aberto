@@ -2,7 +2,7 @@
 requires "WWW::Form::UrlEncoded::XS" => "0";
 requires "Dancer2"            => "0.166001";
 requires "Dancer2::Plugin::Database"  => "0";
-#requires "Dancer2::Plugin::JWT" => "0";
+requires "Dancer2::Plugin::JWT" => "0.011";
 requires "DBD::mysql"         => "0";
 requires "Dancer2::Plugin::Emailesque" => "0.03";
 

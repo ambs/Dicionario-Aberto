@@ -91,15 +91,15 @@ sub revision_from_wid {
 }
 
 sub authenticate {
-  my ($self, $user, $password) = @_;
-  $password = md5_hex $password;
+    my ($self, $user, $password) = @_;
+    $password = md5_hex $password;
 
-  my $sth = $self->dbh->prepare(<<"---");
+    my $sth = $self->dbh->prepare(<<"---");
     SELECT * FROM user WHERE username = ? AND password = ? and banned = 0;
 ---
-  $sth->execute($user, $password);
-  my @row = $sth->fetchrow_array();
-  return @row ? 1 : 0;
+    $sth->execute($user, $password);
+    my @row = $sth->fetchrow_array();
+    return @row ? 1 : 0;
 }
 
 

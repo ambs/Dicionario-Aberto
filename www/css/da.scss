@@ -1,3 +1,5 @@
+$topbar-color: #789;
+
 
 a[onClick]:hover { cursor: pointer; }
 
@@ -40,7 +42,7 @@ footer a {
     padding-right: 10px;
     font-family: 'Indie Flower', cursive;
     font-weight: bold;
-    color: #789;
+    color: $topbar-color;
     font-size: x-large;
     text-align: center;
     background-color: #fff;
@@ -54,11 +56,11 @@ footer a {
 .large {
     font-size: large;
     font-weight: bold;
-    color: #789;
+    color: $topbar-color;
 }
 
 .box {
-    border: solid 3px #789;
+    border: solid 3px $topbar-color;
     border-radius: 30px;
     padding: 0px;
 }
@@ -96,7 +98,7 @@ form .form-group {
 #menu li {
     margin: 0px;
     display: inline;
-    background-color: #789;
+    background-color: $topbar-color;
     padding: 3px;
     padding-left: 13px; 
     padding-right: 13px;
@@ -111,7 +113,7 @@ form .form-group {
 
 .badgeMenu li:hover {
     cursor: pointer;
-    background-color: #789;
+    background-color: $topbar-color;
     color: #ffffff;
 }
 
@@ -136,7 +138,7 @@ form .form-group {
     clear: both;
     padding: 7px;
     padding-left: 20px;
-    background-color: #789;
+    background-color: $topbar-color;
     border: 0px;
     margin: 0px;
 }
@@ -146,7 +148,7 @@ form .form-group {
 }
 
 #search input {
-    background-color: #789;
+    background-color: $topbar-color;
     border: none;
     width: 50%;
     color: white;
@@ -184,7 +186,7 @@ def {
     cursor: pointer;
     margin: 0px;
     padding-bottom: 0px;
-    color: #789;
+    color: $topbar-color;
 }
 .box .browseIcon:hover {
     color: #000099;
