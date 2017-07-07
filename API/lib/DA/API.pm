@@ -19,6 +19,12 @@ hook after => sub {
     response->push_header('Access-Control-Allow-Origin', "*");
 };
 
+hook 'plugin.jwt.jwt_exception' => sub {
+    my $msg = shift;
+    debug $msg;
+    redirect "/index.html";
+};
+
 get '/' => sub {
     redirect "/index.html";
 };
@@ -156,6 +162,12 @@ post '/login' => sub {
 	return my_error("Nome do utilizador ou palavra chave inválidos.");
     }
     return my_error("Por favor preencha ambos os campos.");
+};
+
+get '/jwt' => sub {
+    my $data = jwt;
+    use Data::Dumper;
+    error Dumper($data);
 };
 
 sub _is_email {
