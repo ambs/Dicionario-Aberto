@@ -71,14 +71,16 @@ function registerRoutes() {
 	$('form').unblock();
 	NProgress.done(); NProgress.remove();
     });
-    $( document ).ajaxStart( function () { NProgress.start(); });
-    $( document ).ajaxSuccess( function (e, request, settings) {
-	var header = request.getResponseHeader('Authorization');
-	if (header !== null && header.length > 5) {
-	    da_authorization = header;
-	    console.log(da_authorization);
+    $( document ).ajaxStart( () => { NProgress.start(); });
+    $( document ).ajaxSuccess(
+	(e, request, settings) => {
+	    var header = request.getResponseHeader('Authorization');
+	    if (header !== null && header.length > 5) {
+		da_authorization = header;
+		console.log(da_authorization);
+	    }
 	}
-    });
+    );
 }
 
 
