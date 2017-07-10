@@ -16,6 +16,7 @@ our $DIC = DA::Database->new(sub { database });
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook after => sub {
+    response->push_header('Access-Control-Expose-Headers', 'Authorization');
     response->push_header('Access-Control-Allow-Origin', "*");
 };
 
@@ -155,20 +156,19 @@ post '/login' => sub {
 
     if (length($data->{username}) && length($data->{password})) {
 	my $type;
-	if (0 != ($type = $DIC->authenticate($data->{username}, $data->{password}))) {
+	if ($type = $DIC->authenticate($data->{username}, $data->{password})) {
+
+	    debug "have auth";
+	    
 	    jwt { username => $data->{username}, usertype => $type };
 	    return OK();
 	}
+	debug "error";
 	return my_error("Nome do utilizador ou palavra chave inválidos.");
     }
     return my_error("Por favor preencha ambos os campos.");
 };
 
-get '/jwt' => sub {
-    my $data = jwt;
-    use Data::Dumper;
-    error Dumper($data);
-};
 
 sub _is_email {
     my $email = shift;

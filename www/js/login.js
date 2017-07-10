@@ -25,6 +25,32 @@ function register_user() {
     return false;
 }
 
+function login_user() {
+    var data = {
+	username: $('#login-username').val(),
+	password: $('#login-senha').val()
+    };
+
+    shade_forms();
+
+    $.ajax({
+	url: 'http://api.dicionario-aberto.net/login',
+	method: 'POST',
+	data: data
+    }).done( (ans) => {
+	if ('status' in ans && ans.status == "OK") {
+	    //
+	} else {
+	    show_warning_alert(ans.error);
+	}
+    }).fail(
+	() => { show_danger_alert("Não foi possível ligar ao servidor. Por favor tente mais tarde."); }
+    );
+    
+    return false;
+}
+
+
 function recover_pass() {
     var token = $('#recover').val();
 
