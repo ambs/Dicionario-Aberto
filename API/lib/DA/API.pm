@@ -16,7 +16,7 @@ our $DIC = DA::Database->new(sub { database });
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook after => sub {
-    response->push_header('Access-Control-Expose-Headers', 'Authorization');
+#    response->push_header('Access-Control-Expose-Headers', 'Authorization');
     response->push_header('Access-Control-Allow-Origin', "*");
 };
 

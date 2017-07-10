@@ -11,7 +11,7 @@ function register_user() {
     $.ajax({
 	url: 'http://api.dicionario-aberto.net/register',
 	method: 'POST',
-	data: data
+	data: JSON.stringify(data),
     }).done(function(ans){
 	if ('status' in ans && ans.status == "OK") {
 	    show_info_alert("Verifique o seu e-mail e siga as instruções indicadas.");
@@ -36,7 +36,7 @@ function login_user() {
     $.ajax({
 	url: 'http://api.dicionario-aberto.net/login',
 	method: 'POST',
-	data: data
+	data: JSON.stringify(data),
     }).done( (ans) => {
 	if ('status' in ans && ans.status == "OK") {
 	    //
@@ -59,7 +59,7 @@ function recover_pass() {
     $.ajax({
 	url: 'http://api.dicionario-aberto.net/recover',
 	method: 'POST',
-	data: { recover: token }
+	data: JSON.stringify({ recover: token })
     }).done(function(data){
 	if ('status' in data && data.status == "OK") {
 	    show_info_alert("Verifique o seu e-mail e siga as instruções indicadas.");

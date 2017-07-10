@@ -1,5 +1,6 @@
 
 var da_authorization = "";
+var da_jwt = {};
 var my_routes = {};
 
 my_routes.search = function(data) {
@@ -77,7 +78,12 @@ function registerRoutes() {
 	    var header = request.getResponseHeader('Authorization');
 	    if (header !== null && header.length > 5) {
 		da_authorization = header;
-		console.log(da_authorization);
+		da_jwt = jwt_decode(da_authorization);
+		console.log(da_jwt);
+	    }
+	    else {
+		da_authorization = "";
+		da_jwt = {};
 	    }
 	}
     );
@@ -87,3 +93,10 @@ function registerRoutes() {
 function shade_forms() {
     $('form').block({message: null, overlayCSS:  { backgroundColor: '#FFF' } });
 }
+
+/*
+var token = 'eyJ0eXAiO.../// jwt token';
+
+var decoded = jwt_decode(token);
+console.log(decoded);
+*/
