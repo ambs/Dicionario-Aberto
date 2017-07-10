@@ -2,3 +2,5 @@ tweeta.pl
 doThings
 .DS_Store
 *~
+www/css/.sass-cache/
+www/css/da.css*

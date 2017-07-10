@@ -1,4 +1,5 @@
 
+var da_authorization = "";
 var my_routes = {};
 
 my_routes.search = function(data) {
@@ -70,8 +71,13 @@ function registerRoutes() {
 	$('form').unblock();
 	NProgress.done(); NProgress.remove();
     });
-    $( document ).ajaxStart(function() {
-	NProgress.start();
+    $( document ).ajaxStart( function () { NProgress.start(); });
+    $( document ).ajaxSuccess( function (e, request, settings) {
+	var header = request.getResponseHeader('Authorization');
+	if (header !== null && header.length > 5) {
+	    da_authorization = header;
+	    console.log(da_authorization);
+	}
     });
 }
 
