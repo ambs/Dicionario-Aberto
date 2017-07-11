@@ -39,12 +39,16 @@ function login_user() {
 	data: JSON.stringify(data),
     }).done( (ans) => {
 	if ('status' in ans && ans.status == "OK") {
-	    //
+//	    GO('/');
 	} else {
 	    show_warning_alert(ans.error);
 	}
     }).fail(
 	() => { show_danger_alert("Não foi possível ligar ao servidor. Por favor tente mais tarde."); }
+    ).always(
+	(r, msg) => {
+	    if (msg == "success") { GO('/'); }
+	}
     );
     
     return false;

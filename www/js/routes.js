@@ -79,7 +79,11 @@ function registerRoutes() {
 	    if (header !== null && header.length > 5) {
 		da_authorization = header;
 		da_jwt = jwt_decode(da_authorization);
-		console.log(da_jwt);
+
+		$('#nav-login').hide();
+		$('#nav-user').removeClass('hidden');	    
+		$('#nav-user-span').html(da_jwt.username);
+		
 	    }
 	    else {
 		da_authorization = "";

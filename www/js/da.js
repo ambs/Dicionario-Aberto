@@ -1,6 +1,9 @@
 
 function GO(url) {
     hide_alert();
+    if (da_authorization !== null && da_authorization.length > 5) {
+	url += " ?_jwt= " + da_authorization;
+    }
     $.router.go(url);
 }
 
