@@ -62,6 +62,9 @@
 	<script type="text/javascript" src="/js/da.js"></script>
 	<script type="text/javascript" >
 	 $(function() {
+
+	     check_jwt_cookie();
+	     
 	     $("#word").keyup(function(event){
 		 if(event.keyCode == 13) { formSearchBox(); }
 	     });

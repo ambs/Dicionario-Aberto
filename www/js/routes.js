@@ -78,12 +78,8 @@ function registerRoutes() {
 	    var header = request.getResponseHeader('Authorization');
 	    if (header !== null && header.length > 5) {
 		da_authorization = header;
-		da_jwt = jwt_decode(da_authorization);
-
-		$('#nav-login').hide();
-		$('#nav-user').removeClass('hidden');	    
-		$('#nav-user-span').html(da_jwt.username);
-		
+		set_cookie('da_authorization', da_authorization);
+		check_jwt_cookie();
 	    }
 	    else {
 		da_authorization = "";
@@ -91,6 +87,17 @@ function registerRoutes() {
 	    }
 	}
     );
+}
+
+function check_jwt_cookie() {
+    da_authorization = get_cookie('da_authorization');
+    if (da_authorization != "") {
+	da_jwt = jwt_decode(da_authorization);
+
+	$('#nav-login').hide();
+	$('#nav-user').removeClass('hidden');	    
+	$('#nav-user-span').html(da_jwt.username);
+    }
 }
 
 
