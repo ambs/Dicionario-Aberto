@@ -155,12 +155,10 @@ post '/login' => sub {
     my $data = _params(qw.username password.);
 
     if (length($data->{username}) && length($data->{password})) {
-	my $type;
-	if ($type = $DIC->authenticate($data->{username}, $data->{password})) {
+	my $info;
+	if ($info = $DIC->authenticate($data->{username}, $data->{password})) {
 
-	    debug "have auth";
-	    
-	    jwt { username => $data->{username}, usertype => $type };
+	    jwt $info;
 	    return OK();
 	}
 	debug "error";

@@ -95,11 +95,19 @@ sub authenticate {
     $password = md5_hex $password;
 
     my $sth = $self->dbh->prepare(<<"---");
-    SELECT * FROM user WHERE username = ? AND password = ? and banned = 0;
+    SELECT username, email FROM user WHERE username = ? AND password = ? and banned = 0;
 ---
     $sth->execute($user, $password);
     my @row = $sth->fetchrow_array();
-    return @row ? 1 : 0;
+    return @row ? { usertype => 1, username => $user, avatar => md5_hex(_n($row[1]))} : undef;
+}
+
+sub _n {
+    my $w = shift;
+    $w =~ s/^\s*//;
+    $w =~ s/\s*$//;
+    $w = lc $w;
+    return $w;
 }
 
 

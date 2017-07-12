@@ -16,10 +16,12 @@
 	    <ul id="menu">
 		<li><span class="glyphicon glyphicon-info-sign"></span>Informações</li>
 		<li><span class="glyphicon glyphicon-wrench"></span>Desenvolvimento</li>
-		<li id="nav-login" onClick="$.router.go('/login');"><span class="glyphicon glyphicon-user"></span>Entrar</li>
-		<li class="hidden" id="nav-user"><span class="glyphicon glyphicon-user"></span><span id="nav-user-span"></span> </li>
+		<li id="nav-login" onClick="GO('/login');"><span class="glyphicon glyphicon-user"></span>Entrar</li>
+		<li class="hidden"
+		    onClick="GO('/user');" 
+		    id="nav-user"><span class="glyphicon glyphicon-user"></span><span id="nav-user-span"></span> </li>
 	    </ul>
-            <h1 onClick="$.router.go('/');">Dicionário Aberto</h1>
+            <h1 onClick="GO('/');">Dicionário Aberto</h1>
 	    <dir id="search">
 		<button onClick="random();" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></button>
 		<button onClick="formSearchBox();" class="glyphicon glyphicon-search"></button>

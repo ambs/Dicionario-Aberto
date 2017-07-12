@@ -94,9 +94,16 @@ function check_jwt_cookie() {
     if (da_authorization != "") {
 	da_jwt = jwt_decode(da_authorization);
 
-	$('#nav-login').hide();
-	$('#nav-user').removeClass('hidden');	    
-	$('#nav-user-span').html(da_jwt.username);
+	var current_time = new Date().getTime() / 1000;
+	if (current_time > da_jwt.exp) {
+	    da_jwt = {};
+	    da_authorization = "";
+	}
+	else {
+	    $('#nav-login').hide();
+	    $('#nav-user').removeClass('hidden');	    
+	    $('#nav-user-span').html(da_jwt.username);
+	}
     }
 }
 
