@@ -45,12 +45,19 @@ get '/news' => sub {
     }
 };
 
-get '/word/**' => sub {
-	my ($x) = splat;
-	my $word = $x->[0];
-	my $sense = $x->[1];
+get qr'/(prefix|suffix|infix)/([^/]+)' => sub {
+  my ($type, $affix) = splat;
+  return my_error('Search string is too short!') if length($affix) < 3;
 
-	return $DIC->retrieve_entry($word, $sense);
+  return $DIC->affixes($type, $affix);
+};
+
+get '/word/**' => sub {
+  my ($x) = splat;
+  my $word = $x->[0];
+  my $sense = $x->[1];
+
+  return $DIC->retrieve_entry($word, $sense);
 };
 
 get '/near/*' => sub {
@@ -59,8 +66,8 @@ get '/near/*' => sub {
 };
 
 get qr'/browse/(\d+)' => sub {
-	my ($idx) = splat;
-    return $DIC->get_browse_range($idx);
+  my ($idx) = splat;
+  return $DIC->get_browse_range($idx);
 };
 
 get '/browse/:letter' => sub {

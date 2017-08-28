@@ -1,5 +1,27 @@
 $topbar-color: #789;
 
+
+
+
+fieldset {
+    display: block;
+    width: 90%;
+    margin-left: 20px;
+
+    label {
+	margin-right: 10px;
+    }
+    
+    button {
+	float: right;
+    }
+    
+    input[type=radio] {
+	margin-right: 10px;
+    }
+}
+
+
 a[onClick]:hover { cursor: pointer; }
 
 html, body, nav { margin: 0px; }

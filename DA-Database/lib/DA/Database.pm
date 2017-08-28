@@ -64,15 +64,34 @@ sub dbh {
 	die "no DBH?";
 }
 
+sub affixes {
+    my ($self, $type, $query, $n) = @_;
+    $type eq "infix"  and $query = "\%_${query}_%";
+    $type eq "suffix" and $query = "\%_${query}";
+    $type eq "prefix" and $query = "${query}_%";
+
+    $n = $n ? "LIMIT $n" : "";
+
+    my $sth = $self->dbh->prepare(<<"---");
+          SELECT word, sense, preview FROM word INNER JOIN preview_cache ON word.word_id = preview_cache.word_id WHERE deleted = 0 AND word LIKE ? ORDER BY normalized $n
+---
+    $sth->execute($query);
+    return $sth->fetchall_arrayref({});
+}
+
+sub prefix {
+  my ($self, $word) = @_;
+}
+
 sub random {
-	my ($self) = @_;
-	my $sth = $self->dbh->prepare(<<"---");
+  my ($self) = @_;
+  my $sth = $self->dbh->prepare(<<"---");
  SELECT word_id, word, sense FROM word WHERE deleted=0 ORDER BY rand() LIMIT 1
 ---
-	$sth->execute();
-	my ($wid, $word, $sense) = $sth->fetchrow_array;
-		           
-	return ($wid, $word, $sense);
+  $sth->execute();
+  my ($wid, $word, $sense) = $sth->fetchrow_array;
+
+  return ($wid, $word, $sense);
 }
 
 sub revision_from_wid {

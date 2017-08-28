@@ -1,23 +1,62 @@
-	
-	<div style="text-align: center;">
-	    <img src="images/book.jpg" alt="Livro"/>
+<!-- -*- web -*- -->
+
+{{? jwt.username }}
+<div class="container">
+    <div class="box">
+	<h2>Pesquisa Avançada</h2>
+	<div id="adv-search" >
+	    <form class="form-inline">
+		<legend>Pesquisa por Substring</legend>
+		<fieldset class="form-group" >
+		    <button onClick="return advAffix();" >Procurar</button>
+		    <label>Tipo de Pesquisa: </label>
+		    <select id="affixType"  class="selectpicker">
+			<option value="0">Início da palavra</option>
+			<option value="1" >Meio da palavra</option>
+			<option value="2" >Final da palavra</option>
+		    </select>
+		    <label style="margin-left: 10px;">String: <input id="affix"  class="form-control" type="text"/></label>
+		</fieldset>
+
+		<legend>Pesquisa Reversa</legend>
+		<fieldset class="form-group" >
+		    <button  >Procurar</button>
+		    <label>Termos de Pesquisa: <input class="form-control" size="50" type="text"/></label>
+		</fieldset>
+
+		<legend>Pesquisa Ontológica</legend>
+		<fieldset class="form-group" >
+		    <button  >Procurar</button>
+		    <label>Termos de Pesquisa: <input class="form-control" size="50" type="text"/></label>
+		</fieldset>
+	    </form>
 	</div>
-
-	<div class="container">
-
-	    <div class="row">
-		<div class="col-sm-6" style="margin-top: 30px;">
-		    <div class="box">
-			<h2>Destaque</h2>
-			<div id="wotd"></div>
-		    </div>
-		</div>
-		<div class="col-sm-6" style="margin-top: 30px;">
-		    <div class="box" >
-			<h2>Novidades</h2>			
-			<div id="news" >
-			</div>
-		    </div>
+    </div>
+</div>
+{{??}}
+<div style="text-align: center;" id="bookZone">
+    <img src="images/book.jpg" alt="Livro"/>
+</div>
+{{?}}
+<div class="container">
+    <div class="row">
+	<div class="col-sm-6" style="margin-top: 30px;">
+	    <div class="box">
+		<h2>Destaque</h2>
+		<div id="wotd"></div>
+	    </div>
+	</div>
+	<div class="col-sm-6" style="margin-top: 30px;">
+	    <div class="box" >
+		<h2>Novidades</h2>			
+		<div id="news" >
 		</div>
 	    </div>
 	</div>
+    </div>
+</div>
+
+
+<script type="text/javascript" >
+    $('.selectpicker').selectpicker();
+</script>

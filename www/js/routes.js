@@ -1,6 +1,3 @@
-
-var da_authorization = "";
-var da_jwt = {};
 var my_routes = {};
 
 my_routes.search = function(data) {

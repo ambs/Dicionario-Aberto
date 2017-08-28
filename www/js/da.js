@@ -1,4 +1,7 @@
 
+var da_authorization = "";
+var da_jwt = {};
+
 function GO(url) {
     hide_alert();
     if (da_authorization !== null && da_authorization.length > 5) {
@@ -156,12 +159,14 @@ function formatResults(data) {
 }
 
 function formatEntry(data) {
-    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div>");
+    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div>",
+			       $.extend( doT.templateSettings, {varname:'it'}));
     return template(formatWord(data));
 }
 
 function formatNews(data) {
-    var template = doT.template("<dl>{{~it.news :value:index}}<dt>{{=value.date.year}}-{{=value.date.month}}-{{=value.date.day}}</dt><dd>{{=value.text}}</dd>{{~}}</dl>");
+    var template = doT.template("<dl>{{~it.news :value:index}}<dt>{{=value.date.year}}-{{=value.date.month}}-{{=value.date.day}}</dt><dd>{{=value.text}}</dd>{{~}}</dl>",
+			       	$.extend( doT.templateSettings, {varname:'it'}));
     data = $.map(data, function(v,i) { v.date = parseDate(v.date); return v; });
     return template({news: data});
 }
@@ -171,7 +176,8 @@ function load_template(template_name, callback) {
     var url = "/templates/" + template_name + ".tmpl";
     $.ajax({ url: url, dataType: 'html' , mimeType: 'text/html'})
 	.done(function(html){
-	    $('#contents').html(html);
+	    var func = doT.template(html, $.extend( doT.templateSettings, {varname:'jwt'}));
+	    $('#contents').html(  func( da_jwt ));
 	    callback();
 	});
 }
@@ -209,4 +215,15 @@ function get_cookie(cname) {
         }
     }
     return "";
+}
+
+function advAffix() {
+    var affixType = $('#affixType').val();
+    var affix = $('#affix').val();
+    if (affix.length < 3) {
+	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
+    } else {
+	alert("Searching for " + affix);
+    }
+    return false;
 }
