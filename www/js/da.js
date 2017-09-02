@@ -4,9 +4,10 @@ var da_jwt = {};
 
 function GO(url) {
     hide_alert();
-    if (da_authorization !== null && da_authorization.length > 5) {
+    check_jwt_cookie();
+/*    if (da_authorization !== null && da_authorization.length > 5) {
 	url += " ?_jwt= " + da_authorization;
-    }
+    }*/
     $.router.go(url);
 }
 
@@ -220,10 +221,7 @@ function get_cookie(cname) {
 function advAffix() {
     var affixType = $('#affixType').val();
     var affix = $('#affix').val();
-    if (affix.length < 3) {
-	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
-    } else {
-	alert("Searching for " + affix);
-    }
+    GO('/ss_search/' + affixType + '/' + affix);
     return false;
 }
+
