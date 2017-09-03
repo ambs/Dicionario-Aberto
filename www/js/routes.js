@@ -12,7 +12,7 @@ my_routes.ss_search = function (data) {
 	    load_template('advsearch', () => {
 		var $table = $("<table></table>");
 		$.each(data, (idx, val) => {
-		    $table.append("<tr><td>" + val.word + "<sup>" + val.sense + "</sup></td><td>" + val.preview + "</td></tr>");
+		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
 		});
 		$('#results').html($table);
 	    });
