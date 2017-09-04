@@ -9,6 +9,9 @@ use utf8;
 use Scalar::Util qw.blessed.;
 use Digest::MD5 'md5_hex';
 use DBI;
+use feature 'signatures';
+no warnings "experimental::signatures";
+
 
 =head1 NAME
 
@@ -31,13 +34,9 @@ Creates a new Dicionário-Aberto access object.
 our @LETTERS = qw!a b c d e f g h i j k l m n o p q r s t u v w x y z
                   ã õ á é í ó ú à è ì ò ù â ê î ô û ç ä ë ï ö ü ÿ ý ũ ẽ -!;
 
-sub new {
-  my $class = shift;
+sub new ($class, $thing) {
 
   my $self = bless {}, $class;
-
-  my $thing = shift;
-
 
   if (ref($thing) eq "CODE") {
     $self->{dbh_sub} = $thing;
@@ -52,8 +51,7 @@ sub new {
   return bless $self, $class;
 }
 
-sub dbh {
-  my ($self) = shift;
+sub dbh ($self) {
 
   if (exists($self->{dbh_sub})) {
     return $self->{dbh_sub}->();
@@ -64,8 +62,8 @@ sub dbh {
   die "no DBH?";
 }
 
-sub affixes {
-  my ($self, $type, $query, $n) = @_;
+sub affixes ($self, $type, $query, $n) {
+
   $type eq "infix"  and $query = "\%_${query}_%";
   $type eq "suffix" and $query = "\%_${query}";
   $type eq "prefix" and $query = "${query}_%";
@@ -80,8 +78,7 @@ sub affixes {
 }
 
 
-sub random {
-  my ($self) = @_;
+sub random ($self) {
   my $sth = $self->dbh->prepare(<<"---");
  SELECT word_id, word, sense FROM word WHERE deleted=0 ORDER BY rand() LIMIT 1
 ---
@@ -91,8 +88,7 @@ sub random {
   return ($wid, $word, $sense);
 }
 
-sub revision_from_wid {
-  my ($self, $wid) = @_;
+sub revision_from_wid ($self, $wid) {
 
   my $sth = $self->dbh->prepare(<<"---");
  SELECT `xml` FROM `word` INNER JOIN `revision` 
@@ -106,8 +102,8 @@ sub revision_from_wid {
   return $xml;
 }
 
-sub authenticate {
-  my ($self, $user, $password) = @_;
+sub authenticate ($self, $user, $password) {
+
   $password = md5_hex $password;
 
   my $sth = $self->dbh->prepare(<<"---");
@@ -118,17 +114,17 @@ sub authenticate {
   return @row ? { usertype => 1, username => $user, avatar => md5_hex(_n($row[1]))} : undef;
 }
 
-sub _n {
-  my $w = shift;
+sub _n ($w) {
+
   $w =~ s/^\s*//;
   $w =~ s/\s*$//;
   $w = lc $w;
+
   return $w;
 }
 
 
-sub get_browse_range {
-  my ($self, $position) = @_;
+sub get_browse_range ($self, $position) {
 
   my $mSth = $self->dbh->prepare(<<"---");
   SELECT MAX(idx) FROM browse_idx;
@@ -163,8 +159,7 @@ sub get_browse_range {
   return { words => \@words, cword => $cword, cid => $cid };
 }
 
-sub get_browse_letter_position {
-  my ($self, $letter) = @_;
+sub get_browse_letter_position ($self, $letter) {
 
   my $l = lc $letter;
 
@@ -180,8 +175,8 @@ sub get_browse_letter_position {
   return $position;
 }
 
-sub wotd {
-    my ($self) = @_;
+sub wotd ($self) {
+
     my $sth = $self->dbh->prepare("SELECT `value` FROM `metadata` WHERE `key` = ?");
     $sth->execute('wotd');
 
@@ -190,8 +185,8 @@ sub wotd {
     return $self->revision_from_wid($wid);
 }
 
-sub metadata {
-  my ($self, $key) = @_;
+sub metadata ($self, $key) {
+
   return undef unless grep {$key eq $_} qw.count first_word last_word wotd.;
   my $query = <<"---";
     SELECT `value` FROM `metadata` WHERE `key` = ?
@@ -202,8 +197,7 @@ sub metadata {
   return $ans;
 }
 
-sub retrieve_entry {
-  my ($self, $word, $n) = @_;
+sub retrieve_entry ($self, $word, $n) {
 
   my $query = <<"---";
 SELECT * FROM word INNER JOIN revision 
@@ -218,8 +212,7 @@ SELECT * FROM word INNER JOIN revision
   return $sth->fetchall_arrayref({});
 }
 
-sub retrieve_news {
-  my ($self, %filter) = @_;
+sub retrieve_news ($self, %filter) {
 
   my @where = ();
   if (exists($filter{id}) && $filter{id} =~ /^\d+$/) {
@@ -246,6 +239,212 @@ sub retrieve_news {
 
 
 
+sub near_misses ($self, $word) {
+
+  my %WORDS;
+
+  my $deletions = _delete_queries($word);
+  my $trs       = _trs_queries($word);
+  $WORDS{$_}++ for (@$deletions, @$trs);
+
+  my $replaces  = _replace_queries($word);
+  my $additions = _add_queries($word);
+  for my $word (@$replaces, @$additions) {
+    for my $letter (@LETTERS) {
+      my $x = $word;
+      $x =~ s/_/$letter/;
+      $WORDS{$x}++
+    }
+  }
+
+  my $query = join(", ", map { "'$_'" } keys %WORDS);
+  %WORDS = ();
+
+  $query = "SELECT DISTINCT(word) FROM word WHERE word IN ($query)";
+  my $sth = $self->dbh->prepare($query);
+  return [] unless $sth;
+
+  $sth->execute();
+
+  my $val;
+  my @ANS = ();
+  while( ($val) = $sth->fetchrow_array) {
+    push @ANS, $val;
+  }
+
+  return \@ANS;
+}
+
+sub words_by_letter ($self) {
+  my $ans = $self->dbh->selectall_arrayref(<<"---");
+  SELECT substr(normalized,1,1) AS letter, COUNT(word) FROM word GROUP BY letter ORDER BY letter;
+---
+
+  my $data;
+  while (my $pair = shift(@$ans)) {
+    push @{$data->{axis}}   => $pair->[0];
+    push @{$data->{values}} => $pair->[1]*1;
+  }
+
+  return $data;
+}
+
+sub words_by_size ($self) {
+  my $sth = $self->dbh->prepare(<<"---");
+SELECT tamanho, COUNT(tamanho) FROM
+   (SELECT LENGTH(word) AS tamanho FROM word) AS tamanhos GROUP BY tamanho ORDER BY tamanho
+---
+  $sth->execute();
+  my $data;
+  my $ans = $sth->fetchall_arrayref;
+  while (my $pair = shift(@$ans)) {
+    push @{$data->{axis}}   => $pair->[0]*1;
+    push @{$data->{values}} => $pair->[1]*1;
+  }
+  return $data;
+}
+
+sub moderation_stats ($self) {
+  my ($D, $M, $T);
+  my $totals = $self->dbh->selectall_hashref(<<"---", 'letter');
+   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word group by letter order by letter;
+---
+
+  my $deleted = $self->dbh->selectall_hashref(<<"---", 'letter');
+   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
+                                                       on word.word_id = revision.word_id
+                                                    where revision.deleted = 1 and revision_id = 2
+                                                 group by letter order by letter;
+---
+
+  my $moderated = $self->dbh->selectall_hashref(<<"---", 'letter');
+    SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
+                                                       on word.word_id = revision.word_id
+                                                    where revision.deleted = 0 AND
+                                              revision.moderator is not null and revision_id = 2
+                                                 group by letter order by letter;
+---
+
+  for ('a'..'z') {
+    my $t = $totals->{$_}{'COUNT(word)'};
+    my $d = $deleted->{$_}{'COUNT(word)'} || 0;
+    my $m = $moderated->{$_}{'COUNT(word)'} || 0;
+
+    push @$D => 0+$d;
+    push @$M => 0+$m;
+    push @$T => 0+($t-$d-$m);
+  }
+
+  return { letters => ['a'..'z'],
+	   data => [
+		    { name => 'apagadas',    color => '#BB6666', data => $D },
+		    { name => 'aprovadas',   color => '#45A772', data => $M },
+		    { name => 'por moderar', color => '#4572A7', data => $T },
+		   ]
+	 };
+}
+
+sub recover_password ($self, $data) {
+  my $q = "SELECT username, email FROM user WHERE " . ($data =~ /@/ ? "email" : "username") . " = ?";
+  my $sth = $self->dbh->prepare($q);
+  $sth->execute($data);
+  my $records = $sth->fetchall_arrayref;
+  if (@$records) {
+    for my $u (@$records) {
+      my ($username, $email) = ($u->[0], $u->[1]);
+      my $md5 = md5_hex("$username ".localtime);
+      $self->quick_delete('user_restore', { user => $username });
+      $self->quick_insert('user_restore', {
+					   md5   => $md5, user  => $username,
+					   new   => 0, email => $email, name  => "" });
+
+      return { email => $email, username => $username, md5 => $md5 };
+    }
+  } else {
+    return undef;
+  }
+}
+
+sub register_user ($self, $data) {
+  my ($username, $email, $name) = ($data->{username}, $data->{email}, $data->{name});
+
+  return undef if $self->user_exists($username);
+  return undef if $self->email_exists($email);
+
+  my $md5 = md5_hex("$username ". localtime);
+  $self->quick_delete( user_restore => { user => $username });
+  $self->quick_insert( user_restore =>
+		       {
+			md5 => $md5,
+			user => $username,
+			new => 1,
+			email => $email,
+			name => $name });
+  return { email => $email, username => $username, md5 => $md5 };
+}
+
+sub user_exists ($self, $username) {
+  my $sth = $self->dbh->prepare("SELECT * FROM user WHERE username = ?");
+  $sth->execute($username);
+  my $records = $sth->fetchall_arrayref;
+  return @$records ? 1 : 0;
+}
+
+
+sub email_exists ($self, $email) {
+  my $sth = $self->dbh->prepare("SELECT * FROM user WHERE email = ?");
+  $sth->execute($email);
+  my $records = $sth->fetchall_arrayref;
+  return @$records ? 1 : 0;
+}
+
+
+sub quick_insert ($self, $table, $data) {
+
+  my (@data, @where);
+  foreach my $c (keys %$data) {
+    push @data, $data->{$c};
+    push @where, $c;
+  }
+  my $columns = join(",", @where);
+  my $qmarks  = join(",", ("?") x @where);
+  my $sth = $self->dbh->prepare("INSERT INTO $table ($columns) VALUES ($qmarks);");
+  $sth->execute(@data);
+}
+
+sub quick_delete ($self, $table, $constraints) {
+
+  my (@data, @where);
+  foreach my $c (keys %$constraints) {
+    push @data, $constraints->{$c};
+    push @where, $c;
+  }
+  my $where = join (" AND ", map { "$_ = ?" } @where);
+  my $sth = $self->dbh->prepare("DELETE FROM $table WHERE $where;");
+  $sth->execute(@data);
+}
+
+
+sub revsearch ($self, $word_list, $limit) {
+
+  my @words = map { _rev_idx_word(lc $_) || () } grep { length >= 4 } @$word_list;
+
+  @words = map {
+    " word_id IN (SELECT word_id FROM rev_idx_rel WHERE rev_idx_rel.rev_idx_word_id=$_) "
+  } @words;
+  my $q = "SELECT DISTINCT(word_id) FROM rev_idx_rel WHERE ".join(" AND ", @words);
+
+  if ($limit) {
+    $q = "SELECT word, sense, preview FROM word INNER JOIN preview_cache ON word.word_id = preview_cache.word_id WHERE deleted = 0 AND word.word_id IN ($q) ORDER BY normalized LIMIT $limit";
+  } else {
+    $q = "SELECT word, sense, preview FROM word INNER JOIN preview_cache ON word.word_id = preview_cache.word_id WHERE deleted = 0 AND word.word_id IN ($q) ORDER BY normalized";
+  }
+
+  return $self->dbh->selectall_arrayref($q, { Slice => {} });
+}
+
+
+## Aux
 
 sub _delete_queries {
   my @ans;
@@ -289,199 +488,6 @@ sub _add_queries {
   \@ans;
 }
 
-sub near_misses {
-  my ($self, $word) = @_;
-
-  my %WORDS;
-
-  my $deletions = _delete_queries($word);
-  my $trs       = _trs_queries($word);
-  $WORDS{$_}++ for (@$deletions, @$trs);
-
-  my $replaces  = _replace_queries($word);
-  my $additions = _add_queries($word);
-  for my $word (@$replaces, @$additions) {
-    for my $letter (@LETTERS) {
-      my $x = $word;
-      $x =~ s/_/$letter/;
-      $WORDS{$x}++
-    }
-  }
-
-  my $query = join(", ", map { "'$_'" } keys %WORDS);
-  %WORDS = ();
-
-  $query = "SELECT DISTINCT(word) FROM word WHERE word IN ($query)";
-  my $sth = $self->dbh->prepare($query);
-  return [] unless $sth;
-
-  $sth->execute();
-
-  my $val;
-  my @ANS = ();
-  while( ($val) = $sth->fetchrow_array) {
-    push @ANS, $val;
-  }
-
-  return \@ANS;
-}
-
-sub words_by_letter {
-  my $self = shift;
-  my $ans = $self->dbh->selectall_arrayref(<<"---");
-  SELECT substr(normalized,1,1) AS letter, COUNT(word) FROM word GROUP BY letter ORDER BY letter;
----
-
-  my $data;
-  while (my $pair = shift(@$ans)) {
-    push @{$data->{axis}}   => $pair->[0];
-    push @{$data->{values}} => $pair->[1]*1;
-  }
-
-  return $data;
-}
-
-sub words_by_size {
-  my $self = shift;
-  my $sth = $self->dbh->prepare(<<"---");
-SELECT tamanho, COUNT(tamanho) FROM
-   (SELECT LENGTH(word) AS tamanho FROM word) AS tamanhos GROUP BY tamanho ORDER BY tamanho
----
-  $sth->execute();
-  my $data;
-  my $ans = $sth->fetchall_arrayref;
-  while (my $pair = shift(@$ans)) {
-    push @{$data->{axis}}   => $pair->[0]*1;
-    push @{$data->{values}} => $pair->[1]*1;
-  }
-  return $data;
-}
-
-sub moderation_stats {
-  my $self = shift;
-  my ($D, $M, $T);
-  my $totals = $self->dbh->selectall_hashref(<<"---", 'letter');
-   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word group by letter order by letter;
----
-
-  my $deleted = $self->dbh->selectall_hashref(<<"---", 'letter');
-   SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
-                                                       on word.word_id = revision.word_id
-                                                    where revision.deleted = 1 and revision_id = 2
-                                                 group by letter order by letter;
----
-
-  my $moderated = $self->dbh->selectall_hashref(<<"---", 'letter');
-    SELECT substr(normalized,1,1) AS letter, COUNT(word) from word inner join revision
-                                                       on word.word_id = revision.word_id
-                                                    where revision.deleted = 0 AND
-                                              revision.moderator is not null and revision_id = 2
-                                                 group by letter order by letter;
----
-
-  for ('a'..'z') {
-    my $t = $totals->{$_}{'COUNT(word)'};
-    my $d = $deleted->{$_}{'COUNT(word)'} || 0;
-    my $m = $moderated->{$_}{'COUNT(word)'} || 0;
-
-    push @$D => 0+$d;
-    push @$M => 0+$m;
-    push @$T => 0+($t-$d-$m);
-  }
-
-  return { letters => ['a'..'z'],
-	   data => [
-		    { name => 'apagadas',    color => '#BB6666', data => $D },
-		    { name => 'aprovadas',   color => '#45A772', data => $M },
-		    { name => 'por moderar', color => '#4572A7', data => $T },
-		   ]
-	 };
-}
-
-sub recover_password {
-  my ($self, $data) = @_;
-  my $q = "SELECT username, email FROM user WHERE " . ($data =~ /@/ ? "email" : "username") . " = ?";
-  my $sth = $self->dbh->prepare($q);
-  $sth->execute($data);
-  my $records = $sth->fetchall_arrayref;
-  if (@$records) {
-    for my $u (@$records) {
-      my ($username, $email) = ($u->[0], $u->[1]);
-      my $md5 = md5_hex("$username ".localtime);
-      $self->quick_delete('user_restore', { user => $username });
-      $self->quick_insert('user_restore', {
-					   md5   => $md5, user  => $username,
-					   new   => 0, email => $email, name  => "" });
-
-      return { email => $email, username => $username, md5 => $md5 };
-    }
-  } else {
-    return undef;
-  }
-}
-
-sub register_user {
-  my ($self, $data) = @_;
-  my ($username, $email, $name) = ($data->{username}, $data->{email}, $data->{name});
-
-  return undef if $self->user_exists($username);
-  return undef if $self->email_exists($email);
-
-  my $md5 = md5_hex("$username ". localtime);
-  $self->quick_delete( user_restore => { user => $username });
-  $self->quick_insert( user_restore =>
-		       {
-			md5 => $md5,
-			user => $username,
-			new => 1,
-			email => $email,
-			name => $name });
-  return { email => $email, username => $username, md5 => $md5 };
-}
-
-sub user_exists {
-  my ($self, $username) = @_;
-  my $sth = $self->dbh->prepare("SELECT * FROM user WHERE username = ?");
-  $sth->execute($username);
-  my $records = $sth->fetchall_arrayref;
-  return @$records ? 1 : 0;
-}
-
-
-sub email_exists {
-  my ($self, $email) = @_;
-  my $sth = $self->dbh->prepare("SELECT * FROM user WHERE email = ?");
-  $sth->execute($email);
-  my $records = $sth->fetchall_arrayref;
-  return @$records ? 1 : 0;
-}
-
-
-sub quick_insert {
-  my ($self, $table, $data) = @_;
-  my (@data, @where);
-  foreach my $c (keys %$data) {
-    push @data, $data->{$c};
-    push @where, $c;
-  }
-  my $columns = join(",", @where);
-  my $qmarks  = join(",", ("?") x @where);
-  my $sth = $self->dbh->prepare("INSERT INTO $table ($columns) VALUES ($qmarks);");
-  $sth->execute(@data);
-}
-
-sub quick_delete {
-  my ($self, $table, $constraints) = @_;
-
-  my (@data, @where);
-  foreach my $c (keys %$constraints) {
-    push @data, $constraints->{$c};
-    push @where, $c;
-  }
-  my $where = join (" AND ", map { "$_ = ?" } @where);
-  my $sth = $self->dbh->prepare("DELETE FROM $table WHERE $where;");
-  $sth->execute(@data);
-}
 
 =head1 AUTHOR
 
