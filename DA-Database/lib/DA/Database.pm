@@ -425,9 +425,9 @@ sub quick_delete ($self, $table, $constraints) {
 }
 
 
-sub revsearch ($self, $word_list, $limit) {
+sub revsearch ($self, $word_list, $limit = undef) {
 
-  my @words = map { _rev_idx_word(lc $_) || () } grep { length >= 4 } @$word_list;
+  my @words = map { $self->_rev_idx_word(lc $_) || () } grep { length >= 4 } @$word_list;
 
   @words = map {
     " word_id IN (SELECT word_id FROM rev_idx_rel WHERE rev_idx_rel.rev_idx_word_id=$_) "
@@ -441,6 +441,18 @@ sub revsearch ($self, $word_list, $limit) {
   }
 
   return $self->dbh->selectall_arrayref($q, { Slice => {} });
+}
+
+sub _rev_idx_word ($self, $word){
+
+  my $sth = $self->dbh->prepare('SELECT rev_idx_word_id FROM rev_idx_word WHERE rev_idx_word = ?');
+  $sth->execute($word);
+  if (my @row = $sth->fetchrow_array()) {
+    return $row[0];
+  }
+  else {
+    return undef;
+  }
 }
 
 

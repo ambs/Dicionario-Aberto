@@ -6,16 +6,16 @@
 	<h2>Pesquisa Avançada</h2>
 	<div id="adv-search" >
 	    <form class="form-inline">
-		<legend>Pesquisa por Substring</legend>
+		<legend>Pesquisa no Lema</legend>
 		<fieldset class="form-group" >
 		    <button onClick="return advAffix();" >Procurar</button>
-		    <label>Tipo de Pesquisa: </label>
+		    <label>Lemas que </label>
 		    <select id="affixType"  class="selectpicker">
-			<option value="prefix">Início da palavra</option>
-			<option value="infix" >Meio da palavra</option>
-			<option value="suffix" >Final da palavra</option>
+			<option value="prefix">comecem por </option>
+			<option value="infix" >incluam</option>
+			<option value="suffix" >terminem por</option>
 		    </select>
-		    <label style="margin-left: 10px;">String: <input id="affix"  class="form-control" type="text"/></label>
+		    <label style="margin-left: 10px;">  <input id="affix"  class="form-control" type="text"/></label>
 		</fieldset>
 
 		<legend>Pesquisa Reversa</legend>

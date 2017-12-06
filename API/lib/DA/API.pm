@@ -38,11 +38,11 @@ post '/xmlrpc.php' => sub {
 };
 
 get '/news' => sub {
-    if (param('limit')) {
-	return($DIC->retrieve_news(limit => param('limit')));
-    } else {
-	return($DIC->retrieve_news);			
-    }
+  if (param('limit')) {
+    return($DIC->retrieve_news(limit => param('limit')));
+  } else {
+    return($DIC->retrieve_news);
+  }
 };
 
 get qr'/(prefix|suffix|infix)/([^/]+)' => sub {
@@ -61,8 +61,15 @@ get '/word/**' => sub {
 };
 
 get '/near/*' => sub {
-	my ($word) = splat;
-	return $DIC->near_misses($word);
+  my ($word) = splat;
+  return $DIC->near_misses($word);
+};
+
+get '/reverse/*' => sub {
+  my ($list) = splat;
+  $list =~ s/['";.!,:]//g; # try to prevent SQL injection
+  my @words = split /[+\s]+/, $list;
+  return $DIC->revsearch(\@words);
 };
 
 get qr'/browse/(\d+)' => sub {
@@ -116,25 +123,25 @@ get '/metadata/*' => sub {
 };
 
 post '/recover' => sub {
-    my $data = param "recover";
+  my $data = param "recover";
 
-    if ($data) {
-	my $recover_data = $DIC->recover_password($data);
-	if ($recover_data) {
-	    email { to => $recover_data->{email},
-		    from => 'hashashin@gmail.com',
-		    subject => "[Dicionário Aberto] Recuperação de senha",
-		    message => _msg_change_pass($recover_data->{'username'},
-						$recover_data->{'md5'}) };
-	    return OK();
-	}
-	else {
-	    return my_error("not found");
-	}
+  if ($data) {
+    my $recover_data = $DIC->recover_password($data);
+    if ($recover_data) {
+      email { to => $recover_data->{email},
+		from => 'hashashin@gmail.com',
+		subject => "[Dicionário Aberto] Recuperação de senha",
+		message => _msg_change_pass($recover_data->{'username'},
+					    $recover_data->{'md5'}) };
+      return OK();
     }
     else {
-	return my_error("no info");
-    }    
+      return my_error("not found");
+    }
+  }
+  else {
+    return my_error("no info");
+  }
 };
 
 post '/register' => sub {
@@ -148,7 +155,6 @@ post '/register' => sub {
 		    subject => "[Dicionário Aberto] Confirmação de Registo",
 		    message => _msg_change_pass($ans->{'username'},
 						$ans->{'md5'}) };
-	    
 	    return OK();
 	};
 	return my_error("E-mail ou utilizador já registado!");
