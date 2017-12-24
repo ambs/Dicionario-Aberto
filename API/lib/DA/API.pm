@@ -67,8 +67,8 @@ get '/near/*' => sub {
 
 get '/reverse/*' => sub {
   my ($list) = splat;
-  $list =~ s/['";.!,:]//g; # try to prevent SQL injection
-  my @words = split /[+\s]+/, $list;
+  $list =~ s/['";.!,:]//g; # FIXME! try to prevent SQL injection
+  my @words = split /[\s]+/, $list;
   return $DIC->revsearch(\@words);
 };
 

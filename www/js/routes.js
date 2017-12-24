@@ -1,5 +1,25 @@
 var my_routes = {};
 
+my_routes.rev_search = function (data) {
+    var token = data.words;
+    if (token.length < 3) {
+	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
+    } else {
+	$.ajax({
+	    url: 'http://api.dicionario-aberto.net/reverse/' + token
+	}).done( (data) => {
+	    load_template('advsearch', () => {
+		var $table = $("<table></table>");
+		$.each(data, (idx, val) => {
+		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
+		});
+		$('#results').html($table);
+	    });
+	});
+    }
+};
+
+
 my_routes.ss_search = function (data) {
     var type = data.type;
     var token = data.word;
@@ -7,7 +27,7 @@ my_routes.ss_search = function (data) {
 	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
     } else {
 	$.ajax({
-	    url: 'http://camelia.perl-hackers.net/' + type + '/' + token
+	    url: 'http://api.dicionario-aberto.net/' + type + '/' + token
 	}).done( (data) => {
 	    load_template('advsearch', () => {
 		var $table = $("<table></table>");
@@ -85,6 +105,7 @@ function registerRoutes() {
     $.router.add('/search/:word', my_routes.search);
     $.router.add('/search/:word/:n', my_routes.search);
     $.router.add('/ss_search/:type/:word', my_routes.ss_search);
+    $.router.add('/rev_search/:words', my_routes.rev_search);
     $.router.add('/user', my_routes.user);
     $.router.addErrorHandler( (url) => { GO('/'); });
     

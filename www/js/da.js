@@ -225,3 +225,9 @@ function advAffix() {
     return false;
 }
 
+function advReverse() {
+    var terms = $('#reverseTerms').val();
+    GO('/rev_search/' + terms);
+    return false;
+}
+
