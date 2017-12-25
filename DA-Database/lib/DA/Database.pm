@@ -197,6 +197,27 @@ sub metadata ($self, $key) {
   return $ans;
 }
 
+sub ontology_search ($self, $word_list, $limit) {
+    my $results_list = $self->_ont_expand_word_list($word_list);
+    my $results;
+    for my $hit (@$results_list) {
+      for my $a (keys %$hit) {
+	$results->{$a}++;
+      }
+    }
+    my @ans;
+    my $q = join(",", keys %$results);
+    my $sth = $self->dbh->prepare("SELECT word.word_id, word, sense, preview FROM word INNER JOIN preview_cache ON word.word_id = preview_cache.word_id WHERE deleted = 0 AND word.word_id IN ($q);");
+    $sth->execute();
+    my $db = $sth->fetchall_hashref('word_id');
+
+    for my $ans (sort { $results->{$b} <=> $results->{$a} } keys %$results) {
+        push @ans, { %{$db->{$ans}}};
+    }
+    return \@ans;
+}
+
+
 sub retrieve_entry ($self, $word, $n) {
 
   my $query = <<"---";
@@ -498,6 +519,34 @@ sub _add_queries {
   }
   push @ans, "$_[0]_";
   \@ans;
+}
+
+sub _ont_expand_word_list ($self, $word_list) {
+  my $results_list = [];
+  for my $word (@$word_list) {
+    my $exp = $self->_ont_expand_word($word);
+    push @$results_list, $exp if defined $exp;
+  }
+  return $results_list;
+}
+
+sub _ont_expand_word ($self, $word) {
+  my $wids = $self->word_ids($word);
+  if (@$wids) {
+    my %ans;
+    for my $wid (@$wids) {
+      $ans{$wid} ++;
+      my $sth = $self->dbh->prepare("SELECT to_wid FROM word_word_rel WHERE from_wid = ?");
+      $sth->execute($wid);
+      my @x = $sth->selectall_array();
+      for my $x (@x) {
+	$ans{$x->{to_wid}} ++;
+      }
+    }
+    return \%ans
+  } else {
+    return undef;
+  }
 }
 
 
