@@ -231,3 +231,9 @@ function advReverse() {
     return false;
 }
 
+function advOntology() {
+    var terms = $('#ontologyTerms').val();
+    GO('/ont_search/' + terms);
+    return false;
+}
+

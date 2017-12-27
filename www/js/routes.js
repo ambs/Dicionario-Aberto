@@ -1,5 +1,25 @@
 var my_routes = {};
 
+my_routes.ont_search = function (data) {
+    var token = data.words;
+    if (token.length < 3) {
+	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
+    } else {
+	$.ajax({
+	    url: 'http://api.dicionario-aberto.net/ontology/' + token
+	}).done( (data) => {
+	    load_template('advsearch', () => {
+		var $table = $("<table></table>");
+		$.each(data, (idx, val) => {
+		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
+		});
+		$('#results').html($table);
+	    });
+	});
+    }
+};
+
+
 my_routes.rev_search = function (data) {
     var token = data.words;
     if (token.length < 3) {
@@ -106,6 +126,7 @@ function registerRoutes() {
     $.router.add('/search/:word/:n', my_routes.search);
     $.router.add('/ss_search/:type/:word', my_routes.ss_search);
     $.router.add('/rev_search/:words', my_routes.rev_search);
+    $.router.add('/ont_search/:words', my_routes.ont_search);
     $.router.add('/user', my_routes.user);
     $.router.addErrorHandler( (url) => { GO('/'); });
     
