@@ -197,7 +197,7 @@ sub metadata ($self, $key) {
   return $ans;
 }
 
-sub ontology_search ($self, $word_list, $limit) {
+sub ontology_search ($self, $word_list, $limit = undef) {
     my $results_list = $self->_ont_expand_word_list($word_list);
     my $results;
     for my $hit (@$results_list) {
@@ -419,6 +419,16 @@ sub email_exists ($self, $email) {
   return @$records ? 1 : 0;
 }
 
+sub quick_select ($self, $table, $where) {
+  my @keys = keys %$where;
+  my $query = "SELECT * FROM $table";
+  if (@keys) {
+    $query .= " WHERE " . join(" AND ", map {"$_ = ?"} @keys);
+  }
+  my $sth = $self->dbh->prepare($query);
+  $sth->execute(@{$where}{@keys});
+  return $sth->fetchall_arrayref({})->@*;
+}
 
 sub quick_insert ($self, $table, $data) {
 
@@ -536,10 +546,8 @@ sub _ont_expand_word ($self, $word) {
     my %ans;
     for my $wid (@$wids) {
       $ans{$wid} ++;
-      my $sth = $self->dbh->prepare("SELECT to_wid FROM word_word_rel WHERE from_wid = ?");
-      $sth->execute($wid);
-      my @x = $sth->selectall_array();
-      for my $x (@x) {
+
+      for my $x ($self->quick_select('word_word_rel' => { from_wid => $wid})) {
 	$ans{$x->{to_wid}} ++;
       }
     }
@@ -547,6 +555,12 @@ sub _ont_expand_word ($self, $word) {
   } else {
     return undef;
   }
+}
+
+sub word_ids {
+    my ($self, $word) = @_;
+    my @ids = map { $_->{word_id} } $self->quick_select('word', { word => $word });
+    return \@ids;
 }
 
 

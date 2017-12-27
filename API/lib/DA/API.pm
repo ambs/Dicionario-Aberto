@@ -68,8 +68,15 @@ get '/near/*' => sub {
 get '/reverse/*' => sub {
   my ($list) = splat;
   $list =~ s/['";.!,:]//g; # FIXME! try to prevent SQL injection
-  my @words = split /[\s]+/, $list;
+  my @words = split /\s+/, $list;
   return $DIC->revsearch(\@words);
+};
+
+get '/ontology/*' => sub {
+  my ($list) = splat;
+  $list =~ s/['";.!,:]//g; # FIXME! try to prevent SQL injection
+  my @words = split /\s+/, $list;
+  return $DIC->ontology_search(\@words);
 };
 
 get qr'/browse/(\d+)' => sub {
