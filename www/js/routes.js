@@ -137,15 +137,17 @@ function registerRoutes() {
     $( document ).ajaxStart( () => { NProgress.start(); });
     $( document ).ajaxSuccess(
 	(e, request, settings) => {
-	    var header = request.getResponseHeader('Authorization');
-	    if (header !== null && header.length > 5) {
-		da_authorization = header;
-		set_cookie('da_authorization', da_authorization);
-		check_jwt_cookie();
-	    }
-	    else {
-		da_authorization = "";
-		da_jwt = {};
+	    if (!settings.url.match(/tmpl$/)) {
+		var header = request.getResponseHeader('Authorization');
+		if (header !== null && header.length > 5) {
+		    da_authorization = header;
+		    set_cookie('da_authorization', da_authorization);
+		    check_jwt_cookie();
+		}
+		else {
+		    da_authorization = "";
+		    da_jwt = {};
+		}
 	    }
 	}
     );
@@ -173,6 +175,8 @@ function check_jwt_cookie() {
 function shade_forms() {
 	$('form').block({message: null, overlayCSS:  { backgroundColor: '#FFF' } });
 }
+
+function get_user_data() { return da_jwt; }
 
 /*
 var token = 'eyJ0eXAiO.../// jwt token';
