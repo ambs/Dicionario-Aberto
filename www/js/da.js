@@ -37,7 +37,7 @@ function hide_alert() {
 function random() {
     NProgress.start();    
     $.ajax({
-	url: 'http://camelia.perl-hackers.net/random',
+	url: 'http://api.dicionario-aberto.net/random',
 	cache: false,
     }).done(function(data) {
 	GO('/search/' + data.word + "/" + data.sense);
@@ -57,7 +57,7 @@ function formatBrowse(data) {
 
 function update_browse(cid) {
     $.ajax({
-	url: 'http://camelia.perl-hackers.net/browse/' + cid
+	url: 'http://api.dicionario-aberto.net/browse/' + cid
     }).done(function(data) {
 	var size = data.words.length;
 	if (data.cid - size/2 > 0) {
