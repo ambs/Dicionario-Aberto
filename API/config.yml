@@ -54,3 +54,21 @@ plugins:
     password: 'et83YcQkuWysXHJRV'
     dbi_params:
       mysql_enable_utf8: 1
+  JWT:
+    secret: "TzYwYKmrXYY8tqgLmX7q6"
+    # add issued at field
+    need_iat: 1
+    # check not before field
+    need_nbf: 1
+    # in seconds
+    need_exp: 600
+    # timeshift for expiration
+    need_leeway: 30
+  Emailesque:
+     ssl: 1
+     driver: 'smtp'
+     host: 'smtp.googlemail.com'
+     port: 465
+     user: 'hashashin@gmail.com'
+     pass: 'NOPE'
+
