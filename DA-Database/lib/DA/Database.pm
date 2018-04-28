@@ -427,7 +427,7 @@ sub quick_select ($self, $table, $where) {
   }
   my $sth = $self->dbh->prepare($query);
   $sth->execute(@{$where}{@keys});
-  return $sth->fetchall_arrayref({})->@*;
+  return @{ $sth->fetchall_arrayref({}) };
 }
 
 sub quick_insert ($self, $table, $data) {
