@@ -1,0 +1,218 @@
+$topbar-color: #789;
+
+
+
+
+fieldset {
+    display: block;
+    width: 90%;
+    margin-left: 20px;
+
+    label {
+	margin-right: 10px;
+    }
+    
+    button {
+	float: right;
+    }
+    
+    input[type=radio] {
+	margin-right: 10px;
+    }
+}
+
+
+a[onClick]:hover { cursor: pointer; }
+
+html, body, nav { margin: 0px; }
+
+nav { margin-bottom: 30px; }
+
+h3 { padding: 0px; margin-top: 0px; }
+
+div + h3 { margin-top: 20px; }
+
+.box div { padding: 0px; margin: 0px; }
+
+nav h1 {
+    padding: 15px;
+    margin: 0px;
+    font-family: 'Indie Flower', cursive;
+    color: #fff;
+    font-size: xx-large;
+    cursor: pointer;
+}  
+
+footer {
+    padding: 30px;
+    font-size: small;
+    color: #888;
+}
+footer a {
+    color: #88a;
+}
+
+.box h2 {
+    display: inline-block;
+    padding: 0px;
+    margin-right: 0px;
+    margin-left: 1.5em;
+    margin-top: -.6em;
+    margin-bottom: 10px;
+    padding-left: 10px;
+    padding-right: 10px;
+    font-family: 'Indie Flower', cursive;
+    font-weight: bold;
+    color: $topbar-color;
+    font-size: x-large;
+    text-align: center;
+    background-color: #fff;
+}
+
+.box > div {
+    padding: 0 2em 2em 2em;
+}
+
+
+.large {
+    font-size: large;
+    font-weight: bold;
+    color: $topbar-color;
+}
+
+.box {
+    border: solid 3px $topbar-color;
+    border-radius: 30px;
+    padding: 0px;
+}
+
+#news dt {
+    font-weight: bold;
+    margin-bottom: 3px;
+}
+
+#news dd {
+    margin-bottom: 10px;
+}
+
+nav {
+    border-bottom: solid 1px #333;
+    background-color: #333;
+}
+
+form .form-group {
+    margin-bottom: 10px;
+}
+
+.badgeMenu li {
+    margin: 0px;
+    display: inline;
+    background-color: #CDE;
+    padding: 3px;
+    padding-left: 13px; 
+    padding-right: 13px;
+    border-radius: 15px;
+    margin-right: 15px;
+    border-style: hidden;
+}
+
+#menu li {
+    margin: 0px;
+    display: inline;
+    background-color: $topbar-color;
+    padding: 3px;
+    padding-left: 13px; 
+    padding-right: 13px;
+    border-radius: 15px;
+    margin-right: 15px;
+}
+
+.badgeMenu {
+    margin-top: 5px;
+}
+
+
+.badgeMenu li:hover {
+    cursor: pointer;
+    background-color: $topbar-color;
+    color: #ffffff;
+}
+
+#menu li:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #348;
+}
+
+#menu {
+    float: right;
+    padding: 20px;
+}
+
+.badgeMenu .glyphicon,
+#menu .glyphicon {
+    margin-right: 10px;
+}
+
+#search {
+    display: block;
+    clear: both;
+    padding: 7px;
+    padding-left: 20px;
+    background-color: $topbar-color;
+    border: 0px;
+    margin: 0px;
+}
+
+.center {
+    text-align: center;
+}
+
+#search input {
+    background-color: $topbar-color;
+    border: none;
+    width: 50%;
+    color: white;
+}
+#search button {
+    display: inline-block;
+    margin-right: 5px;
+    padding: 0px;
+    border: none;
+    background-color: inherit;
+}
+#search button:hover { color: #fff; cursor: pointer; }
+
+/* format entries */
+
+usg {
+    font-style: italic;
+}
+
+def {
+    display: block;
+}
+
+/* near misses */
+.near { color: #223322; }
+.near:hover {
+    color: #333366;
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+.box .browseIcon {
+    text-align: center;
+    font-size: x-large;
+    cursor: pointer;
+    margin: 0px;
+    padding-bottom: 0px;
+    color: $topbar-color;
+}
+.box .browseIcon:hover {
+    color: #000099;
+}
+
+#browseContents {
+    padding-bottom: 0px;
+}

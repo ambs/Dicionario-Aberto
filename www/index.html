@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <meta charset="utf-8"/>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet"
+	      href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+	      integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
+	      crossorigin="anonymous"/>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/css/bootstrap-select.min.css"/>
+        <link href="https://fonts.googleapis.com/css?family=Indie+Flower" rel="stylesheet"/>
+	<link rel="stylesheet" href="/css/da.css"/>
+	<link rel="stylesheet" href="/css/nprogress.css"/>
+	<title>Dicionário Aberto</title>
+    </head>
+    <body>
+        <nav>
+	    <ul id="menu">
+		<li><span class="glyphicon glyphicon-info-sign"></span>Informações</li>
+		<li><span class="glyphicon glyphicon-wrench"></span>Desenvolvimento</li>
+		<li id="nav-login" onClick="GO('/login');"><span class="glyphicon glyphicon-user"></span>Entrar</li>
+		<li class="hidden"
+		    onClick="GO('/user');" 
+		    id="nav-user"><span class="glyphicon glyphicon-user"></span><span id="nav-user-span"></span> </li>
+	    </ul>
+            <h1 onClick="GO('/');">Dicionário Aberto</h1>
+	    <dir id="search">
+		<button onClick="random();" class="glyphicon glyphicon-refresh" title="Palavra Aleatória"></button>
+		<button onClick="formSearchBox();" class="glyphicon glyphicon-search"></button>
+		<input type="text" name="word" placeholder="Procurar" id="word"/>
+	    </div>
+        </nav>
+
+	<div class="container hidden" id="msg">
+	    <div class="row">
+		<div class="col-sm-8 col-sm-offset-2">
+		    <div role="alert" id="msgAlert"></div>
+		</div>
+	    </div>
+	</div>
+	
+	<div id="contents">
+
+	</div>
+	<footer class="container">
+	    <div class="row">
+		<div class="col-sm-12">
+		    This work is licensed under a <a href="http://creativecommons.org/licenses/by-sa/2.5/pt/">Creative Commons Attribution-Share Alike 2.5 Portugal License</a>.<br/>
+		    Com o apoio de Biblioteca Nacional de Portugal, Distributed Proofreaders, Página-a-Página, Natura.<br/>
+		    Contacto: ambs em di.uminho.pt
+		</div></div>
+	</footer>
+
+	<script type="text/javascript" src="/js/doT.js"></script>
+
+	<script type="text/javascript" src="/js/nprogress.js"></script>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js" ></script>
+	<script type="text/javascript" src="/js/jquery.router.js"></script>
+	<script type="text/javascript" src="/js/jquery.blockUI.js"></script>
+
+
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.4/js/bootstrap-select.min.js"></script>
+	
+	<script type="text/javascript" src="/js/jwt-decode.js"></script>
+	
+	<script type="text/javascript" src="/js/xml-dt.js"></script> 
+	<script type="text/javascript" src="/js/routes.js"></script>
+
+	<script type="text/javascript" src="/js/da.js"></script>
+	<script type="text/javascript" >
+	 $(function() {
+
+	     check_jwt_cookie();
+	     
+	     $("#word").keyup(function(event){
+		 if(event.keyCode == 13) { formSearchBox(); }
+	     });
+	     registerRoutes();
+	     $.router.check();
+	 });
+	 
+	</script>
+    </body>
+</html>

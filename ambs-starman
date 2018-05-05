@@ -1,0 +1,59 @@
+#!/bin/sh
+
+### BEGIN INIT INFO
+# Provides:          ambs-starman
+# Required-Start:    $local_fs $remote_fs $network
+# Required-Stop:     $local_fs $remote_fs $network
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Short-Description: Starman daemon
+# Description:       Start and stop Starman daemon.
+### END INIT INFO
+
+DIR=/home/ambs/DicionarioAberto/api
+SCRIPT=$DIR/bin/app.psgi
+USER=www-data
+GROUP=www-data
+
+WORKERS=3
+LISTEN=127.0.0.1:5010
+ERROR_LOG=/tmp/ambs-starman.log
+
+# If you have a permission problem,
+# move PID-file to USER home directory
+PIDFILE=/tmp/ambs-starman.pid
+
+. /lib/lsb/init-functions
+
+start() {
+    start-stop-daemon --start --chuid $USER --chdir $DIR \
+        --pidfile=$PIDFILE \
+        --exec /usr/bin/starman -- -D --pid $PIDFILE \
+        --listen $LISTEN --error-log $ERROR_LOG \
+        --user $USER --group $GROUP \
+        --workers $WORKERS $SCRIPT
+}
+
+stop() {
+    start-stop-daemon --stop --pidfile $PIDFILE
+}
+
+case "$1" in
+  start)
+    start
+    ;;
+  stop)
+    stop
+    ;;
+  restart)
+    stop
+    start
+    ;;
+  status)
+    status_of_proc -p $PIDFILE /usr/bin/starman "ambs-starman process" && status="0" || status="$?"
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|status}" >&2
+    exit 3
+    ;;
+esac
