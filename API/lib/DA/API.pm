@@ -227,6 +227,7 @@ A equipa do Dicionário Aberto.
 --
 };
 
+
 sub my_error {
     my $error = shift;
     return { error => $error };

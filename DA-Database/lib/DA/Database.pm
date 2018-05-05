@@ -488,7 +488,7 @@ sub _rev_idx_word ($self, $word){
 
 sub get_user_favourites ($self, $name){
 	my @ans;
-	my $sth = $self->dbh->prepare('SELECT word.word, word.sense FROM favourite INNER JOIN word WHERE favourite.username=? AND favourite.word_id=word.word_id');
+	my $sth = $self->dbh->prepare('SELECT word.word, word.sense FROM favourite INNER JOIN word ON favourite.word_id=word.word_id WHERE favourite.username=?');
 	$sth->execute($name);
 	while(my @row = $sth->fectrow_array()){
 		push(@ans, \@row);
