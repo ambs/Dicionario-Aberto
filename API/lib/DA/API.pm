@@ -15,8 +15,12 @@ our $DIC = DA::Database->new(sub { database });
 
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
+hook before => sub {
+    # check that all accesses under /user are for valid users
+    redirect "/index.html" unless request->path =~ m!^/user/! and jwt->{username};
+};
+
 hook after => sub {
-#    response->push_header('Access-Control-Expose-Headers', 'Authorization');
     response->push_header('Access-Control-Allow-Origin', "*");
 };
 
