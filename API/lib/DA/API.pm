@@ -17,7 +17,7 @@ set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook before => sub {
     # check that all accesses under /user are for valid users
-    redirect "/index.html" unless request->path =~ m!^/user/! and jwt->{username};
+#    redirect "/index.html" unless request->path =~ m!^/user/! and jwt->{username};
 };
 
 hook after => sub {
