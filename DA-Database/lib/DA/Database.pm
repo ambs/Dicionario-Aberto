@@ -494,7 +494,7 @@ sub get_user_favourites ($self, $name) {
 		push(@ans, \@row);
 	}
 	if(@ans){
-		return @ans;
+		return \@ans;
 	}
 	else{
 		return undef;

@@ -17,7 +17,9 @@ set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook before => sub {
     # check that all accesses under /user are for valid users
-#    redirect "/index.html" unless request->path =~ m!^/user/! and jwt->{username};
+    if (request->path =~ m!^/user/! && (!jwt || !length(jwt->{username}))) {
+        halt my_error("Unauthorized");
+    }
 };
 
 hook after => sub {
@@ -26,8 +28,7 @@ hook after => sub {
 
 hook 'plugin.jwt.jwt_exception' => sub {
     my $msg = shift;
-    debug $msg;
-    redirect "/index.html";
+    return my_error($msg);
 };
 
 get '/' => sub {
