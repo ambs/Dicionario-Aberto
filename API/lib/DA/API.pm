@@ -133,6 +133,11 @@ get '/metadata/*' => sub {
 	return { $key => $DIC->metadata($key) };
 };
 
+get '/user/*/favourites' => sub {
+	my $name = splat;
+	return $DIC->get_user_favourites($name);
+};
+
 post '/recover' => sub {
   my $data = param "recover";
 
@@ -196,6 +201,7 @@ sub _is_email {
     my $email = shift;
     return $email =~ /^$RE{Email}{Address}$/;
 }
+
 
 sub _params {
     return { map { ( $_ => param($_)) } @_ };
