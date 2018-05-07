@@ -134,7 +134,7 @@ get '/metadata/*' => sub {
 };
 
 get '/user/*/favourites' => sub {
-	my $name = splat;
+	my ($name) = splat;
 	return $DIC->get_user_favourites($name);
 };
 
