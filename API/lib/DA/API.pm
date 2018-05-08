@@ -139,7 +139,11 @@ get '/user/*/favourites' => sub {
 	return $DIC->get_user_favourites($name);
 };
 
-post '/recover' => sub {
+get '/:name/set/:word/:sense' => sub {
+	return $DIC->toogle('name', 'word', 'sense');
+}
+
+pos '/recover' => sub {
   my $data = param "recover";
 
   if ($data) {

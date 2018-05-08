@@ -501,6 +501,30 @@ sub get_user_favourites ($self, $name) {
 	}
 }
 	
+sub toggle ($self, $name, $word, $sense) {
+	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite WHERE username = ?');
+	$sth->execute($name);
+	if( $sth->row == 1 ){
+		$self->unset_favourite($name, $word, $sense);
+	}
+	elsif( $sth->row == 0 ){
+		$self->set_favourite($name, $word, $sense);
+	}
+}
+
+sub set_favourite($self, $name, $word, $sense) {
+	my $sth = $self->dbh->prepare('SELECT word_id FROM word WHERE sense = ? AND word = ?');
+	$sth->execute($sense, $word);
+	my ($id) = $sth->fetchrow_array();
+	my $sth_insert = $self->dbh->prepare('INSERT INTO favourite (username, timestamp, word_id) VALUES(?, NOW(), ?)');
+	$sth_insert->do($name, $id);
+}
+
+sub unset_favourite($self, $name, $word, $sense) {
+	my $sth = $self->dbh->prepare('DELETE FROM favourite INNER JOIN word ON word.word_id = favourite.word_id 
+					WHERE word.username = ? AND word.word = ? AND word.sense = ?');
+	$sth->do($name, $word, $sense);
+}
 
 
 ## Aux
