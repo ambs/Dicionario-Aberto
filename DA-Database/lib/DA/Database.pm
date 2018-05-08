@@ -502,8 +502,8 @@ sub get_user_favourites ($self, $name) {
 }
 	
 sub toggle ($self, $name, $word, $sense) {
-	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite WHERE username = ?');
-	$sth->execute($name);
+	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite INNER JOIN word ON word_id WHERE favourite.username = ? AND word.word = ? AND word.sense = ?');
+	$sth->execute($name, $word, $sense);
 	if( $sth->row == 1 ){
 		$self->unset_favourite($name, $word, $sense);
 	}
