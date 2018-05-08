@@ -143,7 +143,7 @@ get '/:name/set/:word/:sense' => sub {
 	return $DIC->toogle('name', 'word', 'sense');
 }
 
-pos '/recover' => sub {
+post '/recover' => sub {
   my $data = param "recover";
 
   if ($data) {
