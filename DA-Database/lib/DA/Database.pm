@@ -501,7 +501,35 @@ sub get_user_favourites ($self, $name) {
 	}
 }
 	
+sub toggle_favourite ($self, $name, $word, $sense) {
+	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite INNER JOIN word USING(word_id) WHERE favourite.username = ? AND word.word = ? AND word.sense = ?');
+	$sth->execute($name, $word, $sense);
+	if( $sth->row == 1 ){
+		$self->unset_favourite($name, $word, $sense);
+	}
+	elsif( $sth->row == 0 ){
+		$self->set_favourite($name, $word, $sense);
+	}
+}
 
+sub set_favourite($self, $name, $word, $sense) {
+	my $wid = $self->get_word_id($word, $sense);
+	my $sth = $self->dbh->prepare('INSERT INTO favourite (username, timestamp, word_id) VALUES(?, NOW(), ?)');
+	$sth->execute($name, $wid);
+}
+
+sub unset_favourite($self, $name, $word, $sense) {
+	my $wid = $self->get_word_id($word, $sense);
+	my $sth = $self->dbh->prepare('DELETE FROM favourite WHERE username = ? AND word = ? AND word_id = ?');
+	$sth->execute($name, $word, $wid);
+}
+
+sub get_word_id($self, $word, $sense) {
+	my $sth = $self->dbh->prepare('SELECT word_id FROM word WHERE sense = ? AND word = ?');
+	$sth->execute($sense, $word);
+	my ($id) = $sth->fetchrow_array();
+	return $id;
+}
 
 ## Aux
 
@@ -578,7 +606,6 @@ sub word_ids {
     my @ids = map { $_->{word_id} } $self->quick_select('word', { word => $word });
     return \@ids;
 }
-
 
 =head1 AUTHOR
 
