@@ -607,10 +607,6 @@ sub word_ids {
     return \@ids;
 }
 
-sub get_word_id {
-		my ($word, $sense) = @_;
-				
-}
 =head1 AUTHOR
 
 Alberto Simoes, C<< <ambs at cpan.org> >>
