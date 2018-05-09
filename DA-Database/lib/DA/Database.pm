@@ -513,18 +513,18 @@ sub toggle_favourite ($self, $name, $word, $sense) {
 }
 
 sub set_favourite($self, $name, $word, $sense) {
-	my ($wid) = $self->get_word_id($sense, $word);
+	my $wid = $self->get_word_id($word, $sense);
 	my $sth = $self->dbh->prepare('INSERT INTO favourite (username, timestamp, word_id) VALUES(?, NOW(), ?)');
 	$sth->execute($name, $wid);
 }
 
 sub unset_favourite($self, $name, $word, $sense) {
-	my ($wid) = $self->get_word_id($sense, $word);
+	my $wid = $self->get_word_id($word, $sense);
 	my $sth = $self->dbh->prepare('DELETE FROM favourite WHERE username = ? AND word = ? AND word_id = ?');
 	$sth->execute($name, $word, $wid);
 }
 
-sub get_word_id($self, $sense, $word) {
+sub get_word_id($self, $word, $sense) {
 	my $sth = $self->dbh->prepare('SELECT word_id FROM word WHERE sense = ? AND word = ?');
 	$sth->execute($sense, $word);
 	my ($id) = $sth->fetchrow_array();
