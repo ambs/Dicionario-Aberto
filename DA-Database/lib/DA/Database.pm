@@ -531,6 +531,14 @@ sub get_word_id($self, $word, $sense) {
 	return $id;
 }
 
+
+sub likes_per_word($self, $word, $sense) {
+	my $wid = $self->get_word_id($word, $sense);
+	my $sth = $self->dbh->prepare('SELECT COUNT(*) FROM favourite WHERE word_id = ?');
+	$sth->execute($wid);
+	my ($likes) = $sth->fetchrow_array();
+	return $likes;
+}
 ## Aux
 
 sub _delete_queries {
