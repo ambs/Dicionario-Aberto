@@ -539,6 +539,18 @@ sub likes_per_word($self, $word, $sense) {
 	my ($likes) = $sth->fetchrow_array();
 	return $likes;
 }
+
+sub valid_hash($self, $hash) {
+    my @rows = $self->quick_select( 'user_restore' => { md5 => $hash } );
+    if (@rows) {
+        return $rows[0]{user};
+    } else {
+        return undef;  
+    }
+}
+
+
+
 ## Aux
 
 sub _delete_queries {
