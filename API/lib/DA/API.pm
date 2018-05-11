@@ -197,6 +197,10 @@ post '/login' => sub {
     return my_error("Por favor preencha ambos os campos.");
 };
 
+get '/confirm/:hash' => sub {
+    my $hash = request->get('hash');
+};
+
 
 sub _is_email {
     my $email = shift;
