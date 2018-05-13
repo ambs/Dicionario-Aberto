@@ -160,7 +160,7 @@ function formatResults(data) {
 }
 
 function formatEntry(data) {
-    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div>",
+    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><{{=it.def}}</i>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
     return template(formatWord(data));
 }
