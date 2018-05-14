@@ -209,9 +209,9 @@ post '/login' => sub {
 get '/confirm/:hash' => sub {
     my $hash = route_parameters->get('hash');
     if (my $user = $DIC->valid_hash($hash)) {
-        return OK(username => $user )
+        return OK(username => $user );
     } else {
-        my_error("Token expirado ou inválido.");
+        return my_error("Token expirado ou inválido.");
     }
 };
 
@@ -238,8 +238,9 @@ sub _params {
 	##}
 #};
 
-sub OK (%extra) {
-    return { status => 'OK', %extra };
+sub OK {
+  my %extra = @_;
+  return { status => 'OK', %extra };
 }
 
 sub _msg_change_pass {

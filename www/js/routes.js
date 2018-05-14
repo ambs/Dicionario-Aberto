@@ -93,14 +93,15 @@ my_routes.xpassword = (params) => {
 	var hash = params.hash;
 	$.ajax({
 		url: 'http://api.dicionario-aberto.net/confirm/' + hash
-	}).done( (ans) => {
-		if (data.status = "OK") {
+	}).done( (data) => {
+		console.log(data);
+		if (data.status == "OK") {
 			var username = data.username;
 			load_template("password", ( tmpl ) => { $("#hash").value = hash; $("#user").value = username; });
 		}
 		else {
-			show_danger_alert(data.error);
 			GO("/");
+			show_danger_alert(data.error);
 		}
 	}) 
 };
