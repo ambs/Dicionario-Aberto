@@ -67,10 +67,10 @@ my_routes.search = function(data) {
 	    url: 'http://api.dicionario-aberto.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
 	}).done(function(data) {
 	    if (data.length == 0) {
-		show_danger_alert("Nenhum resultado encontrado");
-		$('#entries').addClass('hidden');
+			show_danger_alert("Nenhum resultado encontrado");
+			$('#entries').addClass('hidden');
 	    } else {
-		$('#entriesContents').html(formatResults(data));
+			$('#entriesContents').html(formatResults(data));
 	    }
 	});
 	var word = data.word;
@@ -78,15 +78,31 @@ my_routes.search = function(data) {
 	    url: 'http://api.dicionario-aberto.net/near/' + word
 	}).done(function(data) {
 	    if (data.length == 0) {
-		$('#nearMisses').addClass('hidden');
+			$('#nearMisses').addClass('hidden');
 	    } else {
-		$('#nearMissesContents').html(formatNearMisses($.grep(data, function(v){
-		    return v != word
-		})));
+			$('#nearMissesContents').html(formatNearMisses($.grep(data, (v) => {
+		    	return v != word
+			})));
 	    }
 	});
 	update_browse(data.word);
     });
+};
+
+my_routes.xpassword = (params) => {
+	var hash = params.hash;
+	$.ajax({
+		url: 'http://api.dicionario-aberto.net/confirm/' + hash
+	}).done( (ans) => {
+		if (data.status = "OK") {
+			var username = data.username;
+			load_template("password", ( tmpl ) => { $("#hash").value = hash; $("#user").value = username; });
+		}
+		else {
+			show_danger_alert(data.error);
+			GO("/");
+		}
+	}) 
 };
 
 my_routes.user = () => {
@@ -128,11 +144,12 @@ function registerRoutes() {
     $.router.add('/rev_search/:words', my_routes.rev_search);
     $.router.add('/ont_search/:words', my_routes.ont_search);
     $.router.add('/user', my_routes.user);
+    $.router.add('/confirm/:hash', my_routes.xpassword);
     $.router.addErrorHandler( (url) => { GO('/'); });
     
     $( document ).ajaxStop(function() {
-	$('form').unblock();
-	NProgress.done(); NProgress.remove();
+		$('form').unblock();
+		NProgress.done(); NProgress.remove();
     });
     $( document ).ajaxStart( () => { NProgress.start(); });
     $( document ).ajaxSuccess(

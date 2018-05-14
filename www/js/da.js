@@ -178,7 +178,7 @@ function load_template(template_name, callback) {
     $.ajax({ url: url, dataType: 'html' , mimeType: 'text/html'})
 	.done(function(html){
 	    var func = doT.template(html, $.extend( doT.templateSettings, {varname:'jwt'}));
-	    $('#contents').html(  func( da_jwt ));
+	    $('#contents').html(  func ? func( da_jwt ) : da_jwt );
 	    callback();
 	});
 }

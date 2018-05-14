@@ -209,7 +209,7 @@ post '/login' => sub {
 get '/confirm/:hash' => sub {
     my $hash = route_parameters->get('hash');
     if (my $user = $DIC->valid_hash($hash)) {
-        return { username => $user }
+        return OK(username => $user )
     } else {
         my_error("Token expirado ou inválido.");
     }
@@ -238,8 +238,8 @@ sub _params {
 	##}
 #};
 
-sub OK {
-    return { status => 'OK' };
+sub OK (%extra) {
+    return { status => 'OK', %extra };
 }
 
 sub _msg_change_pass {
@@ -259,7 +259,7 @@ A equipa do Dicionário Aberto.
 
 sub my_error {
     my $error = shift;
-    return { error => $error };
+    return { status => 'error', error => $error };
 };
 
 true;
