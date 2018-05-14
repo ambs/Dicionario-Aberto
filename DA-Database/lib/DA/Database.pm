@@ -551,8 +551,8 @@ sub valid_hash($self, $hash) {
 
 sub word_is_favourite($self, $name, $word, $sense) {
 	my $wid = $self->get_word_id($word, $sense);
-	my $sth = $self->dbh->prepare('SELECT (1) FROM favourite WHERE username = ? AND sense = ? AND word_id = ?');
-	$sth->execute($name, $sense, $wid);
+	my $sth = $self->dbh->prepare('SELECT (1) FROM favourite WHERE username = ? AND word_id = ?');
+	$sth->execute($name, $wid);
 	return 1 if( $sth->row == 1);
 	return 0;
 }
