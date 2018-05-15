@@ -94,7 +94,6 @@ my_routes.xpassword = (params) => {
 	$.ajax({
 		url: 'http://api.dicionario-aberto.net/confirm/' + hash
 	}).done( (data) => {
-		console.log(data);
 		if (data.status == "OK") {
 			var username = data.username;
 			load_template("password", ( tmpl ) => { $("#hash").value = hash; $("#user").value = username; });
@@ -119,7 +118,7 @@ my_routes.login = function() {
     });
 };
 
-my_routes.root = function() {
+my_routes.root = () => {
     load_template("index", function() {
 	$.ajax({
 	    url: 'http://api.dicionario-aberto.net/wotd',
