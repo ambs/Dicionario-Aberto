@@ -166,7 +166,7 @@ function formatEntry(xml, wid) {
     $.ajax({ url: 'http://api.dicionario-aberto.net/likes/' + wid })
 	.done(function(total){
 		var likes = total.tot;
-		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador guardou" : " utilizadores guardaram") + " esta palavra.");
+		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador gosta" : " utilizadores gostam") + " desta palavra.");
 	});
 				
     return template($.extend(formatWord(xml), {wid: wid}));
