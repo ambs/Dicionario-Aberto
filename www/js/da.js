@@ -160,7 +160,7 @@ function formatResults(data) {
 }
 
 function formatEntry(xml, wid) { 	
-    var template = doT.template("<h3>{{=it.term}} <i class='far fa-bookmark' id='bookmark{{=it.wid}}' title=''></i></h3><div>{{=it.def}}</div>",
+    var template = doT.template("<h3>{{=it.term}} <i class='fas fa-bookmark' id='bookmark{{=it.wid}}' title=''></i></h3><div>{{=it.def}}</div>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
     
     $.ajax({ url: 'http://api.dicionario-aberto.net/likes/' + wid })
