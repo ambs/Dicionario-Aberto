@@ -182,7 +182,7 @@ sub wotd ($self) {
 
     my ($wid) = $sth->fetchrow_array;
 
-    return $self->revision_from_wid($wid);
+    return { word_id => $wid, xml => $self->revision_from_wid($wid) };
 }
 
 sub metadata ($self, $key) {
@@ -532,8 +532,7 @@ sub get_word_id($self, $word, $sense) {
 }
 
 
-sub likes_per_word($self, $word, $sense) {
-	my $wid = $self->get_word_id($word, $sense);
+sub likes_per_word($self, $wid) {
 	my $sth = $self->dbh->prepare('SELECT COUNT(*) FROM favourite WHERE word_id = ?');
 	$sth->execute($wid);
 	my ($likes) = $sth->fetchrow_array();
