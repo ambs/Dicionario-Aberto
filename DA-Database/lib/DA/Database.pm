@@ -537,7 +537,7 @@ sub likes_per_word($self, $word, $sense) {
 	my $sth = $self->dbh->prepare('SELECT COUNT(*) FROM favourite WHERE word_id = ?');
 	$sth->execute($wid);
 	my ($likes) = $sth->fetchrow_array();
-	return $likes;
+	return { tot => $likes};
 }
 
 sub valid_hash($self, $hash) {

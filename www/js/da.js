@@ -159,9 +159,15 @@ function formatResults(data) {
     return $.map(data, function(v,i) { return formatEntry(v.xml); }).join("");
 }
 
-function formatEntry(data) {
-    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><i class='far fa-bookmark'></i>",
+function formatEntry(data) { 	
+    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><i class='far fa-bookmark' id='bookmark{{=it.word_id}}' title=''></i>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
+    $ajax({ url: 'http://api.dicionario-aberto.net/' + data.word + '/' + data.sense })
+	.done(function(total){
+		var likes = total.tot;
+		$("#bookmark" + data.word_id).prop("title", likes);
+	});
+				
     return template(formatWord(data));
 }
 
@@ -236,4 +242,3 @@ function advOntology() {
     GO('/ont_search/' + terms);
     return false;
 }
-
