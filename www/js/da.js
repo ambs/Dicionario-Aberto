@@ -160,12 +160,12 @@ function formatResults(data) {
 }
 
 function formatEntry(data) { 	
-    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><i class='far fa-bookmark' id='bookmark' title=''></i>",
+    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><i class='far fa-bookmark' id='bookmark{{=it.word_id}}' title=''></i>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
     $ajax({ url: 'http://api.dicionario-aberto.net/' + data.word + '/' + data.sense })
 	.done(function(data){
 		var likes = data.tot;
-		$("#bookmark").prop("title", likes);
+		$("#bookmark" + data.word_id).prop("title", likes);
 	});
 				
     return template(formatWord(data));
