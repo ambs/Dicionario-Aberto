@@ -94,12 +94,12 @@ function formSearchBox() {
 function parseDate(date) {
     var fields = date.match(/(\d+)-(\d+)-(\d+)\s+(\d+):(\d+):(\d+)/);
     return {
-	year:    fields[1],
-	month:   fields[2],
-	day:     fields[3],
-	hours:   fields[4],
-	minutes: fields[5],
-	seconds: fields[6]
+		year:    fields[1],
+		month:   fields[2],
+		day:     fields[3],
+		hours:   fields[4],
+		minutes: fields[5],
+		seconds: fields[6]
     };
 }
 
@@ -146,7 +146,7 @@ function formatWord(data) {
 	'entry': function(q,c,v) {
 	    word = v.id;
 	    if (word.match(/:\d+$/)) {
-		word = word.replace(/:(\d+)/, "<sup>$1</sup>");
+			word = word.replace(/:(\d+)/, "<sup>$1</sup>");
 	    }
 	    return xml$dt.tag(q,c,v);
 	}
@@ -156,13 +156,20 @@ function formatWord(data) {
 }
 
 function formatResults(data) {
-    return $.map(data, function(v,i) { return formatEntry(v.xml); }).join("");
+    return $.map(data, function(v,i) { return formatEntry(v.xml, v.word_id ); }).join("");
 }
 
-function formatEntry(data) {
-    var template = doT.template("<h3>{{=it.term}}</h3><div>{{=it.def}}</div><i class='far fa-bookmark'></i>",
+function formatEntry(xml, wid) { 	
+    var template = doT.template("<h3>{{=it.term}} <i class='far fa-bookmark' id='bookmark{{=it.wid}}' title=''></i></h3><div>{{=it.def}}</div>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
-    return template(formatWord(data));
+    
+    $.ajax({ url: 'http://api.dicionario-aberto.net/likes/' + wid })
+	.done(function(total){
+		var likes = total.tot;
+		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador guardou" : " utilizadores guardaram") + " esta palavra.");
+	});
+				
+    return template($.extend(formatWord(xml), {wid: wid}));
 }
 
 function formatNews(data) {

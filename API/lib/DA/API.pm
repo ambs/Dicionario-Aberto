@@ -103,7 +103,7 @@ get '/random' => sub {
 };
 
 get '/wotd' => sub {
-	return { xml => $DIC->wotd };
+	return $DIC->wotd;
 };
 
 get '/new/*' => sub {
@@ -144,8 +144,8 @@ get '/user/:name/set/:word/:sense' => sub {
 	#return $DIC->toggle_favourite(route_parameters->get('name'), route_parameters->get('word'), route_parameters->get('sense'));
 };
 
-get '/likes/:word/:sense' => sub {
-	return $DIC->likes_per_word( map { route_parameters->get($_) } (qw!word sense!));
+get '/likes/:wid' => sub {
+	return $DIC->likes_per_word(route_parameters->get('wid'));
 };
 
 get '/user/:name/has/:word/:sense' => sub {

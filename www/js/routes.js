@@ -124,7 +124,7 @@ my_routes.root = () => {
 	    url: 'http://api.dicionario-aberto.net/wotd',
 	    cache: false,
 	}).done(function(data) {
-	    $('#wotd').html(formatEntry(data.xml));
+	    $('#wotd').html(formatEntry(data.xml, data.word_id));
 	});
 	$.ajax({
 	    url: 'http://api.dicionario-aberto.net/news?limit=2',
@@ -153,22 +153,23 @@ function registerRoutes() {
     });
     $( document ).ajaxStart( () => { NProgress.start(); });
     $( document ).ajaxSuccess(
-	(e, request, settings) => {
-	    if (!settings.url.match(/tmpl$/)) {
-		var header = request.getResponseHeader('Authorization');
-		if (header !== null && header.length > 5) {
-		    da_authorization = header;
-		    set_cookie('da_authorization', da_authorization);
-		    check_jwt_cookie();
+		(e, request, settings) => {
+		    if (!settings.url.match(/tmpl$/)) {
+			var header = request.getResponseHeader('Authorization');
+			if (header !== null && header.length > 5) {
+			    da_authorization = header;
+			    set_cookie('da_authorization', da_authorization);
+			    check_jwt_cookie();
+			}
+			else {
+			    da_authorization = "";
+			    da_jwt = {};
+			}
+		    }
 		}
-		else {
-		    da_authorization = "";
-		    da_jwt = {};
-		}
-	    }
-	}
-    );
+	    );
 }
+
 
 function check_jwt_cookie() {
     da_authorization = get_cookie('da_authorization');
@@ -188,6 +189,15 @@ function check_jwt_cookie() {
     }
 }
 
+function da_init() {
+	check_jwt_cookie();
+	     
+    $("#word").keyup(function(event){
+	 	if(event.keyCode == 13) { formSearchBox(); }
+    });
+    registerRoutes();
+    $.router.check();
+}
 
 function shade_forms() {
 	$('form').block({message: null, overlayCSS:  { backgroundColor: '#FFF' } });
