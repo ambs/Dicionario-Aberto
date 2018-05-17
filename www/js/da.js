@@ -37,7 +37,7 @@ function hide_alert() {
 function random() {
     NProgress.start();    
     $.ajax({
-	url: 'http://api.dicionario-aberto.net/random',
+	url: 'https://api.dicionario-aberto.net/random',
 	cache: false,
     }).done(function(data) {
 	GO('/search/' + data.word + "/" + data.sense);
@@ -57,7 +57,7 @@ function formatBrowse(data) {
 
 function update_browse(cid) {
     $.ajax({
-	url: 'http://api.dicionario-aberto.net/browse/' + cid
+	url: 'https://api.dicionario-aberto.net/browse/' + cid
     }).done(function(data) {
 	var size = data.words.length;
 	if (data.cid - size/2 > 0) {
@@ -163,7 +163,7 @@ function formatEntry(xml, wid) {
     var template = doT.template("<h3>{{=it.term}} <i class='fas fa-bookmark' id='bookmark{{=it.wid}}' title=''></i></h3><div>{{=it.def}}</div>",
 			       $.extend( doT.templateSettings, {varname:'it'}));
     
-    $.ajax({ url: 'http://api.dicionario-aberto.net/likes/' + wid })
+    $.ajax({ url: 'https://api.dicionario-aberto.net/likes/' + wid })
 	.done(function(total){
 		var likes = total.tot;
 		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador gosta" : " utilizadores gostam") + " desta palavra.");

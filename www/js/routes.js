@@ -6,7 +6,7 @@ my_routes.ont_search = function (data) {
 	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
     } else {
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/ontology/' + token
+	    url: 'https://api.dicionario-aberto.net/ontology/' + token
 	}).done( (data) => {
 	    load_template('advsearch', () => {
 		var $table = $("<table></table>");
@@ -26,7 +26,7 @@ my_routes.rev_search = function (data) {
 	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
     } else {
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/reverse/' + token
+	    url: 'https://api.dicionario-aberto.net/reverse/' + token
 	}).done( (data) => {
 	    load_template('advsearch', () => {
 		var $table = $("<table></table>");
@@ -47,7 +47,7 @@ my_routes.ss_search = function (data) {
 	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
     } else {
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/' + type + '/' + token
+	    url: 'https://api.dicionario-aberto.net/' + type + '/' + token
 	}).done( (data) => {
 	    load_template('advsearch', () => {
 		var $table = $("<table></table>");
@@ -64,7 +64,7 @@ my_routes.ss_search = function (data) {
 my_routes.search = function(data) {
     load_template("search", function(){
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
+	    url: 'https://api.dicionario-aberto.net/word/' + data.word + ("n" in data ? ("/" + data.n) : "")
 	}).done(function(data) {
 	    if (data.length == 0) {
 			show_danger_alert("Nenhum resultado encontrado");
@@ -75,7 +75,7 @@ my_routes.search = function(data) {
 	});
 	var word = data.word;
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/near/' + word
+	    url: 'https://api.dicionario-aberto.net/near/' + word
 	}).done(function(data) {
 	    if (data.length == 0) {
 			$('#nearMisses').addClass('hidden');
@@ -92,7 +92,7 @@ my_routes.search = function(data) {
 my_routes.xpassword = (params) => {
 	var hash = params.hash;
 	$.ajax({
-		url: 'http://api.dicionario-aberto.net/confirm/' + hash
+		url: 'https://api.dicionario-aberto.net/confirm/' + hash
 	}).done( (data) => {
 		if (data.status == "OK") {
 			var username = data.username;
@@ -121,13 +121,13 @@ my_routes.login = function() {
 my_routes.root = () => {
     load_template("index", function() {
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/wotd',
+	    url: 'https://api.dicionario-aberto.net/wotd',
 	    cache: false,
 	}).done(function(data) {
 	    $('#wotd').html(formatEntry(data.xml, data.word_id));
 	});
 	$.ajax({
-	    url: 'http://api.dicionario-aberto.net/news?limit=2',
+	    url: 'https://api.dicionario-aberto.net/news?limit=2',
 	    cache: false,
 	}).done(function(data) {
 	    $('#news').html(formatNews(data));

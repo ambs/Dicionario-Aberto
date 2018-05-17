@@ -9,7 +9,7 @@ function register_user() {
     shade_forms();
 
     $.ajax({
-	url: 'http://api.dicionario-aberto.net/register',
+	url: 'https://api.dicionario-aberto.net/register',
 	method: 'POST',
 	data: JSON.stringify(data),
     }).done(function(ans){
@@ -34,7 +34,7 @@ function login_user() {
     shade_forms();
 
     $.ajax({
-	url: 'http://api.dicionario-aberto.net/login',
+	url: 'https://api.dicionario-aberto.net/login',
 	method: 'POST',
 	data: JSON.stringify(data),
     }).done( (ans) => {
@@ -61,7 +61,7 @@ function recover_pass() {
     shade_forms();
     
     $.ajax({
-	url: 'http://api.dicionario-aberto.net/recover',
+	url: 'https://api.dicionario-aberto.net/recover',
 	method: 'POST',
 	data: JSON.stringify({ recover: token })
     }).done(function(data){
