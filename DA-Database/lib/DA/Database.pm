@@ -8,6 +8,8 @@ use utf8;
 
 use Scalar::Util qw.blessed.;
 use Digest::MD5 'md5_hex';
+
+use Crypt::Mac::HMAC 'hmac_hex';
 use DBI;
 use feature 'signatures';
 no warnings "experimental::signatures";
@@ -103,15 +105,27 @@ sub revision_from_wid ($self, $wid) {
 }
 
 sub authenticate ($self, $user, $password) {
-
-  $password = md5_hex $password;
+  my $salt = "salt";
+  my $hmac = hmac_hex 'SHA256', $salt, $password; 
 
   my $sth = $self->dbh->prepare(<<"---");
     SELECT username, email FROM user WHERE username = ? AND password = ? and banned = 0;
 ---
-  $sth->execute($user, $password);
-  my @row = $sth->fetchrow_array();
-  return @row ? { usertype => 1, username => $user, avatar => md5_hex(_n($row[1]))} : undef;
+  $sth->execute($user, $hmac);
+  if ($sth->rows) {
+    my @row = $sth->fetchrow_array();
+    return { usertype => 1, username => $user, avatar => md5_hex(_n($row[1]))};
+  }
+
+  my $md5 = md5_hex $password;
+  $sth->execute($user, $md5);
+  if ($sth->rows) {
+    my $up = $self->dbh->prepare("UPDATE user SET password = ? where username = ?");
+    $up->execute($hmac, $user);
+    return $self->authenticate($user, $password);
+  }
+
+  return undef;
 }
 
 sub _n ($w) {
