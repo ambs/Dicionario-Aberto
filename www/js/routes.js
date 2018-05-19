@@ -195,6 +195,8 @@ function da_init() {
     $("#word").keyup(function(event){
 	 	if(event.keyCode == 13) { formSearchBox(); }
     });
+    $('#msgAlert .close').on("click", () => { hide_alert(); });
+
     registerRoutes();
     $.router.check();
 }

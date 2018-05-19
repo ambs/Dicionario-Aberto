@@ -24,9 +24,10 @@ function show_danger_alert(msg) {
 function _show_alert(type, msg) {
     $('#msg').removeClass("hidden");
     $('#msgAlert').removeClass(); // in case it is called without in-between GO's
-    //$('#msgAlert').addClass("alert");
-    //$('#msgAlert').addClass("alert-" + type);
-    $('#msgAlert').text(msg);
+    $('#msgAlert').addClass("alert");
+    $('#msgAlert').addClass("alert-" + type);
+    $('#msgAlert').addClass("alert-dismissable");
+    $('#msg-text').text(msg);
 }
 
 function hide_alert() {
