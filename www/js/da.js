@@ -169,6 +169,15 @@ function formatEntry(xml, wid) {
 		var likes = total.tot;
 		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador gosta" : " utilizadores gostam") + " desta palavra.");
 	});
+	
+    if(jwt.username) {
+	var username = jwt.username;
+	$.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
+		.done(result){
+			if(result){
+				$("#bookmark" + wid).css('color','blue');
+			}
+	});
 				
     return template($.extend(formatWord(xml), {wid: wid}));
 }
@@ -245,3 +254,7 @@ function advOntology() {
     return false;
 }
 
+function user_bookmark_color() {
+	if(jwt.username){
+		var username = jwt.username;
+		var word = $('#word').val();

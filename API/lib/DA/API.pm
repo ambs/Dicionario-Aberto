@@ -148,8 +148,8 @@ get '/likes/:wid' => sub {
 	return $DIC->likes_per_word(route_parameters->get('wid'));
 };
 
-get '/user/:name/has/:word/:sense' => sub {
-	return $DIC->word_is_favourite( map { route_parameters->get($_) } (qw!name word sense!));
+get '/user/:name/has/:wid' => sub {
+	return $DIC->word_is_favourite( map { route_parameters->get($_) } (qw!name wid!));
 };
 
 post '/recover' => sub {
