@@ -174,7 +174,7 @@ function formatEntry(xml, wid) {
 	var username = jwt.username;
 	$.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
 		.done(result){
-			if(result){
+			if(result.is_favourite){
 				$("#bookmark" + wid).css('color','blue');
 			}
 	});
@@ -253,8 +253,3 @@ function advOntology() {
     GO('/ont_search/' + terms);
     return false;
 }
-
-function user_bookmark_color() {
-	if(jwt.username){
-		var username = jwt.username;
-		var word = $('#word').val();
