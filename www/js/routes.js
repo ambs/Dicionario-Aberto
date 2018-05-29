@@ -1,4 +1,6 @@
 var my_routes = {};
+var da_authorization = "";
+var da_jwt = {};
 
 my_routes.ont_search = function (data) {
     var token = data.words;
@@ -152,22 +154,28 @@ function registerRoutes() {
 		NProgress.done(); NProgress.remove();
     });
     $( document ).ajaxStart( () => { NProgress.start(); });
+    $( document ).ajaxSend(function( event, request, settings ) {
+        if (da_authorization && !settings.url.match(/tmpl$/)) {
+            settings.url += "?_jwt=" +  da_authorization;
+        }
+    });
     $( document ).ajaxSuccess(
 		(e, request, settings) => {
 		    if (!settings.url.match(/tmpl$/)) {
-			var header = request.getResponseHeader('Authorization');
-			if (header !== null && header.length > 5) {
-			    da_authorization = header;
-			    set_cookie('da_authorization', da_authorization);
-			    check_jwt_cookie();
-			}
-			else {
-			    da_authorization = "";
-			    da_jwt = {};
-			}
+			    var header = request.getResponseHeader('Authorization');
+			    if (header !== null && header.length > 5) {
+                    console.log(da_authorization);
+			        da_authorization = header;
+			        set_cookie('da_authorization', da_authorization);
+			        check_jwt_cookie();
+			    }
+			    else {
+			        da_authorization = "";
+			        da_jwt = {};
+			    }
 		    }
 		}
-	    );
+	);
 }
 
 
