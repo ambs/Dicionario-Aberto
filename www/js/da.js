@@ -173,11 +173,12 @@ function formatEntry(xml, wid) {
     if(jwt.username) {
 	var username = jwt.username;
 	$.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
-		.done(result){
-			if(result.is_favourite){
-				$("#bookmark" + wid).css('color','blue');
-			}
-	});
+	    .done(result){
+		if(result.is_favourite){
+		    $("#bookmark" + wid).css('color','blue');
+		}
+	    }
+    });
 				
     return template($.extend(formatWord(xml), {wid: wid}));
 }
