@@ -15,13 +15,6 @@ our $DIC = DA::Database->new(sub { database });
 
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
-hook before => sub {
-    # check that all accesses under /user are for valid users
-    if (request->path =~ m!^/user/! && (!jwt || !length(jwt->{username}))) {
-        halt my_error("Unauthorized");
-    }
-};
-
 hook after => sub {
     response->push_header('Access-Control-Allow-Origin', "*");
 };
@@ -36,7 +29,7 @@ get '/' => sub {
 };
 
 # 185.130.5.247
-# 
+#
 post '/xmlrpc.php' => sub {
 	error ("FUCK THIS GUY, PLEASE! ", request->address);
 	"FUCK YOU";
@@ -135,13 +128,15 @@ get '/metadata/*' => sub {
 };
 
 get '/user/*/favourites' => sub {
-	my ($name) = splat;
-	return $DIC->get_user_favourites($name);
+  _check_user();
+  my ($name) = splat;
+  return $DIC->get_user_favourites($name);
 };
 
 get '/user/:name/set/:word/:sense' => sub {
-	return $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name word sense!)); 
-	#return $DIC->toggle_favourite(route_parameters->get('name'), route_parameters->get('word'), route_parameters->get('sense'));
+  _check_user();
+  return $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name word sense!)); 
+  #return $DIC->toggle_favourite(route_parameters->get('name'), route_parameters->get('word'), route_parameters->get('sense'));
 };
 
 get '/likes/:wid' => sub {
@@ -149,9 +144,11 @@ get '/likes/:wid' => sub {
 };
 
 get '/user/:name/has/:wid' => sub {
-	return { wid => route_parameters->get('wid'),
-                 username => route_parameters->get('name'), 
-                 is_favourite => $DIC->word_is_favourite( map { route_parameters->get($_) } (qw!name wid!)) };
+  _check_user();
+  return { wid          => route_parameters->get('wid'),
+           username     => route_parameters->get('name'),
+           is_favourite => $DIC->word_is_favourite( map {
+             route_parameters->get($_) } (qw!name wid!)) };
 };
 
 post '/recover' => sub {
@@ -202,9 +199,8 @@ post '/login' => sub {
     if (length($data->{username}) && length($data->{password})) {
 	my $info;
 	if ($info = $DIC->authenticate($data->{username}, $data->{password})) {
-
-	    jwt $info;
-	    return OK();
+      jwt $info;
+      return OK();
 	}
 	debug "error";
 	return my_error("Nome do utilizador ou palavra chave inválidos.");
@@ -232,18 +228,6 @@ sub _params {
     return { map { ( $_ => param($_)) } @_ };
 }
 
-#post '/auth' => sub {
-	#my ($password, $username) = (param ("password"), param ("username"));
-#
-	#if ($DIC->authenticate($username, $password)) {
-		#jwt { username => $username };
-		#return { success => "User $username authenticated"};
-	#} else {
-		#jwt {};
-		#return { error => "Invalid user/password"};
-	##}
-#};
-
 sub OK {
   my %extra = @_;
   return { status => 'OK', %extra };
@@ -268,5 +252,12 @@ sub my_error {
     my $error = shift;
     return { status => 'error', error => $error };
 };
+
+sub _check_user {
+  if (!jwt || !length(jwt->{username})) {
+    response->push_header('Access-Control-Allow-Origin', "*");
+    halt my_error("Unauthorized");
+  }
+}
 
 true;
