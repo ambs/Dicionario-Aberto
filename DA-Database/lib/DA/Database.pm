@@ -558,14 +558,14 @@ sub valid_hash($self, $hash) {
     if (@rows) {
         return $rows[0]{user};
     } else {
-        return undef;  
+        return undef;
     }
 }
 
 sub word_is_favourite($self, $name, $wid) {
 	my $sth = $self->dbh->prepare('SELECT (1) FROM favourite WHERE username = ? AND word_id = ?');
 	$sth->execute($name, $wid);
-	return 1 if( $sth->row == 1);
+	return 1 if( $sth->rows == 1);
 	return 0;
 }
 
