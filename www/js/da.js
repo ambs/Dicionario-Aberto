@@ -215,27 +215,6 @@ function show_and_hide(show, hide) {
 
 };
 
-function set_cookie(key, value) {
-    var expiration = new Date(new Date().getTime() + 30 * 24 * 60 * 60 * 1000).toUTCString();
-    document.cookie = key + "=" + value + "; expires=" + expiration + "; path=/";
-}
-
-function get_cookie(cname) {
-    var name = cname + "=";
-    var decodedCookie = decodeURIComponent(document.cookie);
-    var ca = decodedCookie.split(';');
-    for(var i = 0; i <ca.length; i++) {
-        var c = ca[i];
-        while (c.charAt(0) == ' ') {
-            c = c.substring(1);
-        }
-        if (c.indexOf(name) == 0) {
-            return c.substring(name.length, c.length);
-        }
-    }
-    return "";
-}
-
 function advAffix() {
     var affixType = $('#affixType').val();
     var affix = $('#affix').val();
