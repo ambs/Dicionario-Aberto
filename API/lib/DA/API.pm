@@ -5,7 +5,7 @@ use DA::Database;
 use Dancer2;
 use Dancer2::Plugin::Database;
 use Dancer2::Plugin::Emailesque;
-use Dancer2::Plugin::JWT '0.014';
+use Dancer2::Plugin::JWT;
 use Regexp::Common qw[Email::Address];
 use Email::Address;
 

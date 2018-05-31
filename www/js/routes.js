@@ -170,12 +170,14 @@ function registerRoutes() {
 
 function check_jwt_cookie() {
     da_authorization = Cookies.get('_jwt');
-    if (da_authorization != "") {
+    if (da_authorization && da_authorization != "") {
 	   da_jwt = jwt_decode(da_authorization);
 	   var current_time = new Date().getTime() / 1000;
 	   if (current_time > da_jwt.exp) {
 	       da_jwt = {};
 	       da_authorization = "";
+           $('#nav-login').show();
+           $('#nav-user').hide();     
 	   }
 	   else {
 	       $('#nav-login').hide();
