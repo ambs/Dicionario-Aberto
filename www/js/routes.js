@@ -154,25 +154,14 @@ function registerRoutes() {
 		NProgress.done(); NProgress.remove();
     });
     $( document ).ajaxStart( () => { NProgress.start(); });
-    $( document ).ajaxSend(function( event, request, settings ) {
-        if (da_authorization && !settings.url.match(/tmpl$/)) {
-            settings.url += "?_jwt=" +  da_authorization;
-        }
-    });
+    $( document ).ajaxSend(
+        ( event, request, settings ) => { settings.xhrFields = {withCredentials: true};
+    }); 
     $( document ).ajaxSuccess(
 		(e, request, settings) => {
-		    if (!settings.url.match(/tmpl$/)) {
+		    if ( ! settings.url.match(/tmpl$/)) {
 			    var header = request.getResponseHeader('Authorization');
-			    if (header !== null && header.length > 5) {
-                    console.log(da_authorization);
-			        da_authorization = header;
-			        set_cookie('da_authorization', da_authorization);
-			        check_jwt_cookie();
-			    }
-			    else {
-			        da_authorization = "";
-			        da_jwt = {};
-			    }
+                check_jwt_cookie();
 		    }
 		}
 	);
@@ -180,20 +169,19 @@ function registerRoutes() {
 
 
 function check_jwt_cookie() {
-    da_authorization = get_cookie('da_authorization');
+    da_authorization = Cookies.get('_jwt');
     if (da_authorization != "") {
-	da_jwt = jwt_decode(da_authorization);
-		
-	var current_time = new Date().getTime() / 1000;
-	if (current_time > da_jwt.exp) {
-	    da_jwt = {};
-	    da_authorization = "";
-	}
-	else {
-	    $('#nav-login').hide();
-	    $('#nav-user').removeClass('hidden');	    
-	    $('#nav-user-span').html(da_jwt.username);
-	}
+	   da_jwt = jwt_decode(da_authorization);
+	   var current_time = new Date().getTime() / 1000;
+	   if (current_time > da_jwt.exp) {
+	       da_jwt = {};
+	       da_authorization = "";
+	   }
+	   else {
+	       $('#nav-login').hide();
+	       $('#nav-user').removeClass('hidden');	    
+	       $('#nav-user-span').html(da_jwt.username);
+	   }
     }
 }
 
