@@ -5,7 +5,7 @@ use DA::Database;
 use Dancer2;
 use Dancer2::Plugin::Database;
 use Dancer2::Plugin::Emailesque;
-use Dancer2::Plugin::JWT;
+use Dancer2::Plugin::JWT '0.014';
 use Regexp::Common qw[Email::Address];
 use Email::Address;
 
@@ -16,7 +16,12 @@ our $DIC = DA::Database->new(sub { database });
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
 
 hook after => sub {
+  if (request->header('Origin')) {
+    response->push_header('Access-Control-Allow-Origin', request->header('Origin'));
+    response->push_header('Access-Control-Allow-Credentials' => 'true');
+  } else {
     response->push_header('Access-Control-Allow-Origin', "*");
+  }
 };
 
 hook 'plugin.jwt.jwt_exception' => sub {
