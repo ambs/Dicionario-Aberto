@@ -515,27 +515,25 @@ sub get_user_favourites ($self, $name) {
 	}
 }
 	
-sub toggle_favourite ($self, $name, $word, $sense) {
-	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite INNER JOIN word USING(word_id) WHERE favourite.username = ? AND word.word = ? AND word.sense = ?');
-	$sth->execute($name, $word, $sense);
+sub toggle_favourite ($self, $name, $wid) {
+	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite  WHERE username = ? AND word_id = ?');
+	$sth->execute($name, $wid);
 	if( $sth->row == 1 ){
-		$self->unset_favourite($name, $word, $sense);
+		$self->unset_favourite($name, $wid);
 	}
 	elsif( $sth->row == 0 ){
-		$self->set_favourite($name, $word, $sense);
+		$self->set_favourite($name, $wid);
 	}
 }
 
-sub set_favourite($self, $name, $word, $sense) {
-	my $wid = $self->get_word_id($word, $sense);
+sub set_favourite($self, $name, $wid) {
 	my $sth = $self->dbh->prepare('INSERT INTO favourite (username, timestamp, word_id) VALUES(?, NOW(), ?)');
 	$sth->execute($name, $wid);
 }
 
-sub unset_favourite($self, $name, $word, $sense) {
-	my $wid = $self->get_word_id($word, $sense);
-	my $sth = $self->dbh->prepare('DELETE FROM favourite WHERE username = ? AND word = ? AND word_id = ?');
-	$sth->execute($name, $word, $wid);
+sub unset_favourite($self, $name, $wid) {
+	my $sth = $self->dbh->prepare('DELETE FROM favourite WHERE username = ? AND word_id = ?');
+	$sth->execute($name, $wid);
 }
 
 sub get_word_id($self, $word, $sense) {

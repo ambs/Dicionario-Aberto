@@ -133,9 +133,9 @@ get '/user/*/favourites' => sub {
   return $DIC->get_user_favourites($name);
 };
 
-get '/user/:name/set/:word/:sense' => sub {
+get '/user/:name/set/:wid' => sub {
   _check_user();
-  return $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name word sense!)); 
+  return $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name wid!)); 
   #return $DIC->toggle_favourite(route_parameters->get('name'), route_parameters->get('word'), route_parameters->get('sense'));
 };
 
