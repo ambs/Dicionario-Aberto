@@ -518,7 +518,7 @@ sub get_user_favourites ($self, $name) {
 sub toggle_favourite ($self, $name, $wid) {
 	my $sth = $self->dbh->prepare('SELECT 1 FROM favourite  WHERE username = ? AND word_id = ?');
 	$sth->execute($name, $wid);
-	my $res = 0; /* caso seja um unset */
+	my $res = 0; #caso seja um unset
 	if( $sth->rows == 1 ){
 		$self->unset_favourite($name, $wid);
 	}
