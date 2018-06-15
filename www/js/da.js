@@ -188,11 +188,7 @@ function formatEntry(xml, wid) {
 function toggle(username, wid){
 	$.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/set/' + wid })
 		.done(
-			(result) => {
-					if(result.favourite)
-					{ $("#bookmark" + wid).css('color','blue'); }
-					else{ $("#bookmark" + wid).css('color', ''); }
-				    }  
+			(result) => { $("#bookmark" + wid).css('color', result.favourite ? 'blue' : '' ); }
 		);
 }
 
