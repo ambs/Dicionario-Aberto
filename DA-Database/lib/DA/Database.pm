@@ -526,7 +526,7 @@ sub toggle_favourite ($self, $name, $wid) {
 		$self->set_favourite($name, $wid);
 		$res = 1;
 	}
-	return res;
+	return $res;
 }
 
 sub set_favourite($self, $name, $wid) {
