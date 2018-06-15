@@ -176,10 +176,9 @@ function formatEntry(xml, wid) {
 		            if(result.is_favourite){
 			            $("#bookmark" + wid).css('color','blue');
 		            }
+                    $("#bookmark" + wid).click( () => { toggle(username, wid) } );
 		        }
 	        );
-	    
-	    $("#bookmark" + wid).onclick = function() { toggle(username, wid) };
     }
 				
     return template($.extend(formatWord(xml), {wid: wid}));
