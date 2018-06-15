@@ -178,9 +178,23 @@ function formatEntry(xml, wid) {
 		            }
 		        }
 	        );
+	    
+	    $("#bookmark" + wid).onclick = function() { toggle(username, wid) };
     }
 				
     return template($.extend(formatWord(xml), {wid: wid}));
+}
+
+
+function toggle(username, wid){
+	$.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/set/' + wid })
+		.done(
+			(result) => {
+					if(result.favourite)
+					{ $("#bookmark" + wid).css('color','blue'); }
+					else{ $("#bookmark" + wid).css('color', ''); }
+				    }  
+		);
 }
 
 function formatNews(data) {
