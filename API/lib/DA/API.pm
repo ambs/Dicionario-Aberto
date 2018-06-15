@@ -143,8 +143,8 @@ get '/user/:name/set/:wid' => sub {
   return { 
 	   wid	      => route_parameters->get('wid'),
 	   username   => route_parameters->get('name'),
-           favourite  => $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name wid!));
-	 };
+       favourite  => $DIC->toggle_favourite( map { route_parameters->get($_) } (qw!name wid!))
+  };
 };
 
 get '/likes/:wid' => sub {
