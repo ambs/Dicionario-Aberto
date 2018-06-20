@@ -173,7 +173,7 @@ function formatEntry(xml, wid) {
 	    $.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
 	        .done(
 		        (result) =>{
-		            if(result.is_favourite){
+		            if (result.is_favourite) {
 			            $("#bookmark" + wid).css('color','blue');
 		            }
                     $("#bookmark" + wid).click( () => { toggle(username, wid) } );
