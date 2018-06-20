@@ -170,6 +170,7 @@ function formatEntry(xml, wid) {
 	
     if (da_jwt && da_jwt.username) {
 	    var username = da_jwt.username;
+	    $("#bookmark" + wid).css('cursor', 'pointer');
 	    $.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
 	        .done(
 		        (result) =>{
