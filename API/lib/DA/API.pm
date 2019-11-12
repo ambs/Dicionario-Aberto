@@ -10,7 +10,7 @@ use Regexp::Common qw[Email::Address];
 use Email::Address;
 
 our $VERSION = '0.1';
-our $host = "http://novo.dicionario-aberto.net";
+our $host = "https://dicionario-aberto.net";
 our $DIC = DA::Database->new(sub { database });
 
 set serializer => 'JSON'; # Dancer2::Serializer::JSON
