@@ -1,6 +1,4 @@
 var my_routes = {};
-var da_authorization = "";
-var da_jwt = {};
 
 my_routes.ont_search = function (data) {
     var token = data.words;
@@ -157,39 +155,10 @@ function registerRoutes() {
     $( document ).ajaxSend(
         ( event, request, settings ) => { settings.xhrFields = {withCredentials: true};
     }); 
-    $( document ).ajaxSuccess(
-		(e, request, settings) => {
-		    if ( ! settings.url.match(/tmpl$/)) {
-			    var header = request.getResponseHeader('Authorization');
-                check_jwt_cookie();
-		    }
-		}
-	);
 }
 
-
-function check_jwt_cookie() {
-    da_authorization = Cookies.get('_jwt');
-    if (da_authorization && da_authorization != "") {
-	   da_jwt = jwt_decode(da_authorization);
-	   var current_time = new Date().getTime() / 1000;
-	   if (current_time > da_jwt.exp) {
-	       da_jwt = {};
-	       da_authorization = "";
-           $('#nav-login').show();
-           $('#nav-user').hide();     
-	   }
-	   else {
-	       $('#nav-login').hide();
-	       $('#nav-user').removeClass('hidden');	    
-	       $('#nav-user-span').html(da_jwt.username);
-	   }
-    }
-}
 
 function da_init() {
-	check_jwt_cookie();
-	     
     $("#word").keyup(function(event){
 	 	if(event.keyCode == 13) { formSearchBox(); }
     });
@@ -203,11 +172,3 @@ function shade_forms() {
 	$('form').block({message: null, overlayCSS:  { backgroundColor: '#FFF' } });
 }
 
-function get_user_data() { return da_jwt; }
-
-/*
-var token = 'eyJ0eXAiO.../// jwt token';
-
-var decoded = jwt_decode(token);
-console.log(decoded);
-*/

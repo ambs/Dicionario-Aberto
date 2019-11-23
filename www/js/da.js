@@ -2,10 +2,6 @@
 
 function GO(url) {
     hide_alert();
-    check_jwt_cookie();
-/*    if (da_authorization !== null && da_authorization.length > 5) {
-	url += " ?_jwt= " + da_authorization;
-    }*/
     $.router.go(url);
 }
 
@@ -168,20 +164,6 @@ function formatEntry(xml, wid) {
 		$("#bookmark" + wid).prop("title", likes + (likes == 1 ? " utilizador gosta" : " utilizadores gostam") + " desta palavra.");
 	});
 	
-    if (da_jwt && da_jwt.username) {
-	    var username = da_jwt.username;
-	    $.ajax({ url: 'https://api.dicionario-aberto.net/user/' + username + '/has/' + wid })
-	        .done(
-		        (result) =>{
-		            if (result.is_favourite) {
-			            $("#bookmark" + wid).css('color','blue');
-		            }
-                    $("#bookmark" + wid).css('cursor', 'pointer');
-                    $("#bookmark" + wid).click( () => { toggle(username, wid) } );
-		        }
-	        );
-    }
-				
     return template($.extend(formatWord(xml), {wid: wid}));
 }
 
@@ -205,8 +187,8 @@ function load_template(template_name, callback) {
     var url = "/templates/" + template_name + ".tmpl";
     $.ajax({ url: url, dataType: 'html' , mimeType: 'text/html'})
 	.done(function(html){
-	    var func = doT.template(html, $.extend( doT.templateSettings, {varname:'jwt'}));
-	    $('#contents').html(  func ? func( da_jwt ) : da_jwt );
+/*	    var func = doT.template(html, $.extend( doT.templateSettings, {varname:'jwt'}));
+	    $('#contents').html(  func ? func( da_jwt ) : da_jwt );*/
 	    callback();
 	});
 }
