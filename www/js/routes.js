@@ -8,7 +8,7 @@ my_routes.ont_search = function (data) {
 	$.ajax({
 	    url: 'https://api.dicionario-aberto.net/ontology/' + token
 	}).done( (data) => {
-	    load_template('advsearch', () => {
+	    load_template('advresults', () => {
 		var $table = $("<table></table>");
 		$.each(data, (idx, val) => {
 		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
@@ -28,7 +28,7 @@ my_routes.rev_search = function (data) {
 	$.ajax({
 	    url: 'https://api.dicionario-aberto.net/reverse/' + token
 	}).done( (data) => {
-	    load_template('advsearch', () => {
+	    load_template('advresults', () => {
 		var $table = $("<table></table>");
 		$.each(data, (idx, val) => {
 		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
@@ -44,25 +44,25 @@ my_routes.ss_search = function (data) {
     var type = data.type;
     var token = data.word;
     if (token.length < 3) {
-	show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
+	    show_warning_alert("Pesquisa demasiado curta. Tente de novo.");
     } else {
-	$.ajax({
-	    url: 'https://api.dicionario-aberto.net/' + type + '/' + token
-	}).done( (data) => {
-	    load_template('advsearch', () => {
-		var $table = $("<table></table>");
-		$.each(data, (idx, val) => {
-		    $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
-		});
-		$('#results').html($table);
+	    $.ajax({
+	        url: 'https://api.dicionario-aberto.net/' + type + '/' + token
+	    }).done( (data) => {
+	        load_template('advresults', () => {
+		        var $table = $("<table></table>");
+		        $.each(data, (idx, val) => {
+		            $table.append("<tr><td style='padding-right: 5px'><a onClick='GO(\"/search/" + val.word + "/" + val.sense + "\");'>" + val.word + "<sup>" + val.sense + "</sup></a></td><td>" + val.preview + "</td></tr>");
+		        });
+		        $('#results').html($table);
+	        });
 	    });
-	});
     }
 };
 
 
-my_routes.adv_search = function(data) {
-    load_template("adv_search", function(){});
+my_routes.adv_search = () => {
+    load_template("advsearch", function(){});
 };
 
 my_routes.search = function(data) {
@@ -95,18 +95,18 @@ my_routes.search = function(data) {
 
 my_routes.root = () => {
     load_template("index", function() {
-	$.ajax({
-	    url: 'https://api.dicionario-aberto.net/wotd',
-	    cache: false,
-	}).done(function(data) {
-	    $('#wotd').html(formatEntry(data.xml, data.word_id));
-	});
-	$.ajax({
-	    url: 'https://api.dicionario-aberto.net/news?limit=2',
-	    cache: false,
-	}).done(function(data) {
-	    $('#news').html(formatNews(data));
-	});
+	    $.ajax({
+	        url: 'https://api.dicionario-aberto.net/wotd',
+	        cache: false,
+	    }).done(function(data) {
+	        $('#wotd').html(formatEntry(data.xml, data.word_id));
+	    });
+	    $.ajax({
+	        url: 'https://api.dicionario-aberto.net/news?limit=2',
+	        cache: false,
+	    }).done(function(data) {
+	        $('#news').html(formatNews(data));
+	    });
     });
 };
 

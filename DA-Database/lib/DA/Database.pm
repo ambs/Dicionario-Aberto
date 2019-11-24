@@ -64,7 +64,7 @@ sub dbh ($self) {
   die "no DBH?";
 }
 
-sub affixes ($self, $type, $query, $n) {
+sub affixes ($self, $type, $query, $n = 0) {
 
   $type eq "infix"  and $query = "\%_${query}_%";
   $type eq "suffix" and $query = "\%_${query}";

@@ -49,10 +49,11 @@ get '/news' => sub {
 };
 
 get qr'/(prefix|suffix|infix)/([^/]+)' => sub {
-  my ($type, $affix) = splat;
-  return my_error('Search string is too short!') if length($affix) < 3;
+    my ($type, $affix) = splat;
 
-  return $DIC->affixes($type, $affix);
+    return my_error('Search string is too short!') if length($affix) < 3;
+
+    return $DIC->affixes($type, $affix);
 };
 
 get '/word/**' => sub {

@@ -184,13 +184,15 @@ function formatNews(data) {
 
 
 function load_template(template_name, callback) {
-    var url = "/templates/" + template_name + ".tmpl";
+    var url = "https://dicionario-aberto.net/templates/" + template_name + ".tmpl";
     $.ajax({ url: url, dataType: 'html' , mimeType: 'text/html'})
-	.done(function(html){
-/*	    var func = doT.template(html, $.extend( doT.templateSettings, {varname:'jwt'}));
-	    $('#contents').html(  func ? func( da_jwt ) : da_jwt );*/
-	    callback();
-	});
+	    .done(
+            (html) => {
+                var func = doT.template(html,  doT.templateSettings);
+	            $('#contents').html(  func ? func : {} );
+	            callback();
+	        }
+        );
 }
 
 
