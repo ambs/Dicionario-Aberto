@@ -124,7 +124,7 @@ function registerRoutes() {
     $.router.add('/ont_search/:words', my_routes.ont_search);
 
     $.router.add('/adv_search', my_routes.adv_search);
-    $.router.add('/resources', my_routes.resources);    
+    $.router.add('/recursos', my_routes.resources);    
     
     $.router.addErrorHandler( (url) => { GO('/'); });
     
