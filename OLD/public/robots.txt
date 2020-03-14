@@ -1,4 +1,0 @@
-User-agent: *
-Disallow: /search/
-Disallow: /search-xml/
-Disallow: /search-json/

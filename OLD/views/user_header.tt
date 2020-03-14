@@ -1,8 +1,0 @@
-<% IF session.username %>
-<div id="userinfo">
-  <a href="<% request.uri_base %>/profile"><% session.username %></a>
-   &nbsp;&nbsp;<a class="button" href="<% request.uri_base %>/logout">
-    <img src="<% request.uri_base %>/images/redbullet.png" alt="Sair"/></a>
-</div>
-<% END %>
-
