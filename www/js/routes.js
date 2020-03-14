@@ -65,6 +65,10 @@ my_routes.adv_search = () => {
     load_template("advsearch", function(){});
 };
 
+my_routes.resources = () => {
+    load_template("resources", ()=>{});
+};
+
 my_routes.search = function(data) {
     load_template("search", function(){
 	$.ajax({
@@ -120,6 +124,7 @@ function registerRoutes() {
     $.router.add('/ont_search/:words', my_routes.ont_search);
 
     $.router.add('/adv_search', my_routes.adv_search);
+    $.router.add('/resources', my_routes.resources);    
     
     $.router.addErrorHandler( (url) => { GO('/'); });
     
