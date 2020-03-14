@@ -114,39 +114,37 @@ function entryLink(c, n) {
 }
 
 function formatWord(data) {
-    var word;
+    var word = "-1";
     var entry = xml$dt.process(data, {
-	'form' : function() { return ""; },
-	'#default' : function(q,c,v) { return xml$dt.tag(q,c,v); },
-	'def' : function(q,c,v) {
-
-	    c = c.replace(/(\smesmo\sque\s)_([^_]+)_(\sou\s)_([^_]+)_/g,
-			  "$1" + entryLink("$2") + "$3" + entryLink("$4"));
-
-	    c = c.replace(/(\smesmo\sque\s)_([^_]+)_/g,
-			  "$1" + entryLink("$2"));
-
-	    /* [[anona:1]]. */
+	    'form' : function() { return ""; },
+	    '#default' : function(q,c,v) { return xml$dt.tag(q,c,v); },
+        'orth' : function(q,c,v) {
+            if (word == "-1") {
+                word = c;
+            }
+            return xml$dt.tag(q,c,v); },
+	    'def' : function(q,c,v) {
+            
+	        c = c.replace(/(\smesmo\sque\s)_([^_]+)_(\sou\s)_([^_]+)_/g,
+			              "$1" + entryLink("$2") + "$3" + entryLink("$4"));
+            
+	        c = c.replace(/(\smesmo\sque\s)_([^_]+)_/g,
+			              "$1" + entryLink("$2"));
+            
+	        /* [[anona:1]]. */
+	        
+	        c = c.replace(/(\smesmo\sque\s|Cp\.\s)\[\[([^:]+):(\d+)\]\]/g,
+			              "$1" + entryLink("$2", "$3")); 
+            
 	    
-	    c = c.replace(/(\smesmo\sque\s|Cp\.\s)\[\[([^:]+):(\d+)\]\]/g,
-			  "$1" + entryLink("$2", "$3")); 
-
-	    
-	    var s = c.replace(/(^\n(\s*\n)*|\n(\s*\n)*$)/g,"").replace(/_([^_]+)_/g, "<i>$1</i>").replace(/\n(\s*\n)*/g,"<br/>");
-	    return xml$dt.tag(q,s,v);
-	},
-	'etym' : function(q,c,v) {
-	    return c.replace(/_([^_]+)_/g, "<i>$1</i>");
-	},
-	'entry': function(q,c,v) {
-	    word = v.id;
-	    if (word.match(/:\d+$/)) {
-			word = word.replace(/:(\d+)/, "<sup>$1</sup>");
-	    }
-	    return xml$dt.tag(q,c,v);
-	}
+	        var s = c.replace(/(^\n(\s*\n)*|\n(\s*\n)*$)/g,"").replace(/_([^_]+)_/g, "<i>$1</i>").replace(/\n(\s*\n)*/g,"<br/>");
+	        return xml$dt.tag(q,s,v);
+	    },
+	    'etym' : function(q,c,v) {
+	        return c.replace(/_([^_]+)_/g, "<i>$1</i>");
+	    },
     });
-
+    
     return { term: word, def: entry };
 }
 

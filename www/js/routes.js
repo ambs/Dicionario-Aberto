@@ -101,12 +101,12 @@ my_routes.root = () => {
 	    }).done(function(data) {
 	        $('#wotd').html(formatEntry(data.xml, data.word_id));
 	    });
-	    $.ajax({
+/*	    $.ajax({
 	        url: 'https://api.dicionario-aberto.net/news?limit=2',
 	        cache: false,
 	    }).done(function(data) {
 	        $('#news').html(formatNews(data));
-	    });
+	    }); */
     });
 };
 
